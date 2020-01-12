@@ -1,0 +1,16 @@
+html,
+body {
+  height: 100%;
+}
+
+.spinner-container {
+  height: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  position: relative;
+  top: -60px;
+}
