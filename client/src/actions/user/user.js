@@ -57,3 +57,30 @@ export const changeUserInfo = (email, password) => async dispatch => {
     })
   }
 }
+
+/**
+ * Deletes the user's account (irreversable) and clears auth.
+ */
+export const deleteUser = () => async dispatch => {
+  try {
+    const response = await fetch('/api/user/me', {
+      method: 'DELETE',
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    })
+    if (response.ok) {
+      dispatch({
+        type: ActionTypes.User.DELETE_USER
+      })
+      dispatch({
+        type: ActionTypes.Auth.CLEAR_AUTH
+      })
+    }
+  } catch (error) {
+    console.error(error)
+    dispatch({
+      type: ActionTypes.User.DELETE_USER_INFO
+    })
+  }
+}

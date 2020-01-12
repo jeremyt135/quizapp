@@ -6,6 +6,7 @@ export const user = (state = null, action) => {
       return {
         ...action.data
       }
+    case ActionTypes.User.DELETE_USER:
     case ActionTypes.User.LOAD_USER_ERROR:
       return null
     default:
