@@ -1,4 +1,8 @@
 const ActionTypes = {
+  Auth: {
+    REGISTER_USER: 'REGISTER_USER',
+    REGISTER_ERROR: 'REGISTER_ERROR'
+  },
   Edit: {
     EDIT_TITLE: 'EDIT_TITLE',
     ADD_QUESTION: 'ADD_QUESTION',
