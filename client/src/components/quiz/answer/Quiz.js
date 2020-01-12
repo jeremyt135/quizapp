@@ -5,26 +5,26 @@ import Footer from '../common/Footer'
 const Quiz = () => {
   return (
     <>
-      <section class='container'>
-        <section class='content col-lg-8 col-sm-10 mx-auto mt-3'>
+      <section className='container'>
+        <section className='content col-lg-8 col-sm-10 mx-auto mt-3'>
           <form>
-            <div class='row mb-4'>
-              <div class='col d-flex align-items-center'>
-                <h1 class='mb-0'>Quiz Title</h1>
+            <div className='row mb-4'>
+              <div className='col d-flex align-items-center'>
+                <h1 className='mb-0'>Quiz Title</h1>
               </div>
             </div>
-            <div class='row mb-2'>
-              <div class='col'>
-                <div class='row'>
-                  <div class='col d-flex align-items-center'>
-                    <h2 class='mb-2'>
+            <div className='row mb-2'>
+              <div className='col'>
+                <div className='row'>
+                  <div className='col d-flex align-items-center'>
+                    <h2 className='mb-2'>
                       1. <span>Question 1</span>
                     </h2>
                   </div>
                 </div>
-                <div class='answer answer--selected row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer answer--selected row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -39,9 +39,9 @@ const Quiz = () => {
                     </div>
                   </div>
                 </div>
-                <div class='answer row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -55,9 +55,9 @@ const Quiz = () => {
                     </div>
                   </div>
                 </div>
-                <div class='answer row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -73,18 +73,18 @@ const Quiz = () => {
                 </div>
               </div>
             </div>
-            <div class='row mb-2'>
-              <div class='col'>
-                <div class='row'>
-                  <div class='col d-flex align-items-center'>
-                    <h2 class='mb-2'>
+            <div className='row mb-2'>
+              <div className='col'>
+                <div className='row'>
+                  <div className='col d-flex align-items-center'>
+                    <h2 className='mb-2'>
                       2. <span>Question 2</span>
                     </h2>
                   </div>
                 </div>
-                <div class='answer answer--selected row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer answer--selected row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -99,9 +99,9 @@ const Quiz = () => {
                     </div>
                   </div>
                 </div>
-                <div class='answer row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -115,9 +115,9 @@ const Quiz = () => {
                     </div>
                   </div>
                 </div>
-                <div class='answer row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -133,18 +133,18 @@ const Quiz = () => {
                 </div>
               </div>
             </div>
-            <div class='row mb-2'>
-              <div class='col'>
-                <div class='row'>
-                  <div class='col d-flex align-items-center'>
-                    <h2 class='mb-2'>
+            <div className='row mb-2'>
+              <div className='col'>
+                <div className='row'>
+                  <div className='col d-flex align-items-center'>
+                    <h2 className='mb-2'>
                       3. <span>Question 3</span>
                     </h2>
                   </div>
                 </div>
-                <div class='answer answer--selected row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer answer--selected row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -159,9 +159,9 @@ const Quiz = () => {
                     </div>
                   </div>
                 </div>
-                <div class='answer row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'
@@ -175,9 +175,9 @@ const Quiz = () => {
                     </div>
                   </div>
                 </div>
-                <div class='answer row mt-2'>
-                  <div class='col d-flex align-items-start'>
-                    <div class='form-check mb-1'>
+                <div className='answer row mt-2'>
+                  <div className='col d-flex align-items-start'>
+                    <div className='form-check mb-1'>
                       <input
                         className='form-check-input'
                         type='radio'

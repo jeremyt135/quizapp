@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 const Landing = () => {
   return (
     <>
-      <section class='jumbotron jumbotron-fluid'>
+      <section className='jumbotron jumbotron-fluid'>
         <div className='container'>
-          <h1 class='display-4'>Quiz Maker</h1>
+          <h1 className='display-4'>Quiz Maker</h1>
           <p>
             Assessing others and collecting feedback made easy. Ensuring
             response authenticity is easier than ever with the private quiz
@@ -14,14 +14,14 @@ const Landing = () => {
           </p>
           <hr />
           <p>Get started making quizzes today by signing up for free.</p>
-          <Link class='btn btn-primary btn-lg' to='/register' role='button'>
+          <Link className='btn btn-primary btn-lg' to='/register' role='button'>
             Sign Up
           </Link>
         </div>
       </section>
       <div className='container'>
         <div className='row'>
-          <section class='col-md-6'>
+          <section className='col-md-6'>
             <h2>Streamlined process</h2>
             <p>
               Making and delivering a quiz should be easy. With Quiz Maker,
@@ -35,7 +35,7 @@ const Landing = () => {
               Make A Quiz
             </Link>
           </section>
-          <section class='col-md-6'>
+          <section className='col-md-6'>
             <h2>Private or public</h2>
             <p>
               Private quizzes allow you to specify who can answer your quiz.
