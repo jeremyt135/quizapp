@@ -1,0 +1,16 @@
+html,
+body {
+  height: 100%;
+}
+
+.register {
+  height: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.register__form {
+  position: relative;
+  top: -60px;
+}
