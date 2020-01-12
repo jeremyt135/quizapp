@@ -19,7 +19,7 @@ const EmailForm = ({ initialEmail, isOpen, submitChanges, closeForm }) => {
 
   const onSubmit = e => {
     e.preventDefault()
-    if (email !== initialEmail) {
+    if (email !== '' && email !== initialEmail) {
       submitChanges({ email })
     }
   }
@@ -42,14 +42,21 @@ const EmailForm = ({ initialEmail, isOpen, submitChanges, closeForm }) => {
           </div>
           <div className='row my-2'>
             <div className='col'>
-              <button className='btn btn-secondary btn-sm' onClick={closeForm}>
+              <button
+                type='button'
+                className='btn btn-secondary btn-sm'
+                onClick={closeForm}>
                 Cancel
               </button>
             </div>
           </div>
           <div className='row my-2'>
             <div className='col'>
-              <button className='btn btn-danger btn-sm'>Confirm</button>
+              <input
+                type='submit'
+                className='btn btn-danger btn-sm'
+                value='Confirm'
+              />
             </div>
           </div>
         </div>
