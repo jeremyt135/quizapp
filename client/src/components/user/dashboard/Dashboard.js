@@ -1,53 +1,28 @@
 import React from 'react'
-import '../../styles/dashboard.css'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const Dashboard = () => {
+import UserInfo from './UserInfo'
+import Spinner from '../../common/Spinner'
+import PropTypes from 'prop-types'
+
+import '../../../styles/dashboard.css'
+
+/**
+ * Dashboard for a user that shows their info and quizzes
+ */
+const Dashboard = ({ isAuthenticated, user }) => {
+  if (!isAuthenticated) {
+    return <Redirect to='/login' />
+  }
+
+  if (!user) {
+    return <Spinner />
+  }
+
   return (
     <section className='dashboard container'>
-      <div className='dashboard__block row p-3 my-3'>
-        <section className='col-md-8 mx-auto'>
-          <div className='row'>
-            <h1 className='col'>
-              Hello, <span>Username</span>
-            </h1>
-          </div>
-          <div className='row'>
-            <h4 className='col'>
-              Joined: <span>01/01/2020</span>
-            </h4>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <button className='btn btn-info btn-sm'>Edit</button>
-            </div>
-          </div>
-          <div className='row my-2'>
-            <div className='col'>
-              <input
-                className=' form-control'
-                type='text'
-                placeholder='New password'
-                id='password'
-              />
-            </div>
-          </div>
-          <div className='row my-2'>
-            <div className='col'>
-              <input
-                className=' form-control'
-                type='text'
-                placeholder='Confirm new password'
-                id='confirmPassword'
-              />
-            </div>
-          </div>
-          <div className='row my-2'>
-            <div className='col'>
-              <button className='btn btn-danger btn-sm'>Change Password</button>
-            </div>
-          </div>
-        </section>
-      </div>
+      <UserInfo user={user} />
       <div className='dashboard__block row p-3 my-3'>
         <section className='col-md-8 mx-auto'>
           <div className='row mb-3'>
@@ -101,4 +76,14 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+Dashboard.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
+})
+
+export default connect(mapStateToProps)(Dashboard)
