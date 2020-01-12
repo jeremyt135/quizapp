@@ -1,0 +1,16 @@
+html,
+body {
+  height: 100%;
+}
+
+.login {
+  height: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.login__form {
+  position: relative;
+  top: -60px;
+}

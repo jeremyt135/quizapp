@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz Maker</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <link href="theme.css" rel="stylesheet" />
+    <link href="quiz.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="landing.html">Quiz Maker</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navMenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="#">Browse</a>
+          <a class="nav-item nav-link" href="#">Login</a>
+          <a class="nav-item nav-link" href="#">Sign Up</a>
+        </div>
+      </div>
+    </nav>
+    <!-- navbar -->
+    <section class="container">
+      <section class="content col-lg-8 col-sm-10 mx-auto mt-3">
+        <form>
+          <!-- make text portions into inputs that toggle appearance on edit -->
+          <div class="row mb-4">
+            <div class="col d-flex align-items-center">
+              <h1 class="mb-0">Quiz Title</h1>
+            </div>
+          </div>
+          <!-- title -->
+          <div class="row mb-2">
+            <div class="col">
+              <div class="row">
+                <div class="col d-flex align-items-center">
+                  <h2 class="mb-2">1. <span>Question 1</span></h2>
+                </div>
+              </div>
+              <div class="answer answer--selected row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question1"
+                      id="q1answer1"
+                      value="1"
+                      checked
+                    />
+                    <label for="q1answer1"
+                      >1. <span>Answer 1 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+              <div class="answer row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question1"
+                      id="q1answer2"
+                      value="2"
+                    />
+                    <label for="q1answer2"
+                      >2. <span>Answer 2 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+              <div class="answer row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question1"
+                      id="q1answer3"
+                      value="3"
+                    />
+                    <label for="q1answer3"
+                      >3. <span>Answer 3 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+            </div>
+            <!-- question col -->
+          </div>
+          <!-- question -->
+          <div class="row mb-2">
+            <div class="col">
+              <div class="row">
+                <div class="col d-flex align-items-center">
+                  <h2 class="mb-2">2. <span>Question 2</span></h2>
+                </div>
+              </div>
+              <div class="answer answer--selected row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question2"
+                      id="q2answer1"
+                      value="1"
+                      checked
+                    />
+                    <label for="q2answer1"
+                      >1. <span>Answer 1 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+              <div class="answer row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question2"
+                      id="q2answer2"
+                      value="2"
+                    />
+                    <label for="q2answer2"
+                      >2. <span>Answer 2 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+              <div class="answer row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question2"
+                      id="q2answer3"
+                      value="3"
+                    />
+                    <label for="q2answer3"
+                      >3. <span>Answer 3 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+            </div>
+            <!-- question col -->
+          </div>
+          <!-- question -->
+          <div class="row mb-2">
+            <div class="col">
+              <div class="row">
+                <div class="col d-flex align-items-center">
+                  <h2 class="mb-2">3. <span>Question 3</span></h2>
+                </div>
+              </div>
+              <div class="answer answer--selected row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question3"
+                      id="q3answer1"
+                      value="1"
+                      checked
+                    />
+                    <label for="q3answer1"
+                      >1. <span>Answer 1 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+              <div class="answer row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question3"
+                      id="q3answer2"
+                      value="2"
+                    />
+                    <label for="q3answer2"
+                      >2. <span>Answer 2 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+              <div class="answer row mt-2">
+                <div class="col d-flex align-items-start">
+                  <div class="form-check mb-1">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="question3"
+                      id="q3answer3"
+                      value="3"
+                    />
+                    <label for="q3answer3"
+                      >3. <span>Answer 3 Text</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- answer text -->
+            </div>
+            <!-- question col -->
+          </div>
+          <!-- question -->
+        </form>
+      </section>
+    </section>
+    <!-- quiz -->
+    <footer class="footer bg-light">
+      <div class="container h-100">
+        <div class="col-lg-8 col-sm-10 mx-auto h-100 d-flex align-items-center">
+          <button class="btn btn-success ml-auto">Save</button>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

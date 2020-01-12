@@ -1,0 +1,9 @@
+.answer {
+  padding: 0 5px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+}
+
+.answer--selected {
+  border: 2px solid rgb(54, 202, 41);
+}
