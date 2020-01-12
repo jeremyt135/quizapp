@@ -9,6 +9,7 @@ import './styles/theme.css'
 import QuizBrowser from './components/quiz/browse/QuizBrowser'
 import QuizEditor from './components/quiz/editor/QuizEditor'
 import Dashboard from './components/user/Dashboard'
+import Quiz from './components/quiz/answer/Quiz'
 
 const App = () => {
   return (
@@ -18,9 +19,10 @@ const App = () => {
         <Route exact path='/' component={Landing} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/quiz/public' component={QuizBrowser} />
         <Route exact path='/quiz/create' component={QuizEditor} />
-        <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/quiz/:id' component={Quiz} />
       </Switch>
     </Router>
   )
