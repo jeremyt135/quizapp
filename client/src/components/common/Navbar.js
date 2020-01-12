@@ -14,11 +14,9 @@ const Navbar = ({ isAuthenticated, logout }) => {
   }
   return (
     <nav className='navbar navbar-expand-md navbar-light bg-light'>
-      <div data-toggle='collapse' data-target='#navMenu'>
-        <Link className='navbar-brand' to='/'>
-          Quiz Maker
-        </Link>
-      </div>
+      <Link className='navbar-brand' to='/'>
+        Quiz Maker
+      </Link>
       <button
         className='navbar-toggler'
         type='button'
