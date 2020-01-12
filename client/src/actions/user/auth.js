@@ -61,17 +61,17 @@ export const register = (username, email, password) => async dispatch => {
 /**
  * Logs a User in, fetching their JWT
  * Dispatches an action of type LOGIN_USER on success and LOGIN_ERROR otherwise.
- * @param {string} email
+ * @param {string} username
  * @param {string} password
  */
-export const login = (email, password) => async dispatch => {
+export const login = (username, password) => async dispatch => {
   try {
     const response = await fetch('/api/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ username, password })
     })
     if (response.ok) {
       const data = await response.json()
