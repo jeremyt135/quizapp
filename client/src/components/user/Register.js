@@ -1,11 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
 import '../../styles/register.css'
 
 import { register } from '../../actions/user/auth'
 import { useFormData } from '../util/useFormData'
 
+/**
+ * Handles user registration through a form.
+ */
 const Register = ({ isAuthenticated, register }) => {
   const [formData, handleChange] = useFormData({
     username: '',
@@ -82,11 +87,15 @@ const Register = ({ isAuthenticated, register }) => {
   )
 }
 
-export default connect(
-  state => ({
-    isAuthenticated: state.auth.isAuthenticated
-  }),
-  {
-    register
-  }
-)(Register)
+Register.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  register: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps, {
+  register
+})(Register)
