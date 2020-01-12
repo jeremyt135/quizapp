@@ -7,6 +7,8 @@ import Login from './components/common/Login'
 
 import './styles/theme.css'
 import QuizBrowser from './components/quiz/browse/QuizBrowser'
+import QuizEditor from './components/quiz/editor/QuizEditor'
+import Dashboard from './components/user/Dashboard'
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/quiz/public' component={QuizBrowser} />
+        <Route exact path='/quiz/create' component={QuizEditor} />
+        <Route exact path='/dashboard' component={Dashboard} />
       </Switch>
     </Router>
   )
