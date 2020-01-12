@@ -10,15 +10,15 @@ import { useFormData } from '../util/useFormData'
 
 const Login = ({ isAuthenticated, login }) => {
   const [formData, handleChange] = useFormData({
-    email: '',
+    username: '',
     password: ''
   })
 
-  const { email, password } = formData
+  const { username, password } = formData
 
   const onSubmit = e => {
     e.preventDefault()
-    login(email, password)
+    login(username, password)
   }
 
   if (isAuthenticated) {
@@ -35,10 +35,10 @@ const Login = ({ isAuthenticated, login }) => {
               <input
                 type='text'
                 className='form-control mb-2'
-                name='email'
-                value={email}
+                name='username'
+                value={username}
                 onChange={handleChange}
-                placeholder='Email'
+                placeholder='Username'
                 required
               />
               <input
