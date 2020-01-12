@@ -1,17 +1,18 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import UserInfo from './UserInfo'
 import Spinner from '../../common/Spinner'
-import PropTypes from 'prop-types'
+import { changeUserInfo } from '../../../actions/user/user'
 
 import '../../../styles/dashboard.css'
 
 /**
  * Dashboard for a user that shows their info and quizzes
  */
-const Dashboard = ({ isAuthenticated, user }) => {
+const Dashboard = ({ isAuthenticated, user, changeUserInfo }) => {
   if (!isAuthenticated) {
     return <Redirect to='/login' />
   }
@@ -22,11 +23,11 @@ const Dashboard = ({ isAuthenticated, user }) => {
 
   return (
     <section className='dashboard container'>
-      <UserInfo user={user} />
+      <UserInfo user={user} changeUserInfo={changeUserInfo} />
       <div className='dashboard__block row p-3 my-3'>
         <section className='col-md-8 mx-auto'>
           <div className='row mb-3'>
-            <h3 className='col mb-0'>Your Quizzes:</h3>
+            <h3 className='col mb-0'>Quizzes You Created:</h3>
             <div className='col d-flex align-items-end justify-content-end'>
               <a
                 href='#'
@@ -78,12 +79,13 @@ const Dashboard = ({ isAuthenticated, user }) => {
 
 Dashboard.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object
+  user: PropTypes.object,
+  changeUserInfo: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
+  user: state.user
 })
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps, { changeUserInfo })(Dashboard)
