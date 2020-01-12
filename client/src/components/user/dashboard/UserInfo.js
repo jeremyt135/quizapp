@@ -7,7 +7,7 @@ import EmailForm from './EmailForm'
  * Displays the User's info to a dashboard block. Allows editing of password and email
  * through child components.
  */
-const UserInfo = ({ user, changeUserInfo }) => {
+const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
   const [editingPassword, setEditingPassword] = useState(false)
   const [editingEmail, setEditingEmail] = useState(false)
 
@@ -19,7 +19,6 @@ const UserInfo = ({ user, changeUserInfo }) => {
   })
 
   const submitChanges = ({ email, password }) => {
-    console.log(email, password)
     if (email) {
       setEditingEmail(false)
     }
@@ -82,6 +81,13 @@ const UserInfo = ({ user, changeUserInfo }) => {
             </div>
           </div>
         )}
+        <div className='row my-2'>
+          <div className='col'>
+            <button className='btn btn-danger btn-sm' onClick={deleteUser}>
+              Delete Account
+            </button>
+          </div>
+        </div>
       </section>
     </div>
   )
@@ -89,7 +95,8 @@ const UserInfo = ({ user, changeUserInfo }) => {
 
 UserInfo.propTypes = {
   user: PropTypes.object.isRequired,
-  changeUserInfo: PropTypes.func.isRequired
+  changeUserInfo: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired
 }
 
 export default UserInfo
