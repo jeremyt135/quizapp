@@ -26,7 +26,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question1'
                         id='q1answer1'
@@ -43,7 +43,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question1'
                         id='q1answer2'
@@ -59,7 +59,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question1'
                         id='q1answer3'
@@ -86,7 +86,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question2'
                         id='q2answer1'
@@ -103,7 +103,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question2'
                         id='q2answer2'
@@ -119,7 +119,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question2'
                         id='q2answer3'
@@ -146,7 +146,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question3'
                         id='q3answer1'
@@ -163,7 +163,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question3'
                         id='q3answer2'
@@ -179,7 +179,7 @@ const Quiz = () => {
                   <div class='col d-flex align-items-start'>
                     <div class='form-check mb-1'>
                       <input
-                        class='form-check-input'
+                        className='form-check-input'
                         type='radio'
                         name='question3'
                         id='q3answer3'
