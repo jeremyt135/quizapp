@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 
 import UserInfo from './UserInfo'
 import Spinner from '../../common/Spinner'
-import { changeUserInfo } from '../../../actions/user/user'
+import { changeUserInfo, deleteUser } from '../../../actions/user/user'
 
 import '../../../styles/dashboard.css'
 
 /**
  * Dashboard for a user that shows their info and quizzes
  */
-const Dashboard = ({ isAuthenticated, user, changeUserInfo }) => {
+const Dashboard = ({ isAuthenticated, user, changeUserInfo, deleteUser }) => {
   if (!isAuthenticated) {
     return <Redirect to='/login' />
   }
@@ -23,7 +23,11 @@ const Dashboard = ({ isAuthenticated, user, changeUserInfo }) => {
 
   return (
     <section className='dashboard container'>
-      <UserInfo user={user} changeUserInfo={changeUserInfo} />
+      <UserInfo
+        user={user}
+        changeUserInfo={changeUserInfo}
+        deleteUser={deleteUser}
+      />
       <div className='dashboard__block row p-3 my-3'>
         <section className='col-md-8 mx-auto'>
           <div className='row mb-3'>
@@ -80,7 +84,8 @@ const Dashboard = ({ isAuthenticated, user, changeUserInfo }) => {
 Dashboard.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.object,
-  changeUserInfo: PropTypes.func.isRequired
+  changeUserInfo: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -88,4 +93,6 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, { changeUserInfo })(Dashboard)
+export default connect(mapStateToProps, { changeUserInfo, deleteUser })(
+  Dashboard
+)
