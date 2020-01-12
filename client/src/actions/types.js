@@ -4,14 +4,20 @@ const ActionTypes = {
     REGISTER_USER: 'REGISTER_USER',
     // Error registering user
     REGISTER_ERROR: 'REGISTER_ERROR',
-    // User data received from server, contained in action data
-    AUTH_USER: 'AUTH_USER',
-    // Error authenticaing user
-    AUTH_ERROR: 'AUTH_ERROR',
     // User has logged in, action data contains JWT
     LOGIN_USER: 'LOGIN_USER',
     // UError logging user in
     LOGIN_ERROR: 'LOGIN_ERROR'
+  },
+  User: {
+    // User data received from server, contained in action data
+    LOAD_USER: 'LOAD_USER',
+    // Error loading user
+    LOAD_USER_ERROR: 'LOAD_USER_ERROR',
+    // User has changed their email or password
+    CHANGE_USER_INFO: 'CHANGE_USER_INFO',
+    // Error changing user info
+    CHANGE_USER_INFO_ERROR: 'CHANGE_USER_INFO_ERROR'
   }
   // Edit: {
   //   EDIT_TITLE: 'EDIT_TITLE',
