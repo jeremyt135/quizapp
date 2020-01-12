@@ -28,7 +28,8 @@ export const loadUser = () => async dispatch => {
 }
 
 /**
- * Registers a new User with the server. Dispatches an action of type
+ * Registers a new User with the server. Dispatches an action of type REGISTER_USER on success
+ * and REGISTER_ERROR otherwise.
  * @param {string} username
  * @param {string} email
  * @param {string} password
@@ -53,7 +54,7 @@ export const register = (username, email, password) => async dispatch => {
   } catch (error) {
     console.error(error)
     dispatch({
-      type: ActionTypes.Auth.AUTH_ERROR
+      type: ActionTypes.Auth.REGISTER_ERROR
     })
   }
 }
