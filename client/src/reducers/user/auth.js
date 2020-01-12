@@ -16,6 +16,7 @@ export const auth = (
         user: action.data
       }
     case ActionTypes.Auth.REGISTER_USER:
+      localStorage.setItem('token', action.data.token)
       return {
         ...state,
         ...action.data,
