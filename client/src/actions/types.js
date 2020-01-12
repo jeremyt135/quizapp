@@ -23,7 +23,9 @@ const ActionTypes = {
     // User deleted
     DELETE_USER: 'DELETE_USER',
     // Failed to delete user,
-    DELETE_USER_ERROR: 'DELETE_USER_ERROR'
+    DELETE_USER_ERROR: 'DELETE_USER_ERROR',
+    // Log the user out
+    LOGOUT: 'LOGOUT'
   }
   // Edit: {
   //   EDIT_TITLE: 'EDIT_TITLE',
