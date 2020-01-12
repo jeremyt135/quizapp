@@ -8,6 +8,7 @@ export const user = (state = null, action) => {
       }
     case ActionTypes.User.DELETE_USER:
     case ActionTypes.User.LOAD_USER_ERROR:
+    case ActionTypes.User.LOGOUT:
       return null
     default:
       return state
