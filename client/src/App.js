@@ -6,6 +6,7 @@ import Register from './components/common/Register'
 import Login from './components/common/Login'
 
 import './styles/theme.css'
+import QuizBrowser from './components/quiz/browse/QuizBrowser'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route exact path='/' component={Landing} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/quiz/public' component={QuizBrowser} />
       </Switch>
     </Router>
   )
