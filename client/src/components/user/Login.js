@@ -1,26 +1,52 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import '../../styles/login.css'
 
-const Login = () => {
+import PropTypes from 'prop-types'
+
+import { login } from '../../actions/user/auth'
+import { useFormData } from '../util/useFormData'
+
+const Login = ({ isAuthenticated, login }) => {
+  const [formData, handleChange] = useFormData({
+    email: '',
+    password: ''
+  })
+
+  const { email, password } = formData
+
+  const onSubmit = e => {
+    e.preventDefault()
+    login(email, password)
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />
+  }
+
   return (
     <section className='login container-fluid'>
       <div className='col-md-6 mx-auto'>
         <div className='login__form'>
           <h2 className='text-center mb-4'>Sign in:</h2>
-          <form className='mb-3'>
+          <form className='mb-3' onSubmit={onSubmit}>
             <fieldset className='form-group'>
               <input
                 type='text'
                 className='form-control mb-2'
-                id='loginUsername'
-                placeholder='Username'
+                name='email'
+                value={email}
+                onChange={handleChange}
+                placeholder='Email'
                 required
               />
               <input
                 type='password'
                 className='form-control'
-                id='loginPassword'
+                name='password'
+                value={password}
+                onChange={handleChange}
                 placeholder='Password'
                 required
               />
@@ -36,4 +62,13 @@ const Login = () => {
   )
 }
 
-export default Login
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps, { login })(Login)
