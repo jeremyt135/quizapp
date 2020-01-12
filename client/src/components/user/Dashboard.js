@@ -18,9 +18,7 @@ const Dashboard = () => {
           </div>
           <div className='row'>
             <div className='col'>
-              <button class='btn btn-info btn-sm' role='button'>
-                Edit
-              </button>
+              <button class='btn btn-info btn-sm'>Edit</button>
             </div>
           </div>
           <div class='row my-2'>
@@ -45,9 +43,7 @@ const Dashboard = () => {
           </div>
           <div class='row my-2'>
             <div className='col'>
-              <button class='btn btn-danger btn-sm' role='button'>
-                Change Password
-              </button>
+              <button class='btn btn-danger btn-sm'>Change Password</button>
             </div>
           </div>
         </section>
