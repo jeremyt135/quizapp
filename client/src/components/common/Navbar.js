@@ -26,19 +26,19 @@ const Navbar = ({ isAuthenticated, logout }) => {
       </button>
       <div className='collapse navbar-collapse' id='navMenu'>
         <ul className='navbar-nav ml-auto'>
-          <li data-toggle='collapse' data-target='#navMenu'>
+          <li>
             <Link className='nav-item nav-link' to='/quiz/public'>
               Browse
             </Link>
           </li>
           {isAuthenticated ? (
             <>
-              <li data-toggle='collapse' data-target='#navMenu'>
+              <li>
                 <Link className='nav-item nav-link' to='/dashboard'>
                   Dashboard
                 </Link>
               </li>
-              <li data-toggle='collapse' data-target='#navMenu'>
+              <li>
                 <button
                   className='btn btn-link nav-item nav-link text-left'
                   onClick={logoutToHome}>
@@ -48,12 +48,12 @@ const Navbar = ({ isAuthenticated, logout }) => {
             </>
           ) : (
             <>
-              <li data-toggle='collapse' data-target='#navMenu'>
+              <li>
                 <Link className='nav-item nav-link' to='/login'>
                   Login
                 </Link>
               </li>
-              <li data-toggle='collapse' data-target='#navMenu'>
+              <li>
                 <Link className='nav-item nav-link' to='/register'>
                   Sign Up
                 </Link>
