@@ -2,8 +2,8 @@ import React from 'react'
 
 const QuizBrowser = () => {
   return (
-    <section class='container'>
-      <div class='row'>
+    <section className='container'>
+      <div className='row'>
         <section class='col-md-8 mx-auto mt-3'>
           <h1 class='text-center mb-3'>Public Quizzes</h1>
           <ul class='list-group'>
@@ -12,8 +12,8 @@ const QuizBrowser = () => {
                 <h5 class='mb-1'>Quiz Title</h5>
                 <small class='text-muted'>3 days ago</small>
               </div>
-              <div class='row'>
-                <div class='col'>
+              <div className='row'>
+                <div className='col'>
                   <p class='mb-1'>50 Questions</p>
                   <small class='text-muted'>created by Username</small>
                 </div>
@@ -29,8 +29,8 @@ const QuizBrowser = () => {
                 <h5 class='mb-1'>Quiz Title</h5>
                 <small class='text-muted'>3 days ago</small>
               </div>
-              <div class='row'>
-                <div class='col'>
+              <div className='row'>
+                <div className='col'>
                   <p class='mb-1'>50 Questions</p>
                   <small class='text-muted'>created by Username</small>
                 </div>

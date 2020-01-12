@@ -5,7 +5,7 @@ const Landing = () => {
   return (
     <>
       <section class='jumbotron jumbotron-fluid'>
-        <div class='container'>
+        <div className='container'>
           <h1 class='display-4'>Quiz Maker</h1>
           <p>
             Assessing others and collecting feedback made easy. Ensuring
@@ -19,8 +19,8 @@ const Landing = () => {
           </Link>
         </div>
       </section>
-      <div class='container'>
-        <div class='row'>
+      <div className='container'>
+        <div className='row'>
           <section class='col-md-6'>
             <h2>Streamlined process</h2>
             <p>
@@ -29,7 +29,7 @@ const Landing = () => {
               fields.
             </p>
             <Link
-              class='btn btn-secondary btn-lg'
+              className='btn btn-secondary btn-lg'
               to='/quiz/create'
               role='button'>
               Make A Quiz
@@ -43,7 +43,7 @@ const Landing = () => {
               anyone with the link by default.
             </p>
             <Link
-              class='btn btn-secondary btn-lg'
+              className='btn btn-secondary btn-lg'
               to='/quiz/public'
               role='button'>
               Browse Quizzes

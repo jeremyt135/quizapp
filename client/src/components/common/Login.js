@@ -6,20 +6,20 @@ const Login = () => {
   return (
     <section class='login container-fluid'>
       <div class='col-md-6 mx-auto'>
-        <div class='login__form'>
+        <div className='login__form'>
           <h2 class='text-center mb-4'>Sign in:</h2>
           <form class='mb-3'>
             <fieldset class='form-group'>
               <input
                 type='text'
-                class='form-control mb-2'
+                className='form-control mb-2'
                 id='loginUsername'
                 placeholder='Username'
                 required
               />
               <input
                 type='password'
-                class='form-control'
+                className='form-control'
                 id='loginPassword'
                 placeholder='Password'
                 required
