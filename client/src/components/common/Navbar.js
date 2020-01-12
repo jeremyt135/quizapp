@@ -1,14 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-const Navbar = ({ isAuthenticated }) => {
+import { logout } from '../../actions/user/user'
+
+const Navbar = ({ isAuthenticated, logout }) => {
+  const history = useHistory()
+
+  const logoutToHome = () => {
+    logout()
+    history.push('/')
+  }
   return (
     <nav className='navbar navbar-expand-md navbar-light bg-light'>
-      <Link className='navbar-brand' to='/'>
-        Quiz Maker
-      </Link>
+      <div data-toggle='collapse' data-target='#navMenu'>
+        <Link className='navbar-brand' to='/'>
+          Quiz Maker
+        </Link>
+      </div>
       <button
         className='navbar-toggler'
         type='button'
@@ -17,36 +27,54 @@ const Navbar = ({ isAuthenticated }) => {
         <span className='navbar-toggler-icon'></span>
       </button>
       <div className='collapse navbar-collapse' id='navMenu'>
-        <div className='navbar-nav ml-auto'>
-          <Link className='nav-item nav-link' to='/quiz/public'>
-            Browse
-          </Link>
-          {isAuthenticated ? (
-            <Link className='nav-item nav-link' to='/dashboard'>
-              Dashboard
+        <ul className='navbar-nav ml-auto'>
+          <li data-toggle='collapse' data-target='#navMenu'>
+            <Link className='nav-item nav-link' to='/quiz/public'>
+              Browse
             </Link>
+          </li>
+          {isAuthenticated ? (
+            <>
+              <li data-toggle='collapse' data-target='#navMenu'>
+                <Link className='nav-item nav-link' to='/dashboard'>
+                  Dashboard
+                </Link>
+              </li>
+              <li data-toggle='collapse' data-target='#navMenu'>
+                <button
+                  className='btn btn-link nav-item nav-link text-left'
+                  onClick={logoutToHome}>
+                  Logout
+                </button>
+              </li>
+            </>
           ) : (
             <>
-              <Link className='nav-item nav-link' to='/login'>
-                Login
-              </Link>
-              <Link className='nav-item nav-link' to='/register'>
-                Sign Up
-              </Link>
+              <li data-toggle='collapse' data-target='#navMenu'>
+                <Link className='nav-item nav-link' to='/login'>
+                  Login
+                </Link>
+              </li>
+              <li data-toggle='collapse' data-target='#navMenu'>
+                <Link className='nav-item nav-link' to='/register'>
+                  Sign Up
+                </Link>
+              </li>
             </>
           )}
-        </div>
+        </ul>
       </div>
     </nav>
   )
 }
 
 Navbar.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps)(Navbar)
+export default connect(mapStateToProps, { logout })(Navbar)
