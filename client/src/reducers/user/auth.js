@@ -15,6 +15,7 @@ export const auth = (
         isAuthenticated: true,
         user: action.data
       }
+    case ActionTypes.Auth.LOGIN_USER:
     case ActionTypes.Auth.REGISTER_USER:
       localStorage.setItem('token', action.data.token)
       return {
@@ -22,6 +23,7 @@ export const auth = (
         ...action.data,
         isAuthenticated: true
       }
+    case ActionTypes.Auth.LOGIN_ERROR:
     case ActionTypes.Auth.REGISTER_ERROR:
     case ActionTypes.Auth.AUTH_ERROR:
       localStorage.removeItem('token')
