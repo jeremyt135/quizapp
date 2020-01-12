@@ -1,36 +1,62 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
+import { connect } from 'react-redux'
+import { Redirect, Link } from 'react-router-dom'
 import '../../styles/register.css'
 
+import { register } from '../../actions/user/auth'
 import { useFormData } from '../util/useFormData'
 
-const Register = () => {
+const Register = ({ isAuthenticated, register }) => {
   const [formData, handleChange] = useFormData({
     username: '',
-    password: ''
+    email: '',
+    password: '',
+    passwordConfirm: ''
   })
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />
+  }
+
+  const { username, email, password, passwordConfirm } = formData
+
+  const submitForm = e => {
+    e.preventDefault()
+    if (password === passwordConfirm) {
+      register(username, email, password)
+    }
+  }
 
   return (
     <section className='register container-fluid'>
       <div className='col-md-6 mx-auto'>
         <div className='register__form'>
           <h2 className='text-center mb-4'>Register an account:</h2>
-          <form className='mb-3'>
+          <form className='mb-3' onSubmit={submitForm}>
             <fieldset className='form-group'>
               <input
                 type='text'
                 className='form-control mb-2'
-                id='username'
-                value={formData.username}
+                name='username'
+                value={username}
                 onChange={handleChange}
                 placeholder='Username'
                 required
               />
               <input
+                type='text'
+                className='form-control mb-2'
+                name='email'
+                value={email}
+                onChange={handleChange}
+                placeholder='Email'
+                required
+              />
+              <input
                 type='password'
                 className='form-control mb-2'
-                id='password'
-                value={formData.password}
+                name='password'
+                value={password}
                 onChange={handleChange}
                 placeholder='Password'
                 required
@@ -38,7 +64,9 @@ const Register = () => {
               <input
                 type='password'
                 className='form-control'
-                id='confirm-password'
+                name='passwordConfirm'
+                value={passwordConfirm}
+                onChange={handleChange}
                 placeholder='Confirm Password'
                 required
               />
@@ -54,4 +82,11 @@ const Register = () => {
   )
 }
 
-export default Register
+export default connect(
+  state => ({
+    isAuthenticated: state.auth.isAuthenticated
+  }),
+  {
+    register
+  }
+)(Register)
