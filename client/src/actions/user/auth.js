@@ -1,5 +1,9 @@
 import ActionTypes from '../types'
 
+/**
+ * Loads data for the User represented by the current JWT.
+ * Dispatches an action of type AUTH_USER on success and AUTH_ERROR otherwise.
+ */
 export const loadUser = () => async dispatch => {
   try {
     const response = await fetch('/api/auth', {
@@ -23,6 +27,12 @@ export const loadUser = () => async dispatch => {
   }
 }
 
+/**
+ * Registers a new User with the server. Dispatches an action of type
+ * @param {string} username
+ * @param {string} email
+ * @param {string} password
+ */
 export const register = (username, email, password) => async dispatch => {
   try {
     const response = await fetch('/api/user', {
