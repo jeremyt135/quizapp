@@ -6,8 +6,10 @@ const ActionTypes = {
     REGISTER_ERROR: 'REGISTER_ERROR',
     // User has logged in, action data contains JWT
     LOGIN_USER: 'LOGIN_USER',
-    // UError logging user in
-    LOGIN_ERROR: 'LOGIN_ERROR'
+    // Error logging user in
+    LOGIN_ERROR: 'LOGIN_ERROR',
+    // Catch-all clear current auth data (usually after user logout/delete)
+    CLEAR_AUTH: 'CLEAR_AUTH'
   },
   User: {
     // User data received from server, contained in action data
@@ -17,7 +19,11 @@ const ActionTypes = {
     // User has changed their email or password
     CHANGE_USER_INFO: 'CHANGE_USER_INFO',
     // Error changing user info
-    CHANGE_USER_INFO_ERROR: 'CHANGE_USER_INFO_ERROR'
+    CHANGE_USER_INFO_ERROR: 'CHANGE_USER_INFO_ERROR',
+    // User deleted
+    DELETE_USER: 'DELETE_USER',
+    // Failed to delete user,
+    DELETE_USER_ERROR: 'DELETE_USER_ERROR'
   }
   // Edit: {
   //   EDIT_TITLE: 'EDIT_TITLE',
