@@ -26,7 +26,7 @@ const UserInfo = ({ user, changeUserInfo }) => {
     if (password) {
       setEditingPassword(false)
     }
-    changeUserInfo({ email, password })
+    changeUserInfo(email, password)
   }
 
   return (
