@@ -84,3 +84,12 @@ export const deleteUser = () => async dispatch => {
     })
   }
 }
+
+export const logout = () => dispatch => {
+  dispatch({
+    type: ActionTypes.User.LOGOUT
+  })
+  dispatch({
+    type: ActionTypes.Auth.CLEAR_AUTH
+  })
+}
