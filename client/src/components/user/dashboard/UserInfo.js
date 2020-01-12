@@ -7,7 +7,7 @@ import EmailForm from './EmailForm'
  * Displays the User's info to a dashboard block. Allows editing of password and email
  * through child components.
  */
-const UserInfo = ({ user }) => {
+const UserInfo = ({ user, changeUserInfo }) => {
   const [editingPassword, setEditingPassword] = useState(false)
   const [editingEmail, setEditingEmail] = useState(false)
 
@@ -26,14 +26,7 @@ const UserInfo = ({ user }) => {
     if (password) {
       setEditingPassword(false)
     }
-  }
-
-  const openPasswordForm = () => {
-    setEditingPassword(true)
-  }
-
-  const openEmailForm = () => {
-    setEditingEmail(true)
+    changeUserInfo({ email, password })
   }
 
   return (
@@ -54,31 +47,37 @@ const UserInfo = ({ user }) => {
             Joined: <span>{dateString}</span>
           </h4>
         </div>
-        {editingPassword ? (
-          <PasswordForm
-            isOpen={editingPassword}
+        {editingEmail ? (
+          <EmailForm
+            initialEmail={email}
+            isOpen={editingEmail}
             submitChanges={submitChanges}
+            closeForm={() => setEditingEmail(false)}
           />
         ) : (
           <div className='row my-2'>
             <div className='col'>
               <button
                 className='btn btn-info btn-sm'
-                onClick={() => openPasswordForm()}>
-                Change Password
+                onClick={() => setEditingEmail(true)}>
+                Change Email
               </button>
             </div>
           </div>
         )}
-        {editingEmail ? (
-          <EmailForm isOpen={editingEmail} submitChanges={submitChanges} />
+        {editingPassword ? (
+          <PasswordForm
+            isOpen={editingPassword}
+            submitChanges={submitChanges}
+            closeForm={() => setEditingPassword(false)}
+          />
         ) : (
           <div className='row my-2'>
             <div className='col'>
               <button
                 className='btn btn-info btn-sm'
-                onClick={() => openEmailForm()}>
-                Change Email
+                onClick={() => setEditingPassword(true)}>
+                Change Password
               </button>
             </div>
           </div>
@@ -89,7 +88,8 @@ const UserInfo = ({ user }) => {
 }
 
 UserInfo.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  changeUserInfo: PropTypes.func.isRequired
 }
 
 export default UserInfo

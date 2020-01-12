@@ -6,7 +6,7 @@ import { useFormData } from '../../util/useFormData'
 /**
  * Displays and controls a form for the user to change their password.
  */
-const PasswordForm = ({ isOpen, submitChanges }) => {
+const PasswordForm = ({ isOpen, submitChanges, closeForm }) => {
   if (!isOpen) {
     return null
   }
@@ -55,6 +55,13 @@ const PasswordForm = ({ isOpen, submitChanges }) => {
           </div>
           <div className='row my-2'>
             <div className='col'>
+              <button className='btn btn-secondary btn-sm' onClick={closeForm}>
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div className='row my-2'>
+            <div className='col'>
               <button className='btn btn-danger btn-sm'>Confirm</button>
             </div>
           </div>
@@ -66,7 +73,8 @@ const PasswordForm = ({ isOpen, submitChanges }) => {
 
 PasswordForm.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  submitChanges: PropTypes.func.isRequired
+  submitChanges: PropTypes.func.isRequired,
+  closeForm: PropTypes.func.isRequired
 }
 
 export default PasswordForm

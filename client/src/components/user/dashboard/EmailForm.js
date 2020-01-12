@@ -6,7 +6,7 @@ import { useFormData } from '../../util/useFormData'
 /**
  * Displays and controls a form for the user to change their email.
  */
-const EmailForm = ({ isOpen, submitChanges }) => {
+const EmailForm = ({ initialEmail, isOpen, submitChanges, closeForm }) => {
   if (!isOpen) {
     return null
   }
@@ -19,7 +19,9 @@ const EmailForm = ({ isOpen, submitChanges }) => {
 
   const onSubmit = e => {
     e.preventDefault()
-    submitChanges({ email })
+    if (email !== initialEmail) {
+      submitChanges({ email })
+    }
   }
 
   return (
@@ -40,6 +42,13 @@ const EmailForm = ({ isOpen, submitChanges }) => {
           </div>
           <div className='row my-2'>
             <div className='col'>
+              <button className='btn btn-secondary btn-sm' onClick={closeForm}>
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div className='row my-2'>
+            <div className='col'>
               <button className='btn btn-danger btn-sm'>Confirm</button>
             </div>
           </div>
@@ -50,8 +59,10 @@ const EmailForm = ({ isOpen, submitChanges }) => {
 }
 
 EmailForm.propTypes = {
+  initialEmail: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  submitChanges: PropTypes.func.isRequired
+  submitChanges: PropTypes.func.isRequired,
+  closeForm: PropTypes.func.isRequired
 }
 
 export default EmailForm
