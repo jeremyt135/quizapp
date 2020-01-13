@@ -1,8 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const QuizOptions = ({ options, handleChange }) => {
-  const { isPublic, allowedUsers, expiration } = options
+import DateTimePicker from './DateTimePicker'
+
+import { useFormData } from '../../util/useFormData'
+
+/**
+ * Displays and controls editing of quiz options.
+ */
+const QuizOptions = ({ defaultOptions, setOptions }) => {
+  const [formData, handleChange] = useFormData({ ...defaultOptions })
+  const { isPublic, allowedUsers, expiresIn } = formData
+
+  const setDate = dateStr => {
+    setOptions({ ...formData, expiresIn: dateStr })
+  }
+
+  const onChange = e => {
+    handleChange(e)
+    setOptions({ ...formData })
+  }
+
   return (
     <form>
       <div className='row mb-4'>
@@ -14,7 +32,7 @@ const QuizOptions = ({ options, handleChange }) => {
               name='isPublic'
               id='isPublicCheckbox'
               checked={isPublic}
-              onChange={handleChange}
+              onChange={onChange}
             />
             <label className='custom-control-label' htmlFor='isPublicCheckbox'>
               Public Quiz
@@ -38,7 +56,7 @@ const QuizOptions = ({ options, handleChange }) => {
                 name='allowedUsers'
                 id='allowedUsersInput'
                 value={allowedUsers}
-                onChange={handleChange}
+                onChange={onChange}
               />
             </div>
           </div>
@@ -53,14 +71,7 @@ const QuizOptions = ({ options, handleChange }) => {
           </div>
           <div className='row'>
             <div className='col'>
-              <input
-                className='form-control'
-                type='datetime-local'
-                name='expiration'
-                id='expirationPicker'
-                value={expiration}
-                onChange={handleChange}
-              />
+              <DateTimePicker defaultDate={expiresIn} setDate={setDate} />
             </div>
           </div>
         </div>
@@ -70,8 +81,8 @@ const QuizOptions = ({ options, handleChange }) => {
 }
 
 QuizOptions.propTypes = {
-  options: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired
+  defaultOptions: PropTypes.object.isRequired,
+  setOptions: PropTypes.func.isRequired
 }
 
 export default QuizOptions
