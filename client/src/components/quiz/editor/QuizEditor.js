@@ -1,52 +1,69 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import Footer from '../common/Footer'
-import { useFormData } from '../../util/useFormData'
 
-import '../../../styles/quiz.css'
 import QuizOptions from './QuizOptions'
 import EditText from './EditText'
+import moment from 'moment'
 
-const getDateFromNow = years => {
-  const now = new Date()
-  now.setFullYear(now.getFullYear() + 1)
-  return now.toLocaleDateString() + 'T' + now.toLocaleTimeString()
-}
+import '../../../styles/quiz.css'
 
+/**
+ * Displays and handles editing of a quiz.
+ */
 const QuizEditor = ({ isAuthenticated, user }) => {
   // if (!isAuthenticated) {
   //   return <Redirect to='/login' />
   // }
 
-  const [quizData, handleQuizDataChange] = useFormData({
+  const [quizData, setQuizData] = useState({
     user: null,
     title: 'My Quiz',
-    expiresIn: getDateFromNow(1),
+    expiresIn: moment()
+      .add(1, 'day')
+      .toISOString(),
     isPublic: false,
     questions: [],
     allowedUsers: []
   })
 
+  const setOptions = options => {
+    setQuizData({ ...quizData, ...options })
+  }
+
   return (
     <>
       <section className='container'>
         <section className='content col-md-8 mx-auto mt-3'>
-          <EditText
-            editName='title'
-            text={quizData.title}
-            handleChange={handleQuizDataChange}
-          />
+          <div className='row'>
+            <div className='col'>
+              <label htmlFor='title'>Quiz title:</label>
+            </div>
+          </div>
+          <div className='row mb-4'>
+            <div className='col'>
+              <input
+                type='text'
+                className='form-control form-control-lg mb-0'
+                name='title'
+                value={quizData.title}
+                onChange={e =>
+                  setQuizData({ ...quizData, [e.target.name]: e.target.value })
+                }
+              />
+            </div>
+          </div>
           <QuizOptions
-            options={{
+            defaultOptions={{
               isPublic: quizData.isPublic,
               allowedUsers: quizData.allowedUsers,
               expiresIn: quizData.expiresIn
             }}
-            handleChange={handleQuizDataChange}
+            setOptions={setOptions}
           />
           {/* <div className='row mb-2'>
               <div className='col'>
