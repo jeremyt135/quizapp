@@ -1,17 +1,19 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
 import Navbar from './components/common/Navbar'
 import Landing from './components/common/Landing'
 import Register from './components/user/Register'
 import Login from './components/user/Login'
 
-import './styles/theme.css'
 import QuizBrowser from './components/quiz/browse/QuizBrowser'
 import QuizEditor from './components/quiz/editor/QuizEditor'
 import Dashboard from './components/user/dashboard/Dashboard'
 import Quiz from './components/quiz/answer/Quiz'
-import { Provider } from 'react-redux'
 import store from './store/store'
+
+import './styles/theme.css'
 
 const App = () => {
   return (
