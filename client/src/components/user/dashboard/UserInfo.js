@@ -49,7 +49,6 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
         {editingEmail ? (
           <EmailForm
             initialEmail={email}
-            isOpen={editingEmail}
             submitChanges={submitChanges}
             closeForm={() => setEditingEmail(false)}
           />
@@ -66,7 +65,6 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
         )}
         {editingPassword ? (
           <PasswordForm
-            isOpen={editingPassword}
             submitChanges={submitChanges}
             closeForm={() => setEditingPassword(false)}
           />

@@ -6,11 +6,7 @@ import { useFormData } from '../../util/useFormData'
 /**
  * Displays and controls a form for the user to change their password.
  */
-const PasswordForm = ({ isOpen, submitChanges, closeForm }) => {
-  if (!isOpen) {
-    return null
-  }
-
+const PasswordForm = ({ submitChanges, closeForm }) => {
   const [formData, handleChange] = useFormData({
     password: '',
     confirmPassword: ''
@@ -79,7 +75,6 @@ const PasswordForm = ({ isOpen, submitChanges, closeForm }) => {
 }
 
 PasswordForm.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   submitChanges: PropTypes.func.isRequired,
   closeForm: PropTypes.func.isRequired
 }

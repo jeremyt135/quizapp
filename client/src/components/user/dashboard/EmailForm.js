@@ -6,11 +6,7 @@ import { useFormData } from '../../util/useFormData'
 /**
  * Displays and controls a form for the user to change their email.
  */
-const EmailForm = ({ initialEmail, isOpen, submitChanges, closeForm }) => {
-  if (!isOpen) {
-    return null
-  }
-
+const EmailForm = ({ initialEmail, submitChanges, closeForm }) => {
   const [formData, handleChange] = useFormData({
     email: ''
   })
@@ -67,7 +63,6 @@ const EmailForm = ({ initialEmail, isOpen, submitChanges, closeForm }) => {
 
 EmailForm.propTypes = {
   initialEmail: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
   submitChanges: PropTypes.func.isRequired,
   closeForm: PropTypes.func.isRequired
 }
