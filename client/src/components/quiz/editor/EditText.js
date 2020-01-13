@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const EditText = ({ editName, text, handleChange }) => {
+/**
+ * Displays and controls editing of a text input.
+ */
+const EditText = ({ editName, displayName, text, handleChange }) => {
   const [isEditing, setIsEditing] = useState(false)
 
   return (
@@ -36,7 +39,7 @@ const EditText = ({ editName, text, handleChange }) => {
               type='button'
               className='btn btn-info btn-sm text-capitalize'
               onClick={() => setIsEditing(true)}>
-              Edit {editName}
+              Edit {displayName}
             </button>
           </div>
         )}
@@ -47,6 +50,7 @@ const EditText = ({ editName, text, handleChange }) => {
 
 EditText.propTypes = {
   editName: PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired
 }
