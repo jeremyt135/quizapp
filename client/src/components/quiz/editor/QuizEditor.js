@@ -1,70 +1,58 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Footer from '../common/Footer'
-
-import QuizOptions from './QuizOptions'
-import EditText from './EditText'
 import moment from 'moment'
+
+import Footer from '../common/Footer'
+import Title from './Title'
+import Options from './Options'
 
 import '../../../styles/quiz.css'
 
+const defaultOptions = {
+  isPublic: false,
+  allowedUsers: [],
+  expiresIn: moment()
+    .add(1, 'day')
+    .set('hours', 23)
+    .set('minutes', 59)
+    .toISOString()
+}
+
+const defaultData = {
+  user: null,
+  title: 'My Quiz',
+  questions: [],
+  ...defaultOptions
+}
+
 /**
- * Displays and handles editing of a quiz.
+ * Displays subforms for editing a quiz and directly handles submission of the quiz.
  */
 const QuizEditor = ({ isAuthenticated, user }) => {
   // if (!isAuthenticated) {
   //   return <Redirect to='/login' />
   // }
 
-  const [quizData, setQuizData] = useState({
-    user: null,
-    title: 'My Quiz',
-    expiresIn: moment()
-      .add(1, 'day')
-      .toISOString(),
-    isPublic: false,
-    questions: [],
-    allowedUsers: []
+  const quizData = useRef({
+    ...defaultData
   })
 
-  const setOptions = options => {
-    setQuizData({ ...quizData, ...options })
+  const setQuizData = data => {
+    console.log(data)
+    quizData.current = { ...quizData.current, ...data }
+    console.log(quizData.current)
   }
 
   return (
     <>
       <section className='container'>
         <section className='content col-md-8 mx-auto mt-3'>
-          <div className='row'>
-            <div className='col'>
-              <label htmlFor='title'>Quiz title:</label>
-            </div>
-          </div>
-          <div className='row mb-4'>
-            <div className='col'>
-              <input
-                type='text'
-                className='form-control form-control-lg mb-0'
-                name='title'
-                value={quizData.title}
-                onChange={e =>
-                  setQuizData({ ...quizData, [e.target.name]: e.target.value })
-                }
-              />
-            </div>
-          </div>
-          <QuizOptions
-            defaultOptions={{
-              isPublic: quizData.isPublic,
-              allowedUsers: quizData.allowedUsers,
-              expiresIn: quizData.expiresIn
-            }}
-            setOptions={setOptions}
-          />
+          <Title defaultValue={defaultData.title} setQuizData={setQuizData} />
+          <Options defaultOptions={defaultOptions} setQuizData={setQuizData} />
           {/* <div className='row mb-2'>
               <div className='col'>
                 <div className='row'>
