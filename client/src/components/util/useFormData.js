@@ -11,7 +11,13 @@ export const useFormData = initialState => {
   return [
     formData,
     e => {
-      setFormData({ ...formData, [e.target.name]: e.target.value })
+      let value
+      if (e.target.type === 'checkbox') {
+        value = e.target.checked
+      } else {
+        value = e.target.value
+      }
+      setFormData({ ...formData, [e.target.name]: value })
     }
   ]
 }
