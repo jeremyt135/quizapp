@@ -4,8 +4,12 @@ import PropTypes from 'prop-types'
 /**
  * Displays and controls editing of a text input.
  */
-const EditText = ({ editName, displayName, text, handleChange }) => {
+const EditText = ({ editName, displayName, text, setText }) => {
   const [isEditing, setIsEditing] = useState(false)
+
+  const onChange = e => {
+    setText(e.target.value)
+  }
 
   return (
     <>
@@ -16,7 +20,7 @@ const EditText = ({ editName, displayName, text, handleChange }) => {
             className='form-control form-control-lg mb-0'
             name={editName}
             value={text}
-            onChange={handleChange}
+            onChange={onChange}
             readOnly={!isEditing}
           />
         </div>
@@ -52,7 +56,7 @@ EditText.propTypes = {
   editName: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired
+  setText: PropTypes.func.isRequired
 }
 
 export default EditText
