@@ -34,6 +34,11 @@ const Navbar = ({ isAuthenticated, logout }) => {
           {isAuthenticated ? (
             <>
               <li>
+                <Link className='nav-item nav-link' to='/quiz/create'>
+                  Create
+                </Link>
+              </li>
+              <li>
                 <Link className='nav-item nav-link' to='/dashboard'>
                   Dashboard
                 </Link>
