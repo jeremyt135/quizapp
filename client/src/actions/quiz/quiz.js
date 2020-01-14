@@ -1,4 +1,5 @@
 import ActionTypes from '../types'
+import { loadUser } from '../user/user'
 
 export const postQuiz = (quiz, browserHistory) => async dispatch => {
   try {
@@ -14,6 +15,8 @@ export const postQuiz = (quiz, browserHistory) => async dispatch => {
       dispatch({
         type: ActionTypes.Quiz.CREATE_QUIZ
       })
+      // load the updated user data with quiz list
+      dispatch(loadUser())
       browserHistory.push('/dashboard')
     } else {
       // some validation error from server
