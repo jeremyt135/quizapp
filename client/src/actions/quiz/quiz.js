@@ -11,6 +11,9 @@ export const postQuiz = (quiz, browserHistory) => async dispatch => {
       body: JSON.stringify(quiz)
     })
     if (response.ok) {
+      dispatch({
+        type: ActionTypes.Quiz.CREATE_QUIZ
+      })
       browserHistory.push('/dashboard')
     } else {
       // some validation error from server
