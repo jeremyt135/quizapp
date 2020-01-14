@@ -5,14 +5,22 @@ import PropTypes from 'prop-types'
 
 import UserInfo from './UserInfo'
 import Spinner from '../../common/Spinner'
+import QuizList from './QuizList'
 import { changeUserInfo, deleteUser } from '../../../actions/user/user'
+import { getQuizInfoList } from '../../../actions/quiz/quizlist'
 
 import '../../../styles/dashboard.css'
 
 /**
  * Dashboard for a user that shows their info and quizzes
  */
-const Dashboard = ({ auth, user, changeUserInfo, deleteUser }) => {
+const Dashboard = ({
+  auth,
+  user,
+  changeUserInfo,
+  deleteUser,
+  getQuizInfoList
+}) => {
   if (!auth.isAuthenticated) {
     return <Redirect to='/login' />
   }
@@ -20,6 +28,8 @@ const Dashboard = ({ auth, user, changeUserInfo, deleteUser }) => {
   if (user.loading || !user.data) {
     return <Spinner />
   }
+
+  getQuizInfoList(user.data.quizzes)
 
   return (
     <section className='dashboard container'>
@@ -40,40 +50,7 @@ const Dashboard = ({ auth, user, changeUserInfo, deleteUser }) => {
               </Link>
             </div>
           </div>
-          <ul className='list-group'>
-            <li className='list-group-item'>
-              <div className='d-flex w-100 justify-content-between mb-1'>
-                <h5 className='mb-1'>Quiz Title</h5>
-                <small className='text-muted'>3 days ago</small>
-              </div>
-              <div className='row'>
-                <div className='col'>
-                  <p className='mb-1'>50 Questions</p>
-                </div>
-                <div className='col d-flex justify-content-end align-items-end'>
-                  <a href='#' className='btn btn-primary btn-sm' role='button'>
-                    View Results
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li className='list-group-item'>
-              <div className='d-flex w-100 justify-content-between mb-1'>
-                <h5 className='mb-1'>Quiz Title</h5>
-                <small className='text-muted'>3 days ago</small>
-              </div>
-              <div className='row'>
-                <div className='col'>
-                  <p className='mb-1'>50 Questions</p>
-                </div>
-                <div className='col d-flex justify-content-end align-items-end'>
-                  <a href='#' className='btn btn-primary btn-sm' role='button'>
-                    View Results
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <QuizList />
         </section>
       </div>
     </section>
@@ -84,7 +61,8 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   changeUserInfo: PropTypes.func.isRequired,
-  deleteUser: PropTypes.func.isRequired
+  deleteUser: PropTypes.func.isRequired,
+  getQuizInfoList: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -92,6 +70,8 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, { changeUserInfo, deleteUser })(
-  Dashboard
-)
+export default connect(mapStateToProps, {
+  changeUserInfo,
+  deleteUser,
+  getQuizInfoList
+})(Dashboard)
