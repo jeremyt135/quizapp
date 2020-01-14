@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import Navbar from './components/common/Navbar'
-import Landing from './components/common/Landing'
+import Navbar from './components/layout/Navbar'
+import Landing from './components/layout/Landing'
 import Register from './components/user/Register'
 import Login from './components/user/Login'
 
