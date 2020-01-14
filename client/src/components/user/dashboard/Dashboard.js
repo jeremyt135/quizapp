@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -12,19 +12,19 @@ import '../../../styles/dashboard.css'
 /**
  * Dashboard for a user that shows their info and quizzes
  */
-const Dashboard = ({ isAuthenticated, user, changeUserInfo, deleteUser }) => {
-  if (!isAuthenticated) {
+const Dashboard = ({ auth, user, changeUserInfo, deleteUser }) => {
+  if (!auth.isAuthenticated) {
     return <Redirect to='/login' />
   }
 
-  if (!user) {
+  if (user.loading || !user.data) {
     return <Spinner />
   }
 
   return (
     <section className='dashboard container'>
       <UserInfo
-        user={user}
+        user={user.data}
         changeUserInfo={changeUserInfo}
         deleteUser={deleteUser}
       />
@@ -33,12 +33,11 @@ const Dashboard = ({ isAuthenticated, user, changeUserInfo, deleteUser }) => {
           <div className='row mb-3'>
             <h3 className='col mb-0'>Quizzes You Created:</h3>
             <div className='col d-flex align-items-end justify-content-end'>
-              <a
-                href='#'
-                className='btn btn-success btn-sm ml-auto'
-                role='button'>
+              <Link
+                to='/quiz/create'
+                className='btn btn-success btn-sm ml-auto'>
                 Create A Quiz
-              </a>
+              </Link>
             </div>
           </div>
           <ul className='list-group'>
@@ -82,14 +81,14 @@ const Dashboard = ({ isAuthenticated, user, changeUserInfo, deleteUser }) => {
 }
 
 Dashboard.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object,
+  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   changeUserInfo: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
   user: state.user
 })
 
