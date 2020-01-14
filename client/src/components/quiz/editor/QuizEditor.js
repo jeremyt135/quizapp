@@ -10,15 +10,10 @@ import Footer from '../common/Footer'
 import AllowedUsersInput from './layout/AllowedUsersInput'
 import PublicCheckbox from './layout/PublicCheckbox'
 import Title from './layout/Title'
+import ExpirationPicker from './layout/ExpirationPicker'
+import QuestionList from './QuestionList'
 
 import '../../../styles/quiz.css'
-import ExpirationPicker from './layout/ExpirationPicker'
-
-const defaultExpiration = moment()
-  .add(1, 'day')
-  .set('hours', 23)
-  .set('minutes', 59)
-  .toISOString()
 
 /**
  * Parses allowed users from a comma-separated string.
@@ -43,6 +38,13 @@ const QuizEditor = ({ isAuthenticated, user }) => {
   //   return <Redirect to='/login' />
   // }
 
+  // The default expiration date of a quiz
+  const defaultExpiration = moment()
+    .add(1, 'day')
+    .set('hours', 23)
+    .set('minutes', 59)
+    .toISOString()
+
   const [title, setTitle] = useState('My Quiz')
   const [isPublic, setIsPublic] = useState(false)
   const [allowedUsers, setAllowedUsers] = useState('')
@@ -60,20 +62,23 @@ const QuizEditor = ({ isAuthenticated, user }) => {
 
   const changeAllowedUsers = e => {
     const userStr = e.target.value
-    console.log(userStr)
     const userList = parseAllowedUsers(userStr)
-    console.log(userList)
     if (userList) {
       setAllowedUsers(userList)
     } else {
       setAllowedUsers([])
     }
-    console.log(allowedUsers)
   }
 
   const changeExpiresIn = dateStr => {
     expiresIn.current = dateStr
   }
+
+  const changeQuestions = questions => {
+    console.log(questions)
+    setQuestions([...questions])
+  }
+
   return (
     <>
       <section className='container'>
@@ -90,6 +95,7 @@ const QuizEditor = ({ isAuthenticated, user }) => {
             defaultValue={defaultExpiration}
             onChange={changeExpiresIn}
           />
+          <QuestionList questions={questions} onChange={changeQuestions} />
         </section>
       </section>
       <Footer />
