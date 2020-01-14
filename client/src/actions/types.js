@@ -26,6 +26,10 @@ const ActionTypes = {
     DELETE_USER_ERROR: 'DELETE_USER_ERROR',
     // Log the user out
     LOGOUT: 'LOGOUT'
+  },
+  Quiz: {
+    CREATE_QUIZ: 'CREATE_QUIZ',
+    CREATE_QUIZ_ERROR: 'CREATE_QUIZ_ERROR'
   }
   // Edit: {
   //   EDIT_TITLE: 'EDIT_TITLE',
