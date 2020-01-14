@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer } from 'react'
 
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -12,6 +12,8 @@ import PublicCheckbox from './layout/PublicCheckbox'
 import Title from './layout/Title'
 import ExpirationPicker from './layout/ExpirationPicker'
 import QuestionList from './layout/QuestionList'
+
+import { postQuiz } from '../../../actions/quiz/quiz'
 
 import '../../../styles/quiz.css'
 
@@ -47,12 +49,19 @@ const questionsReducer = (questions, action) => {
 }
 
 /**
+ * Dispatches a redux action to post the quiz to the server
+ *
+ * @callback postQuiz
+ * @param {object} quiz Quiz data
+ * @param {object} browserHistory react-router-dom browser history object
+ */
+
+/**
  * Displays subforms for editing a quiz and directly handles submission of the quiz.
  * @param {object} props Component props
- * @param {bool} props.isAuthenticated Boolean indicating if there is a logged in, authenticated user
- * @param {object} props.user The logged in user
+ * @param {postQuiz} props.postQuiz Function to call when submitting the quiz to server
  */
-const QuizEditor = ({ isAuthenticated, user }) => {
+const QuizEditor = ({ postQuiz }) => {
   // if (!isAuthenticated) {
   //   return <Redirect to='/login' />
   // }
@@ -71,6 +80,8 @@ const QuizEditor = ({ isAuthenticated, user }) => {
 
   const [questions, questionDispatch] = useReducer(questionsReducer, [])
   const questionsRef = useRef([])
+
+  const browserHistory = useHistory()
 
   const changeTitle = e => {
     setTitle(e.target.value)
@@ -140,6 +151,19 @@ const QuizEditor = ({ isAuthenticated, user }) => {
     }
   }
 
+  const submitQuiz = () => {
+    postQuiz(
+      {
+        title,
+        isPublic,
+        expiresIn: expiresIn.current,
+        allowedUsers,
+        questions: questionsRef.current
+      },
+      browserHistory
+    )
+  }
+
   return (
     <>
       <section className='container'>
@@ -164,19 +188,20 @@ const QuizEditor = ({ isAuthenticated, user }) => {
           />
         </section>
       </section>
-      <Footer />
+      <Footer text='Create' onClick={submitQuiz} />
     </>
   )
 }
 
 QuizEditor.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object
+  postQuiz: PropTypes.func.isRequired
+  // isAuthenticated: PropTypes.bool.isRequired,
+  // user: PropTypes.object
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.user
-})
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.auth.isAuthenticated,
+//   user: state.user
+// })
 
-export default connect(mapStateToProps)(QuizEditor)
+export default connect(null, { postQuiz })(QuizEditor)
