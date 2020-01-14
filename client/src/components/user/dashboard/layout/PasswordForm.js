@@ -1,22 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { useFormData } from '../../util/useFormData'
+import { useFormData } from '../../../util/useFormData'
 
 /**
- * Displays and controls a form for the user to change their email.
+ * Displays and controls a form for the user to change their password.
  */
-const EmailForm = ({ initialEmail, submitChanges, closeForm }) => {
+const PasswordForm = ({ submitChanges, closeForm }) => {
   const [formData, handleChange] = useFormData({
-    email: ''
+    password: '',
+    confirmPassword: ''
   })
 
-  const { email } = formData
+  const { password, confirmPassword } = formData
 
   const onSubmit = e => {
     e.preventDefault()
-    if (email !== '' && email !== initialEmail) {
-      submitChanges({ email })
+    if (password !== '' && password === confirmPassword) {
+      submitChanges({ password })
     }
   }
 
@@ -28,10 +29,22 @@ const EmailForm = ({ initialEmail, submitChanges, closeForm }) => {
             <div className='col'>
               <input
                 className=' form-control'
-                type='email'
-                placeholder='New email'
-                name='email'
-                value={email}
+                type='password'
+                placeholder='New password'
+                name='password'
+                value={password}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className='row my-2'>
+            <div className='col'>
+              <input
+                className=' form-control'
+                type='password'
+                placeholder='Confirm new password'
+                name='confirmPassword'
+                value={confirmPassword}
                 onChange={handleChange}
               />
             </div>
@@ -61,10 +74,9 @@ const EmailForm = ({ initialEmail, submitChanges, closeForm }) => {
   )
 }
 
-EmailForm.propTypes = {
-  initialEmail: PropTypes.string.isRequired,
+PasswordForm.propTypes = {
   submitChanges: PropTypes.func.isRequired,
   closeForm: PropTypes.func.isRequired
 }
 
-export default EmailForm
+export default PasswordForm
