@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-const QuestionText = ({ placeholder, onBlur }) => {
-  const [value, setValue] = useState('')
-
+const QuestionText = ({ text, id, placeholder, onChange }) => {
   return (
     <div className='row mb-2'>
       <div className='col d-flex align-items-center'>
         <input
           type='text'
           className='form-control'
-          onChange={e => setValue(e.target.value)}
-          onBlur={() => onBlur(value)}
-          value={value}
+          id={id}
+          onChange={onChange}
+          value={text}
           placeholder={placeholder}
         />
       </div>
@@ -21,8 +19,10 @@ const QuestionText = ({ placeholder, onBlur }) => {
 }
 
 QuestionText.propTypes = {
+  text: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  onBlur: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 }
 
 export default QuestionText

@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-const AnswerText = ({ placeholder, onBlur }) => {
-  const [value, setValue] = useState('')
-
+const AnswerText = ({ text, placeholder, onChange }) => {
   return (
     <div className='row mb-1'>
       <div className='col'>
         <input
           type='text'
           className='form-control form-control-sm'
-          onChange={e => setValue(e.target.value)}
-          onBlur={() => onBlur(value)}
-          value={value}
+          onChange={onChange}
+          value={text}
           placeholder={placeholder}
         />
       </div>
@@ -21,8 +18,9 @@ const AnswerText = ({ placeholder, onBlur }) => {
 }
 
 AnswerText.propTypes = {
+  text: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  onBlur: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 }
 
 export default AnswerText

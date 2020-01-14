@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useReducer } from 'react'
 
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -11,7 +11,7 @@ import AllowedUsersInput from './layout/AllowedUsersInput'
 import PublicCheckbox from './layout/PublicCheckbox'
 import Title from './layout/Title'
 import ExpirationPicker from './layout/ExpirationPicker'
-import QuestionList from './QuestionList'
+import QuestionList from './layout/QuestionList'
 
 import '../../../styles/quiz.css'
 
@@ -31,7 +31,26 @@ const parseAllowedUsers = str => {
 }
 
 /**
+ * Determines if the questions state should be updated
+ * @param {Array} questions Current questions state
+ * @param {Object} action Action to determine if state will update
+ */
+const questionsReducer = (questions, action) => {
+  switch (action.type) {
+    case 'add':
+    case 'remove':
+    case 'change':
+      return [...action.questions]
+    default:
+      return [...questions]
+  }
+}
+
+/**
  * Displays subforms for editing a quiz and directly handles submission of the quiz.
+ * @param {object} props Component props
+ * @param {bool} props.isAuthenticated Boolean indicating if there is a logged in, authenticated user
+ * @param {object} props.user The logged in user
  */
 const QuizEditor = ({ isAuthenticated, user }) => {
   // if (!isAuthenticated) {
@@ -47,10 +66,11 @@ const QuizEditor = ({ isAuthenticated, user }) => {
 
   const [title, setTitle] = useState('My Quiz')
   const [isPublic, setIsPublic] = useState(false)
-  const [allowedUsers, setAllowedUsers] = useState('')
+  const [allowedUsers, setAllowedUsers] = useState([])
   const expiresIn = useRef(defaultExpiration)
 
-  const [questions, setQuestions] = useState([])
+  const [questions, questionDispatch] = useReducer(questionsReducer, [])
+  const questionsRef = useRef([])
 
   const changeTitle = e => {
     setTitle(e.target.value)
@@ -60,6 +80,10 @@ const QuizEditor = ({ isAuthenticated, user }) => {
     setIsPublic(e.target.checked)
   }
 
+  /**
+   *  Sets allowedUsers array if e.target.value is a valid comma separated list
+   *  of usernames
+   */
   const changeAllowedUsers = e => {
     const userStr = e.target.value
     const userList = parseAllowedUsers(userStr)
@@ -74,9 +98,46 @@ const QuizEditor = ({ isAuthenticated, user }) => {
     expiresIn.current = dateStr
   }
 
-  const changeQuestions = questions => {
-    console.log(questions)
-    setQuestions([...questions])
+  /**
+   * Adds a question to both questionsRef and questions
+   */
+  const addQuestion = () => {
+    questionsRef.current.push({
+      text: '',
+      correctAnswer: 0,
+      answers: []
+    })
+    questionDispatch({
+      type: 'add',
+      questions: questionsRef.current
+    })
+  }
+
+  /**
+   * Removes a question from both questionsRef and questions
+   */
+  const removeQuestion = questionIndex => {
+    questionsRef.current.splice(questionIndex, 1)
+    questionDispatch({
+      type: 'remove',
+      questions: questionsRef.current
+    })
+  }
+
+  /**
+   * Changes the properties of a question in questionsRef, also updating
+   * it in questions if the answers length has changed
+   */
+  const changeQuestion = (updatedQuestion, questionIndex) => {
+    // console.log('editor updated question: ', updatedQuestion)
+    const currentAnswers = questionsRef.current[questionIndex].answers
+    questionsRef.current[questionIndex] = updatedQuestion
+    if (updatedQuestion.answers.length !== currentAnswers.length) {
+      questionDispatch({
+        type: 'change',
+        questions: questionsRef.current
+      })
+    }
   }
 
   return (
@@ -95,7 +156,12 @@ const QuizEditor = ({ isAuthenticated, user }) => {
             defaultValue={defaultExpiration}
             onChange={changeExpiresIn}
           />
-          <QuestionList questions={questions} onChange={changeQuestions} />
+          <QuestionList
+            questions={questions}
+            onChangeQuestion={changeQuestion}
+            addQuestion={addQuestion}
+            removeQuestion={removeQuestion}
+          />
         </section>
       </section>
       <Footer />
