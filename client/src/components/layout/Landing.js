@@ -8,12 +8,9 @@ const Landing = () => {
         <div className='container'>
           <h1 className='display-4'>Quiz Maker</h1>
           <p>
-            Assessing others and collecting feedback made easy. Ensuring
-            response authenticity is easier than ever with the private quiz
-            option, available to any registered user.
+            Assessing others and collecting feedback made easy. Get started
+            making quizzes today by signing up for free.
           </p>
-          <hr />
-          <p>Get started making quizzes today by signing up for free.</p>
           <Link className='btn btn-primary btn-lg' to='/register' role='button'>
             Sign Up
           </Link>
@@ -36,11 +33,12 @@ const Landing = () => {
             </Link>
           </section>
           <section className='col-md-6'>
-            <h2>Private or public</h2>
+            <h2>Privacy and control</h2>
             <p>
-              Private quizzes allow you to specify who can answer your quiz.
-              Want anyone to be able to answer? Public quizzes are available to
-              anyone with the link by default.
+              Quizzes are set to private by default, which restricts access to
+              only yourself and a list of allowed users (who can access the quiz
+              through its link). Turning off privacy makes the quiz available to
+              anyone on the site.
             </p>
             <Link
               className='btn btn-secondary btn-lg'
