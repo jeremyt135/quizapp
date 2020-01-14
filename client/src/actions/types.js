@@ -28,8 +28,17 @@ const ActionTypes = {
     LOGOUT: 'LOGOUT'
   },
   Quiz: {
+    // User posting a quiz to server
     CREATE_QUIZ: 'CREATE_QUIZ',
-    CREATE_QUIZ_ERROR: 'CREATE_QUIZ_ERROR'
+    // Error posting quiz
+    CREATE_QUIZ_ERROR: 'CREATE_QUIZ_ERROR',
+    // User getting the full quiz info from server
+    LOAD_QUIZ: 'LOAD_QUIZ',
+    // Error getting quiz data
+    LOAD_QUIZ_ERROR: 'LOAD_QUIZ_ERROR',
+    // User getting a list of short quiz info from server
+    LOAD_QUIZ_LIST: 'LOAD_QUIZ_LIST',
+    LOAD_QUIZ_LIST_ERROR: 'LOAD_QUIZ_LIST_ERROR'
   }
   // Edit: {
   //   EDIT_TITLE: 'EDIT_TITLE',
