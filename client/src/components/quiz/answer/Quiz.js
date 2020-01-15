@@ -5,8 +5,8 @@ import Footer from '../common/Footer'
 const Quiz = () => {
   return (
     <>
-      <section className='container'>
-        <section className='content col-lg-8 col-sm-10 mx-auto mt-3'>
+      <div className='container'>
+        <div className='content col-lg-8 col-sm-10 mx-auto mt-3'>
           <form>
             <div className='row mb-4'>
               <div className='col d-flex align-items-center'>
@@ -194,8 +194,8 @@ const Quiz = () => {
               </div>
             </div>
           </form>
-        </section>
-      </section>
+        </div>
+      </div>
       <Footer />
     </>
   )

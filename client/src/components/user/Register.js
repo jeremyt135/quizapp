@@ -33,7 +33,7 @@ const Register = ({ isAuthenticated, register }) => {
   }
 
   return (
-    <section className='register container-fluid'>
+    <div className='register container-fluid'>
       <div className='col-md-6 mx-auto'>
         <div className='register__form'>
           <h2 className='text-center mb-4'>Register an account:</h2>
@@ -83,7 +83,7 @@ const Register = ({ isAuthenticated, register }) => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

@@ -26,7 +26,7 @@ const Login = ({ isAuthenticated, login }) => {
   }
 
   return (
-    <section className='login container-fluid'>
+    <div className='login container-fluid'>
       <div className='col-md-6 mx-auto'>
         <div className='login__form'>
           <h2 className='text-center mb-4'>Sign in:</h2>
@@ -58,7 +58,7 @@ const Login = ({ isAuthenticated, login }) => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

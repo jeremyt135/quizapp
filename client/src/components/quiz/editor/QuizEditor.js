@@ -197,7 +197,7 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
 
   return (
     <>
-      <section className='container'>
+      <div className='container'>
         <section className='content col-md-8 mx-auto mt-3'>
           <Title value={title} onChange={changeTitle} />
           <PublicCheckbox value={isPublic} onChange={changeIsPublic} />
@@ -219,7 +219,7 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
             removeQuestion={removeQuestion}
           />
         </section>
-      </section>
+      </div>
       <Footer
         text='Create'
         onClick={editing ? submitEditedQuiz : submitNewQuiz}

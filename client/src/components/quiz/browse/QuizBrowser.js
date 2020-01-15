@@ -2,9 +2,9 @@ import React from 'react'
 
 const QuizBrowser = () => {
   return (
-    <section className='container'>
+    <div className='container'>
       <div className='row'>
-        <section className='col-md-8 mx-auto mt-3'>
+        <div className='col-md-8 mx-auto mt-3'>
           <h1 className='text-center mb-3'>Public Quizzes</h1>
           <ul className='list-group'>
             <li className='list-group-item'>
@@ -42,9 +42,9 @@ const QuizBrowser = () => {
               </div>
             </li>
           </ul>
-        </section>
+        </div>
       </div>
-    </section>
+    </div>
   )
 }
 

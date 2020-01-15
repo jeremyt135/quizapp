@@ -4,18 +4,23 @@ import { Link } from 'react-router-dom'
 const Landing = () => {
   return (
     <>
-      <section className='jumbotron jumbotron-fluid'>
+      <div className='jumbotron jumbotron-fluid'>
         <div className='container'>
-          <h1 className='display-4'>Quiz Maker</h1>
-          <p>
-            Assessing others and collecting feedback made easy. Get started
-            making quizzes today by signing up for free.
-          </p>
-          <Link className='btn btn-primary btn-lg' to='/register' role='button'>
-            Sign Up
-          </Link>
+          <section>
+            <h1 className='display-4'>Quiz Maker</h1>
+            <p>
+              Assessing others and collecting feedback made easy. Get started
+              making quizzes today by signing up for free.
+            </p>
+            <Link
+              className='btn btn-primary btn-lg'
+              to='/register'
+              role='button'>
+              Sign Up
+            </Link>
+          </section>
         </div>
-      </section>
+      </div>
       <div className='container'>
         <div className='row'>
           <section className='col-md-6'>
