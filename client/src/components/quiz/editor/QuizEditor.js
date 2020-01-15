@@ -181,7 +181,6 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
   }
 
   const submitEditedQuiz = () => {
-    console.log(allowedUsers)
     editQuiz(
       {
         _id: quiz._id,
