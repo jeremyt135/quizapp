@@ -167,6 +167,10 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
     }
   }
 
+  const goBackToDashboard = () => {
+    browserHistory.push('/dashboard')
+  }
+
   const submitNewQuiz = () => {
     postQuiz(
       {
@@ -176,7 +180,7 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
         allowedUsers,
         questions: questionsRef.current
       },
-      () => browserHistory.push('/dashboard')
+      goBackToDashboard
     )
   }
 
@@ -190,7 +194,7 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
         allowedUsers,
         questions: questionsRef.current
       },
-      () => browserHistory.push('/dashboard')
+      goBackToDashboard
     )
   }
 
@@ -220,8 +224,9 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
         </section>
       </div>
       <Footer
-        text='Create'
-        onClick={editing ? submitEditedQuiz : submitNewQuiz}
+        text={editing ? 'Confirm edits' : 'Submit'}
+        onCancel={goBackToDashboard}
+        onConfirm={editing ? submitEditedQuiz : submitNewQuiz}
       />
     </>
   )
