@@ -4,7 +4,7 @@ body {
 }
 
 .spinner-container {
-  height: calc(100% - 60px);
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,5 +12,4 @@ body {
 
 .spinner {
   position: relative;
-  top: -60px;
 }
