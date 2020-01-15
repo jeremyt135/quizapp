@@ -20,7 +20,7 @@ import AnswerText from './layout/AnswerText'
  * Displays an answer with button to remove itself
  * @param {object} props Component props
  * @param {number} props.index Index of this answer
- * @param {{text: string}} props.defaultValue Default Answer data
+ * @param {text: string} props.defaultValue Default Answer data
  * @param {string} props.questionName The name of the parent question
  * @param {onChange} props.onChange function to invoke when Answer data changes
  * @param {remove} props.remove function to invoke when Answer should be removed
@@ -37,7 +37,7 @@ const Answer = ({
 }) => {
   const id = `${questionName}answer${index}`
 
-  const [text, setText] = useState(defaultValue || '')
+  const [text, setText] = useState(defaultValue)
 
   const changeText = e => {
     setText(e.target.value)

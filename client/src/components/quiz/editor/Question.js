@@ -33,7 +33,7 @@ const Question = ({ index, defaultValue, onChange, remove }) => {
   // Name of the question to use as ID for labels
   const questionName = `question${index}`
   // Text value for question text field
-  const [text, setText] = useState(defaultValue.text || '')
+  const [text, setText] = useState(defaultValue.text)
   // Index of the correct answer
   const [correctAnswer, setCorrectAnswer] = useState(
     defaultValue.correctAnswer || 0

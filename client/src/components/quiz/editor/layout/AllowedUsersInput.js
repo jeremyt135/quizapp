@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
  */
 const AllowedUsersInput = ({ defaultValue, onChange, isValid }) => {
   const allowedUserStr = defaultValue.join(',')
-  const [value, setValue] = useState(allowedUserStr || '')
+  const [value, setValue] = useState(allowedUserStr)
 
   const onInputChange = e => {
     setValue(e.target.value)
