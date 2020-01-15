@@ -18,6 +18,15 @@ const calculateTimeDifference = (now, then) => {
 }
 
 /**
+ * Determines if quiz is expired based on expiration date
+ * @param {moment} expiration
+ * @returns {bool} true if the expiration is on a day or time before today
+ */
+const checkIfQuizExpired = expiration => {
+  return expiration.diff(moment()) < 0
+}
+
+/**
  * Returns a string timestamp
  * @param {object} time Time object
  * @param {number} time.days
@@ -51,17 +60,21 @@ const QuizList = ({ quizList }) => {
   const now = moment()
   return (
     <ul className='list-group'>
-      {quizzes.map((quiz, index) => (
-        <li key={index} className='list-group-item'>
-          <QuizItem
-            title={quiz.title}
-            timestamp={createTimestamp(
-              calculateTimeDifference(now, moment(quiz.expiresIn))
-            )}
-            questionCount={quiz.questions.length}
-          />
-        </li>
-      ))}
+      {quizzes.map((quiz, index) => {
+        const expiration = moment(quiz.expiresIn)
+        return (
+          <li key={index} className='list-group-item'>
+            <QuizItem
+              title={quiz.title}
+              timestamp={createTimestamp(
+                calculateTimeDifference(now, expiration)
+              )}
+              isExpired={checkIfQuizExpired(expiration)}
+              questionCount={quiz.questions.length}
+            />
+          </li>
+        )
+      })}
     </ul>
   )
 }
