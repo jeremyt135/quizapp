@@ -40,9 +40,11 @@ const Dashboard = ({
       />
       <div className='dashboard__block row p-3 my-3'>
         <section className='col-md-8 mx-auto'>
-          <div className='row mb-3'>
+          <div className='row mb-1 align-items-center'>
             <h3 className='col mb-0'>Quizzes You Created:</h3>
-            <div className='col d-flex align-items-end justify-content-end'>
+          </div>
+          <div className='row mb-1 aling-items-center'>
+            <div className='col'>
               <Link
                 to='/quiz/create'
                 className='btn btn-success btn-sm ml-auto'>
