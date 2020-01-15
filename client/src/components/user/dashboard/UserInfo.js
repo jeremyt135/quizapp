@@ -30,7 +30,7 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
 
   return (
     <div className='dashboard__block row p-3 my-3'>
-      <section className='col-md-8 mx-auto'>
+      <section className='col-md-10 mx-auto'>
         <div className='row'>
           <h1 className='col'>
             Hello, <span>{username}</span>
