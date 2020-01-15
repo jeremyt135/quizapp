@@ -36,9 +36,16 @@ const ActionTypes = {
     LOAD_QUIZ: 'LOAD_QUIZ',
     // Error getting quiz data
     LOAD_QUIZ_ERROR: 'LOAD_QUIZ_ERROR',
-    // User getting a list of short quiz info from server
+    // User getting a list of quiz info from server
     LOAD_QUIZ_LIST: 'LOAD_QUIZ_LIST',
-    LOAD_QUIZ_LIST_ERROR: 'LOAD_QUIZ_LIST_ERROR'
+    LOAD_QUIZ_LIST_ERROR: 'LOAD_QUIZ_LIST_ERROR',
+    // User deletes one of their quizzes
+    DELETE_QUIZ: 'DELETE_QUIZ',
+    DELETE_QUIZ_ERROR: 'DELETE_QUIZ_ERROR',
+    // User editing a quiz they previously created
+    EDIT_QUIZ: 'EDIT_QUIZ',
+    EDIT_QUIZ_ERROR: 'EDIT_QUIZ_ERROR',
+    CLEAR_QUIZLIST: 'CLEAR_QUIZLIST'
   }
   // Edit: {
   //   EDIT_TITLE: 'EDIT_TITLE',

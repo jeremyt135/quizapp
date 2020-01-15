@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer } from 'react'
 
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,7 @@ import Title from './layout/Title'
 import ExpirationPicker from './layout/ExpirationPicker'
 import QuestionList from './layout/QuestionList'
 
-import { postQuiz } from '../../../actions/quiz/quiz'
+import { postQuiz, editQuiz } from '../../../actions/quiz/quiz'
 
 import '../../../styles/quiz.css'
 
@@ -49,11 +49,19 @@ const questionsReducer = (questions, action) => {
 }
 
 /**
- * Dispatches a redux action to post the quiz to the server
+ * Creates a redux action to post the quiz to the server
  *
  * @callback postQuiz
  * @param {object} quiz Quiz data
- * @param {object} browserHistory react-router-dom browser history object
+ * @param {function} onSuccess action to take on success
+ */
+
+/**
+ * Creates a redux action to put the edit quiz to server
+ *
+ * @callback editQuiz
+ * @param {object} quiz Quiz data
+ * @param {function} onSuccess action to take on success
  */
 
 /**
@@ -61,11 +69,7 @@ const questionsReducer = (questions, action) => {
  * @param {object} props Component props
  * @param {postQuiz} props.postQuiz Function to call when submitting the quiz to server
  */
-const QuizEditor = ({ postQuiz }) => {
-  // if (!isAuthenticated) {
-  //   return <Redirect to='/login' />
-  // }
-
+const QuizEditor = ({ postQuiz, editQuiz }) => {
   // The default expiration date of a quiz
   const defaultExpiration = moment()
     .add(1, 'day')
@@ -73,15 +77,27 @@ const QuizEditor = ({ postQuiz }) => {
     .set('minutes', 59)
     .toISOString()
 
-  const [title, setTitle] = useState('My Quiz')
-  const [isPublic, setIsPublic] = useState(false)
-  const [allowedUsers, setAllowedUsers] = useState([])
-  const expiresIn = useRef(defaultExpiration)
-
-  const [questions, questionDispatch] = useReducer(questionsReducer, [])
-  const questionsRef = useRef([])
-
   const browserHistory = useHistory()
+  const browserLocation = useLocation()
+  const { quiz, editing } = browserLocation.state || {
+    quiz: {},
+    editing: false
+  }
+
+  const [title, setTitle] = useState(quiz.title || 'My Quiz')
+  const [isPublic, setIsPublic] = useState(quiz.isPublic || false)
+  const [allowedUsers, setAllowedUsers] = useState(
+    editing ? quiz.allowedUsers : []
+  )
+  const expiresIn = useRef(
+    editing ? moment(quiz.expiresIn).toISOString() : defaultExpiration
+  )
+
+  const [questions, questionDispatch] = useReducer(
+    questionsReducer,
+    editing ? quiz.questions : []
+  )
+  const questionsRef = useRef(editing ? quiz.questions : [])
 
   const changeTitle = e => {
     setTitle(e.target.value)
@@ -151,7 +167,7 @@ const QuizEditor = ({ postQuiz }) => {
     }
   }
 
-  const submitQuiz = () => {
+  const submitNewQuiz = () => {
     postQuiz(
       {
         title,
@@ -160,7 +176,22 @@ const QuizEditor = ({ postQuiz }) => {
         allowedUsers,
         questions: questionsRef.current
       },
-      browserHistory
+      () => browserHistory.push('/dashboard')
+    )
+  }
+
+  const submitEditedQuiz = () => {
+    console.log(allowedUsers)
+    editQuiz(
+      {
+        _id: quiz._id,
+        title,
+        isPublic,
+        expiresIn: expiresIn.current,
+        allowedUsers,
+        questions: questionsRef.current
+      },
+      () => browserHistory.push('/dashboard')
     )
   }
 
@@ -172,6 +203,7 @@ const QuizEditor = ({ postQuiz }) => {
           <PublicCheckbox value={isPublic} onChange={changeIsPublic} />
           {!isPublic ? (
             <AllowedUsersInput
+              defaultValue={allowedUsers}
               onChange={changeAllowedUsers}
               isValid={allowedUsers.length > 0}
             />
@@ -188,20 +220,17 @@ const QuizEditor = ({ postQuiz }) => {
           />
         </section>
       </section>
-      <Footer text='Create' onClick={submitQuiz} />
+      <Footer
+        text='Create'
+        onClick={editing ? submitEditedQuiz : submitNewQuiz}
+      />
     </>
   )
 }
 
 QuizEditor.propTypes = {
-  postQuiz: PropTypes.func.isRequired
-  // isAuthenticated: PropTypes.bool.isRequired,
-  // user: PropTypes.object
+  postQuiz: PropTypes.func.isRequired,
+  editQuiz: PropTypes.func.isRequired
 }
 
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-//   user: state.user
-// })
-
-export default connect(null, { postQuiz })(QuizEditor)
+export default connect(null, { postQuiz, editQuiz })(QuizEditor)

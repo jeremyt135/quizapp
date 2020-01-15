@@ -10,7 +10,7 @@ import { quizList } from './quiz/quizlist'
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth']
+  blacklist: ['auth', 'quizList']
 }
 const authPersistConfig = {
   key: 'auth',

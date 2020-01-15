@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import moment from 'moment'
 
 import PropTypes from 'prop-types'
 import Spinner from '../../common/Spinner'
 import QuizItem from './layout/QuizItem'
+
+import { deleteQuiz } from '../../../actions/quiz/quiz'
+import { getQuizList, clearQuizList } from '../../../actions/quiz/quizlist'
 
 /**
  * Calculates the difference in days, months, years of two times
@@ -47,44 +51,101 @@ const createTimestamp = ({ days, months, years }) => {
 }
 
 /**
+ * Deletes a quiz by id
+ * @callback deleteQuiz
+ * @param {object} quiz quiz to delete
+ */
+
+/**
+ * Redirects user to quiz page in edit mode
+ * @param {object} quiz quiz to use in page
+ */
+
+/**
  *
  * @param {object} props Component props
- * @param {[string]} props.quizList Array of quiz IDs belonging to the user
+ * @param {[string]} props.quizList quizList state
+ * @param {[string]} props.quizIds array of quiz IDs belonging to user
+ * @param {deleteQuiz} props.deleteQuiz Callback to delete a quiz
  */
-const QuizList = ({ quizList }) => {
+const QuizList = ({
+  quizIds,
+  quizList,
+  deleteQuiz,
+  getQuizList,
+  clearQuizList
+}) => {
   const { quizzes, loading } = quizList
 
-  if (loading) {
-    return <Spinner />
-  }
   const now = moment()
+
+  const browserHistory = useHistory()
+
+  const goToQuizEditor = quiz => {
+    browserHistory.push(`/quiz/${quiz._id}/edit`, { quiz, editing: true })
+  }
+
+  useEffect(() => {
+    // load the quiz list once on load to ensure it's there
+    getQuizList(quizIds)
+    return clearQuizList
+  }, [quizIds])
+
   return (
-    <ul className='list-group'>
-      {quizzes.map((quiz, index) => {
-        const expiration = moment(quiz.expiresIn)
-        return (
-          <li key={index} className='list-group-item'>
-            <QuizItem
-              title={quiz.title}
-              timestamp={createTimestamp(
-                calculateTimeDifference(now, expiration)
-              )}
-              isExpired={checkIfQuizExpired(expiration)}
-              questionCount={quiz.questions.length}
-            />
-          </li>
-        )
-      })}
-    </ul>
+    <>
+      <div className='row mb-1 align-items-center'>
+        <h3 className='col mb-0'>Quizzes You Created:</h3>
+      </div>
+      <div className='row mb-1 align-items-center'>
+        <div className='col'>
+          <Link to='/quiz/create' className='btn btn-success btn-sm ml-auto'>
+            Create A Quiz
+          </Link>
+        </div>
+      </div>
+      <div className='row mb-1'>
+        <div className='col'>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <ul className='list-group w-100'>
+              {quizzes.map((quiz, index) => {
+                const expiration = moment(quiz.expiresIn)
+                return (
+                  <li key={index} className='list-group-item'>
+                    <QuizItem
+                      title={quiz.title}
+                      timestamp={createTimestamp(
+                        calculateTimeDifference(now, expiration)
+                      )}
+                      isExpired={checkIfQuizExpired(expiration)}
+                      questionCount={quiz.questions.length}
+                      onDelete={() => deleteQuiz(quiz)}
+                      onEdit={() => goToQuizEditor(quiz)}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </div>
+      </div>
+    </>
   )
 }
 
 QuizList.propTypes = {
-  quizList: PropTypes.object.isRequired
+  quizList: PropTypes.object.isRequired,
+  deleteQuiz: PropTypes.func.isRequired,
+  clearQuizList: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   quizList: state.quizList
 })
 
-export default connect(mapStateToProps)(QuizList)
+export default connect(mapStateToProps, {
+  deleteQuiz,
+  getQuizList,
+  clearQuizList
+})(QuizList)

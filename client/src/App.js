@@ -34,6 +34,7 @@ const App = () => {
             <Route exact path='/quiz/public' component={QuizBrowser} />
             <PrivateRoute exact path='/quiz/create' component={QuizEditor} />
             <Route exact path='/quiz/:id' component={Quiz} />
+            <PrivateRoute exact path='/quiz/:id/edit' component={QuizEditor} />
           </Switch>
         </Router>
       </PersistGate>

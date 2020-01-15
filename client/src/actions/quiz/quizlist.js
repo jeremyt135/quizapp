@@ -1,11 +1,11 @@
 import ActionTypes from '../types'
 
 /**
- * Loads a list of short quiz info from the server for displaying a user's list
+ * Loads a list of quiz info from the server for displaying a user's list
  * of quizzes.
  * @param {[string]} quizIds list of quiz ids
  */
-export const getQuizInfoList = quizIds => async dispatch => {
+export const getQuizList = quizIds => async dispatch => {
   const quizzes = []
   try {
     for (const id of quizIds) {
@@ -33,4 +33,10 @@ export const getQuizInfoList = quizIds => async dispatch => {
       type: ActionTypes.Quiz.LOAD_QUIZ_LIST_ERROR
     })
   }
+}
+
+export const clearQuizList = () => dispatch => {
+  dispatch({
+    type: ActionTypes.Quiz.CLEAR_QUIZLIST
+  })
 }

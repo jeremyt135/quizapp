@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 /**
  * Displays a text input for the user to input a list of allowed users
  */
-const AllowedUsersInput = ({ onChange, isValid }) => {
-  const [value, setValue] = useState('')
+const AllowedUsersInput = ({ defaultValue, onChange, isValid }) => {
+  const allowedUserStr = defaultValue.join(',')
+  const [value, setValue] = useState(allowedUserStr || '')
 
   const onInputChange = e => {
     setValue(e.target.value)
@@ -39,6 +40,7 @@ const AllowedUsersInput = ({ onChange, isValid }) => {
 }
 
 AllowedUsersInput.propTypes = {
+  defaultValue: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
   isValid: PropTypes.bool.isRequired
 }
