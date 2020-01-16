@@ -30,27 +30,15 @@ const Landing = () => {
               making quizzes is as easy as clicking buttons and editing text
               fields.
             </p>
-            <Link
-              className='btn btn-secondary btn-lg'
-              to='/quiz/create'
-              role='button'>
-              Make A Quiz
-            </Link>
           </section>
           <section className='col-md-6'>
             <h2>Privacy and control</h2>
             <p>
               Quizzes are set to private by default, which restricts access to
               only yourself and a list of allowed users (who can access the quiz
-              through its link). Turning off privacy makes the quiz available to
-              anyone on the site.
+              through its link or their profile). Public quizzes can be accessed
+              by anyone with the link.
             </p>
-            <Link
-              className='btn btn-secondary btn-lg'
-              to='/quiz/public'
-              role='button'>
-              Browse Quizzes
-            </Link>
           </section>
         </div>
       </div>
