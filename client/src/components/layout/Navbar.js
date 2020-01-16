@@ -26,11 +26,6 @@ const Navbar = ({ isAuthenticated, logout }) => {
       </button>
       <div className='collapse navbar-collapse' id='navMenu'>
         <ul className='navbar-nav ml-auto'>
-          <li>
-            <Link className='nav-item nav-link' to='/quiz/public'>
-              Browse
-            </Link>
-          </li>
           {isAuthenticated ? (
             <>
               <li>
