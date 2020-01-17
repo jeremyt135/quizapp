@@ -33,7 +33,7 @@ const Dashboard = ({
   useEffect(() => {
     getQuizList()
     return () => clearQuizList()
-  }, [user.data.quizzes.length])
+  }, [user.loading ? 0 : user.data.quizzes.length])
 
   const browserHistory = useHistory()
 
