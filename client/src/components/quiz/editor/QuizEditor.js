@@ -13,7 +13,7 @@ import Title from './layout/Title'
 import ExpirationPicker from './layout/ExpirationPicker'
 import QuestionList from './layout/QuestionList'
 
-import { postQuiz, editQuiz } from '../../../actions/quiz/quiz'
+import { postQuiz, postEditedQuiz } from '../../../actions/quiz/quiz'
 
 import '../../../styles/quiz.css'
 
@@ -67,9 +67,9 @@ const questionsReducer = (questions, action) => {
 /**
  * Displays subforms for editing a quiz and directly handles submission of the quiz.
  * @param {object} props Component props
- * @param {postQuiz} props.postQuiz Function to call when submitting the quiz to server
+ * @param {postQuiz} props.postEditedQuiz Function to call when submitting the quiz to server
  */
-const QuizEditor = ({ postQuiz, editQuiz }) => {
+const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
   // The default expiration date of a quiz
   const defaultExpiration = moment()
     .add(1, 'day')
@@ -185,7 +185,7 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
   }
 
   const submitEditedQuiz = () => {
-    editQuiz(
+    postEditedQuiz(
       {
         _id: quiz._id,
         title,
@@ -234,7 +234,7 @@ const QuizEditor = ({ postQuiz, editQuiz }) => {
 
 QuizEditor.propTypes = {
   postQuiz: PropTypes.func.isRequired,
-  editQuiz: PropTypes.func.isRequired
+  postEditedQuiz: PropTypes.func.isRequired
 }
 
-export default connect(null, { postQuiz, editQuiz })(QuizEditor)
+export default connect(null, { postQuiz, postEditedQuiz })(QuizEditor)

@@ -7,7 +7,7 @@ import ActionTypes from '../types'
  */
 export const loadUser = () => async dispatch => {
   try {
-    const response = await fetch('/api/user/me', {
+    const response = await fetch('/api/users/me', {
       method: 'GET',
       headers: {
         'x-auth-token': localStorage.getItem('token')
@@ -36,7 +36,7 @@ export const loadUser = () => async dispatch => {
  */
 export const changeUserInfo = (email, password) => async dispatch => {
   try {
-    const response = await fetch('/api/user/me', {
+    const response = await fetch('/api/users/me', {
       method: 'PUT',
       headers: {
         'x-auth-token': localStorage.getItem('token'),
@@ -63,7 +63,7 @@ export const changeUserInfo = (email, password) => async dispatch => {
  */
 export const deleteUser = () => async dispatch => {
   try {
-    const response = await fetch('/api/user/me', {
+    const response = await fetch('/api/users/me', {
       method: 'DELETE',
       headers: {
         'x-auth-token': localStorage.getItem('token')

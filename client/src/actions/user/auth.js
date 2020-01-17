@@ -10,7 +10,7 @@ import { loadUser } from './user'
  */
 export const register = (username, email, password) => async dispatch => {
   try {
-    const response = await fetch('/api/user', {
+    const response = await fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export const register = (username, email, password) => async dispatch => {
  */
 export const login = (username, password) => async dispatch => {
   try {
-    const response = await fetch('/api/auth', {
+    const response = await fetch('/api/users/auth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

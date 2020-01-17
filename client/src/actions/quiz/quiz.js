@@ -3,7 +3,7 @@ import { loadUser } from '../user/user'
 
 export const postQuiz = (quiz, onSuccess) => async dispatch => {
   try {
-    const response = await fetch('/api/quiz', {
+    const response = await fetch('/api/quizzes', {
       method: 'POST',
       headers: {
         'x-auth-token': localStorage.getItem('token'),
@@ -15,7 +15,7 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
       dispatch({
         type: ActionTypes.Quiz.CREATE_QUIZ
       })
-      // load the updated user data with quiz list
+      // load the updated user data
       dispatch(loadUser())
       onSuccess()
     } else {
@@ -29,9 +29,9 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
   }
 }
 
-export const editQuiz = (quiz, onSuccess) => async dispatch => {
+export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
   try {
-    const response = await fetch(`/api/quiz/${quiz._id}/edit`, {
+    const response = await fetch(`/api/quizzes/${quiz._id}/edit`, {
       method: 'PUT',
       headers: {
         'x-auth-token': localStorage.getItem('token'),
@@ -41,9 +41,9 @@ export const editQuiz = (quiz, onSuccess) => async dispatch => {
     })
     if (response.ok) {
       dispatch({
-        type: ActionTypes.Quiz.EDIT_QUIZ
+        type: ActionTypes.Quiz.POST_EDITED_QUIZ
       })
-      // load the updated user data with quiz list
+      // load the updated user data
       dispatch(loadUser())
       onSuccess()
     } else {
@@ -52,14 +52,39 @@ export const editQuiz = (quiz, onSuccess) => async dispatch => {
   } catch (error) {
     console.error(error)
     dispatch({
-      type: ActionTypes.Quiz.EDIT_QUIZ_ERROR
+      type: ActionTypes.Quiz.POST_EDITED_QUIZ_ERROR
+    })
+  }
+}
+
+export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
+  try {
+    // get the corresponding quiz
+    const response = await fetch(`/api/quizzes/${quizId}`, {
+      method: 'GET',
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    })
+    if (response.ok) {
+      const quiz = await response.json()
+      // go to quiz editor
+      dispatch({
+        type: ActionTypes.Quiz.EDIT_QUIZ
+      })
+      browserHistory.push(`/quiz/${quiz._id}/edit`, { quiz, editing: true })
+    }
+  } catch (error) {
+    console.error(error)
+    dispatch({
+      type: ActionTypes.User.EDIT_QUIZ_ERROR
     })
   }
 }
 
 export const deleteQuiz = quiz => async dispatch => {
   try {
-    const response = await fetch(`/api/quiz/${quiz._id}`, {
+    const response = await fetch(`/api/quizzes/${quiz._id}`, {
       method: 'DELETE',
       headers: {
         'x-auth-token': localStorage.getItem('token')

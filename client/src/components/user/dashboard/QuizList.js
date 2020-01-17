@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
-
 import PropTypes from 'prop-types'
+
 import QuizItem from './layout/QuizItem'
+import Spinner from '../../common/Spinner'
 
 import { deleteQuiz } from '../../../actions/quiz/quiz'
 
@@ -57,16 +58,16 @@ const createTimestamp = ({ days, months, years }) => {
  *
  * @param {object} props Component props
  * @param {[object]} props.quizzes list of quizzes to show
+ * @param {boolean} props.loading true if quizzes is still loading
  * @param {deleteQuiz} props.deleteQuiz Callback to delete a quiz
+ * @param {function} props.editQuiz Callback to go to quiz editor with quiz
  */
-const QuizList = ({ deleteQuiz, quizzes }) => {
-  const now = moment()
-
-  const browserHistory = useHistory()
-
-  const goToQuizEditor = quiz => {
-    browserHistory.push(`/quiz/${quiz._id}/edit`, { quiz, editing: true })
+const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
+  if (loading) {
+    return <Spinner />
   }
+  // store current time when component is mounted
+  const now = moment()
 
   return (
     <>
@@ -93,9 +94,9 @@ const QuizList = ({ deleteQuiz, quizzes }) => {
                       calculateTimeDifference(now, expiration)
                     )}
                     isExpired={checkIfQuizExpired(expiration)}
-                    questionCount={quiz.questions.length}
+                    questionCount={quiz.questionCount}
                     onDelete={() => deleteQuiz(quiz)}
-                    onEdit={() => goToQuizEditor(quiz)}
+                    onEdit={() => editQuiz(quiz._id)}
                   />
                 </li>
               )
@@ -108,8 +109,10 @@ const QuizList = ({ deleteQuiz, quizzes }) => {
 }
 
 QuizList.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  quizzes: PropTypes.array.isRequired,
   deleteQuiz: PropTypes.func.isRequired,
-  quizzes: PropTypes.array.isRequired
+  editQuiz: PropTypes.func.isRequired
 }
 
 export default QuizList

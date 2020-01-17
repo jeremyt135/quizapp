@@ -2,11 +2,9 @@ const ActionTypes = {
   Auth: {
     // User has successfully registered, action data contains JWT
     REGISTER_USER: 'REGISTER_USER',
-    // Error registering user
     REGISTER_ERROR: 'REGISTER_ERROR',
     // User has logged in, action data contains JWT
     LOGIN_USER: 'LOGIN_USER',
-    // Error logging user in
     LOGIN_ERROR: 'LOGIN_ERROR',
     // Catch-all clear current auth data (usually after user logout/delete)
     CLEAR_AUTH: 'CLEAR_AUTH'
@@ -14,15 +12,12 @@ const ActionTypes = {
   User: {
     // User data received from server, contained in action data
     LOAD_USER: 'LOAD_USER',
-    // Error loading user
     LOAD_USER_ERROR: 'LOAD_USER_ERROR',
     // User has changed their email or password
     CHANGE_USER_INFO: 'CHANGE_USER_INFO',
-    // Error changing user info
     CHANGE_USER_INFO_ERROR: 'CHANGE_USER_INFO_ERROR',
     // User deleted
     DELETE_USER: 'DELETE_USER',
-    // Failed to delete user,
     DELETE_USER_ERROR: 'DELETE_USER_ERROR',
     // Log the user out
     LOGOUT: 'LOGOUT'
@@ -30,11 +25,12 @@ const ActionTypes = {
   Quiz: {
     // User posting a quiz to server
     CREATE_QUIZ: 'CREATE_QUIZ',
-    // Error posting quiz
     CREATE_QUIZ_ERROR: 'CREATE_QUIZ_ERROR',
+    // User sends edited quiz to server
+    POST_EDITED_QUIZ: 'POST_EDITED_QUIZ',
+    POST_EDITED_QUIZ_ERROR: 'POST_EDITED_QUIZ_ERROR',
     // User getting the full quiz info from server
     LOAD_QUIZ: 'LOAD_QUIZ',
-    // Error getting quiz data
     LOAD_QUIZ_ERROR: 'LOAD_QUIZ_ERROR',
     // User getting a list of quiz info from server
     LOAD_QUIZ_LIST: 'LOAD_QUIZ_LIST',
@@ -42,7 +38,7 @@ const ActionTypes = {
     // User deletes one of their quizzes
     DELETE_QUIZ: 'DELETE_QUIZ',
     DELETE_QUIZ_ERROR: 'DELETE_QUIZ_ERROR',
-    // User editing a quiz they previously created
+    // User opening quiz editor
     EDIT_QUIZ: 'EDIT_QUIZ',
     EDIT_QUIZ_ERROR: 'EDIT_QUIZ_ERROR',
     CLEAR_QUIZLIST: 'CLEAR_QUIZLIST'
