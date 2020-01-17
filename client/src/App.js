@@ -8,7 +8,6 @@ import Landing from './components/layout/Landing'
 import Register from './components/user/Register'
 import Login from './components/user/Login'
 
-import QuizBrowser from './components/quiz/browse/QuizBrowser'
 import QuizEditor from './components/quiz/editor/QuizEditor'
 import Dashboard from './components/user/dashboard/Dashboard'
 import Quiz from './components/quiz/answer/Quiz'
@@ -31,7 +30,6 @@ const App = () => {
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <Route exact path='/quiz/public' component={QuizBrowser} />
             <PrivateRoute exact path='/quiz/create' component={QuizEditor} />
             <Route exact path='/quiz/:id' component={Quiz} />
             <PrivateRoute exact path='/quiz/:id/edit' component={QuizEditor} />
