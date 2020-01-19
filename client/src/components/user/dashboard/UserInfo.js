@@ -7,7 +7,12 @@ import EmailForm from './layout/EmailForm'
  * Displays the User's info to a dashboard block. Allows editing of password and email
  * through child components.
  */
-const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
+const UserInfo = ({
+  user,
+  changeUserEmail,
+  changeUserPassword,
+  deleteUser
+}) => {
   const [editingPassword, setEditingPassword] = useState(false)
   const [editingEmail, setEditingEmail] = useState(false)
 
@@ -18,14 +23,14 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
     day: 'numeric'
   })
 
-  const submitChanges = ({ email, password }) => {
-    if (email) {
-      setEditingEmail(false)
-    }
-    if (password) {
-      setEditingPassword(false)
-    }
-    changeUserInfo(email, password)
+  const submitPassword = password => {
+    setEditingPassword(false)
+    changeUserPassword(password)
+  }
+
+  const submitEmail = email => {
+    setEditingEmail(false)
+    changeUserEmail(email)
   }
 
   return (
@@ -48,7 +53,7 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
       {editingEmail ? (
         <EmailForm
           initialEmail={email}
-          submitChanges={submitChanges}
+          submitChanges={submitEmail}
           closeForm={() => setEditingEmail(false)}
         />
       ) : (
@@ -64,7 +69,7 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
       )}
       {editingPassword ? (
         <PasswordForm
-          submitChanges={submitChanges}
+          submitChanges={submitPassword}
           closeForm={() => setEditingPassword(false)}
         />
       ) : (
@@ -91,7 +96,8 @@ const UserInfo = ({ user, changeUserInfo, deleteUser }) => {
 
 UserInfo.propTypes = {
   user: PropTypes.object.isRequired,
-  changeUserInfo: PropTypes.func.isRequired,
+  changeUserEmail: PropTypes.func.isRequired,
+  changeUserPassword: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired
 }
 

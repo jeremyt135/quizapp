@@ -6,7 +6,11 @@ import PropTypes from 'prop-types'
 import UserInfo from './UserInfo'
 import Spinner from '../../common/Spinner'
 import QuizList from './QuizList'
-import { changeUserInfo, deleteUser } from '../../../actions/user/user'
+import {
+  changeUserEmail,
+  changeUserPassword,
+  deleteUser
+} from '../../../actions/user/user'
 import { deleteQuiz, goToQuizEditor } from '../../../actions/quiz/quiz'
 import { clearQuizList, getQuizList } from '../../../actions/quiz/quizlist'
 
@@ -19,7 +23,8 @@ const Dashboard = ({
   auth,
   user,
   quizList,
-  changeUserInfo,
+  changeUserEmail,
+  changeUserPassword,
   deleteUser,
   deleteQuiz,
   getQuizList,
@@ -45,7 +50,8 @@ const Dashboard = ({
         <section className='col-md-10 mx-auto'>
           <UserInfo
             user={user.data}
-            changeUserInfo={changeUserInfo}
+            changeUserEmail={changeUserEmail}
+            changeUserPassword={changeUserPassword}
             deleteUser={deleteUser}
           />
         </section>
@@ -67,7 +73,8 @@ const Dashboard = ({
 Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  changeUserInfo: PropTypes.func.isRequired,
+  changeUserEmail: PropTypes.func.isRequired,
+  changeUserPassword: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
   deleteQuiz: PropTypes.func.isRequired,
   getQuizList: PropTypes.func.isRequired,
@@ -82,7 +89,8 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  changeUserInfo,
+  changeUserEmail,
+  changeUserPassword,
   deleteUser,
   deleteQuiz,
   getQuizList,
