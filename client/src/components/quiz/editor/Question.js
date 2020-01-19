@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useRef } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import uuidv4 from 'uuid/v4'

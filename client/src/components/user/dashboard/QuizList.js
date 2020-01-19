@@ -6,8 +6,6 @@ import PropTypes from 'prop-types'
 import QuizItem from './layout/QuizItem'
 import Spinner from '../../common/Spinner'
 
-import { deleteQuiz } from '../../../actions/quiz/quiz'
-
 /**
  * Calculates the difference in days, months, years of two times
  * @param {moment} now
