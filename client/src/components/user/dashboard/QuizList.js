@@ -69,9 +69,14 @@ const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
 
   return (
     <>
-      <div className='row mb-1 align-items-center'>
+      <div className='row mb-2 align-items-center'>
         <h3 className='col mb-0'>Quizzes You Created:</h3>
       </div>
+      {quizzes.length === 0 ? (
+        <div className='row mb-2 align-items-center'>
+          <h6 className='col mb-0'>You haven't made any quizzes!</h6>
+        </div>
+      ) : null}
       <div className='row mb-1 align-items-center'>
         <div className='col'>
           <Link to='/quiz/create' className='btn btn-success btn-sm ml-auto'>
