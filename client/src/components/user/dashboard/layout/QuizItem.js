@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 /**
  * Displays the short info listing for a Quiz
  * @param {object} props Component props
+ * @param {string} props.id Id of the quiz
  * @param {string} props.title Title of the quiz
  * @param {string} props.timestamp Timestamp showing how old quiz is
  * @param {boolean} props.isExpired Value indicating if quiz has expired
@@ -13,6 +14,7 @@ import PropTypes from 'prop-types'
  * @param {editQuiz} props.onEdit Callback invoked when editing a quiz
  */
 const QuizItem = ({
+  id,
   title,
   timestamp,
   isExpired,
@@ -60,6 +62,11 @@ const QuizItem = ({
         </div>
       </div>
       <div className='row'>
+        <div className='col'>
+          <p className='mb-1'>Link: quizzes/{id}</p>
+        </div>
+      </div>
+      <div className='row'>
         <small className='col text-muted text-left'>Created {timestamp}</small>
         {isExpired ? (
           <small className='col text-danger text-right'>Expired</small>
@@ -70,6 +77,7 @@ const QuizItem = ({
 }
 
 QuizItem.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
   isExpired: PropTypes.bool.isRequired,

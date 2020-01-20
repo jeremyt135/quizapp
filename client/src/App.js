@@ -30,9 +30,17 @@ const App = () => {
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute exact path='/quiz/create' component={QuizEditor} />
-            <PrivateRoute exact path='/quiz/:id' component={QuizAnswerForm} />
-            <PrivateRoute exact path='/quiz/:id/edit' component={QuizEditor} />
+            <PrivateRoute exact path='/quizzes/create' component={QuizEditor} />
+            <PrivateRoute
+              exact
+              path='/quizzes/:id'
+              component={QuizAnswerForm}
+            />
+            <PrivateRoute
+              exact
+              path='/quizzes/:id/edit'
+              component={QuizEditor}
+            />
           </Switch>
         </Router>
       </PersistGate>

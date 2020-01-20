@@ -1,5 +1,6 @@
 import ActionTypes from '../types'
-
+import { getQuizList } from '../quiz/quizlist'
+import { getResultList } from '../quiz/resultlist'
 /**
  * Loads data for the User represented by the current JWT.
  * Dispatches an action of type LOAD_USER on success and
@@ -19,6 +20,8 @@ export const loadUser = () => async dispatch => {
         type: ActionTypes.User.LOAD_USER,
         data
       })
+      dispatch(getQuizList())
+      dispatch(getResultList())
     }
   } catch (error) {
     console.error(error)

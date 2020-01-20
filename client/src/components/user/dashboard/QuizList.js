@@ -79,7 +79,7 @@ const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
       ) : null}
       <div className='row mb-1 align-items-center'>
         <div className='col'>
-          <Link to='/quiz/create' className='btn btn-success btn-sm ml-auto'>
+          <Link to='/quizzes/create' className='btn btn-success btn-sm ml-auto'>
             Create A Quiz
           </Link>
         </div>
@@ -92,6 +92,7 @@ const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
               return (
                 <li key={index} className='list-group-item'>
                   <QuizItem
+                    id={quiz._id}
                     title={quiz.title}
                     timestamp={createTimestamp(
                       calculateTimeDifference(now, expiration)

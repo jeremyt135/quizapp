@@ -107,7 +107,7 @@ export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
       dispatch({
         type: ActionTypes.Quiz.EDIT_QUIZ
       })
-      browserHistory.push(`/quiz/${quiz._id}/edit`, { quiz, editing: true })
+      browserHistory.push(`/quizzes/${quiz._id}/edit`, { quiz, editing: true })
     }
   } catch (error) {
     console.error(error)

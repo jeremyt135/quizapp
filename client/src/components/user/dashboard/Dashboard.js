@@ -13,8 +13,13 @@ import {
 } from '../../../actions/user/user'
 import { deleteQuiz, goToQuizEditor } from '../../../actions/quiz/quiz'
 import { clearQuizList, getQuizList } from '../../../actions/quiz/quizlist'
+import {
+  clearResultList,
+  getResultList
+} from '../../../actions/quiz/resultlist'
 
 import '../../../styles/dashboard.css'
+import ResultList from './ResultList'
 
 /**
  * Dashboard for a user that shows their info and quizzes
@@ -23,6 +28,7 @@ const Dashboard = ({
   auth,
   user,
   quizList,
+  resultList,
   changeUserEmail,
   changeUserPassword,
   deleteUser,
@@ -34,12 +40,17 @@ const Dashboard = ({
   if (!auth.isAuthenticated) {
     return <Redirect to='/login' />
   }
-
   useEffect(() => {
-    getQuizList()
+    if (!user.loading) {
+      if (quizList.quizzes.length !== user.data.quizzes.length) {
+        getQuizList()
+      }
+      if (resultList.results.length !== user.data.results.length) {
+        getQuizList()
+      }
+    }
     return () => clearQuizList()
-  }, [user.loading ? 0 : user.data.quizzes.length])
-
+  }, [])
   const browserHistory = useHistory()
 
   return user.loading ? (
@@ -64,6 +75,11 @@ const Dashboard = ({
             deleteQuiz={deleteQuiz}
             editQuiz={id => goToQuizEditor(id, browserHistory)}
           />
+          <hr />
+          <ResultList
+            loading={resultList.loading}
+            results={resultList.results}
+          />
         </section>
       </div>
     </div>
@@ -79,13 +95,16 @@ Dashboard.propTypes = {
   deleteQuiz: PropTypes.func.isRequired,
   getQuizList: PropTypes.func.isRequired,
   clearQuizList: PropTypes.func.isRequired,
+  getResultList: PropTypes.func.isRequired,
+  clearResultList: PropTypes.func.isRequired,
   goToQuizEditor: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
   user: state.user,
-  quizList: state.quizList
+  quizList: state.quizList,
+  resultList: state.resultList
 })
 
 export default connect(mapStateToProps, {
@@ -95,5 +114,7 @@ export default connect(mapStateToProps, {
   deleteQuiz,
   getQuizList,
   clearQuizList,
+  getResultList,
+  clearResultList,
   goToQuizEditor
 })(Dashboard)

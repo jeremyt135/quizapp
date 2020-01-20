@@ -6,6 +6,7 @@ import { auth } from './user/auth'
 import { user } from './user/user'
 import { quiz } from './quiz/quiz'
 import { quizList } from './quiz/quizlist'
+import { resultList } from './quiz/resultlist'
 
 const rootPersistConfig = {
   key: 'root',
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, auth),
   user,
   quiz,
-  quizList
+  quizList,
+  resultList
 })
 
 export default persistReducer(rootPersistConfig, rootReducer)

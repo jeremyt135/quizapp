@@ -41,9 +41,14 @@ const ActionTypes = {
     // User opening quiz editor
     EDIT_QUIZ: 'EDIT_QUIZ',
     EDIT_QUIZ_ERROR: 'EDIT_QUIZ_ERROR',
+    // User submits answers to a quiz
     POST_ANSWERS: 'POST_ANSWERS',
     POST_ANSWERS_ERROR: 'POST_ANSWERS_ERROR',
+    // Load results listing for dashboard
+    LOAD_RESULT_LIST: 'LOAD_RESULT_LIST',
+    LOAD_RESULT_LIST_ERROR: 'LOAD_RESULT_LIST_ERROR',
     CLEAR_QUIZLIST: 'CLEAR_QUIZLIST',
+    CLEAR_RESULT_LIST: 'CLEAR_RESULT_LIST',
     CLEAR_QUIZ: 'CLEAR_QUIZ'
   }
   // Edit: {

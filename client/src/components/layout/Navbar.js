@@ -29,7 +29,7 @@ const Navbar = ({ isAuthenticated, logout }) => {
           {isAuthenticated ? (
             <>
               <li>
-                <Link className='nav-item nav-link' to='/quiz/create'>
+                <Link className='nav-item nav-link' to='/quizzes/create'>
                   Create
                 </Link>
               </li>
