@@ -26,7 +26,6 @@ const QuizAnswerForm = ({
   const { id: quizId } = useParams()
 
   useEffect(() => {
-    console.log('getquiz')
     getQuiz(quizId)
     return clearQuiz
   }, [])
