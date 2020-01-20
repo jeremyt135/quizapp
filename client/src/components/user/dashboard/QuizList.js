@@ -92,6 +92,7 @@ const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
                       calculateTimeDifference(now, expiration)
                     )}
                     isExpired={checkIfQuizExpired(expiration)}
+                    resultCount={quiz.resultsCount}
                     questionCount={quiz.questionCount}
                     onDelete={() => deleteQuiz(quiz)}
                     onEdit={() => editQuiz(quiz._id)}

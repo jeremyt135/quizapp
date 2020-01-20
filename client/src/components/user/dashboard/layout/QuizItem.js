@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
  * @param {string} props.timestamp Timestamp showing how old quiz is
  * @param {boolean} props.isExpired Value indicating if quiz has expired
  * @param {number} props.questionCount Number of questions in quiz
+ * @param {number} props.resultCount Number of results (responses) to quiz
  * @param {deleteQuiz} props.onDelete Callback invoked when deleting a quiz
  * @param {editQuiz} props.onEdit Callback invoked when editing a quiz
  */
@@ -16,6 +17,7 @@ const QuizItem = ({
   timestamp,
   isExpired,
   questionCount,
+  resultCount,
   onDelete,
   onEdit
 }) => {
@@ -46,7 +48,14 @@ const QuizItem = ({
       <div className='row'>
         <div className='col'>
           <p className='mb-1'>
-            {questionCount} {questionCount > 1 ? 'Questions' : 'Question'}
+            {questionCount} {questionCount === 1 ? 'Question' : 'Questions'}
+          </p>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <p className='mb-1'>
+            {resultCount} {resultCount === 1 ? 'Response' : 'Responses'}
           </p>
         </div>
       </div>
@@ -65,6 +74,7 @@ QuizItem.propTypes = {
   timestamp: PropTypes.string.isRequired,
   isExpired: PropTypes.bool.isRequired,
   questionCount: PropTypes.number.isRequired,
+  resultCount: PropTypes.number.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired
 }

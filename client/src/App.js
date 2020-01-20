@@ -10,7 +10,7 @@ import Login from './components/user/Login'
 
 import QuizEditor from './components/quiz/editor/QuizEditor'
 import Dashboard from './components/user/dashboard/Dashboard'
-import Quiz from './components/quiz/answer/Quiz'
+import QuizAnswerForm from './components/quiz/answer/QuizAnswerForm'
 import createStore from './store/store'
 
 import PrivateRoute from './components/routing/PrivateRoute'
@@ -31,7 +31,7 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/quiz/create' component={QuizEditor} />
-            <Route exact path='/quiz/:id' component={Quiz} />
+            <PrivateRoute exact path='/quiz/:id' component={QuizAnswerForm} />
             <PrivateRoute exact path='/quiz/:id/edit' component={QuizEditor} />
           </Switch>
         </Router>
