@@ -24,7 +24,8 @@ import AnswerText from './layout/AnswerText'
  * @param {string} props.questionName The name of the parent question
  * @param {onChange} props.onChange function to invoke when Answer data changes
  * @param {remove} props.remove function to invoke when Answer should be removed
- * @param {bool} props.correct represents whether this answer should be considered correct
+ * @param {boolean} props.correct represents whether this answer should be considered correct
+ * @param {boolean} props.disabled True if checkboxes can be pressed to change correct answer
  */
 const Answer = ({
   index,
@@ -33,7 +34,8 @@ const Answer = ({
   onChange,
   onChecked,
   remove,
-  correct
+  correct,
+  disabled
 }) => {
   const id = `${questionName}answer${index}`
 
@@ -58,12 +60,14 @@ const Answer = ({
                 value='1'
                 onChange={() => onChecked(index)}
                 checked={correct}
+                disabled={disabled}
               />
               <label htmlFor={id}>{index + 1}.</label>
             </div>
             <button
               className='btn btn-danger btn-sm ml-auto'
-              onClick={() => remove(index)}>
+              onClick={() => remove(index)}
+              disabled={disabled}>
               Delete
             </button>
           </div>
@@ -85,7 +89,8 @@ Answer.propTypes = {
   onChange: PropTypes.func.isRequired,
   onChecked: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
-  correct: PropTypes.bool.isRequired
+  correct: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired
 }
 
 export default Answer

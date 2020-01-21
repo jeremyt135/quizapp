@@ -28,6 +28,7 @@ import Question from '../Question'
 /**
  * Presentational component that displays a list of Question components
  * @param {object} props Component props
+ * @param {boolean} props.editing True if questions are being edited
  * @param {Array} props.questions Array of Question objects to display
  * @param {{text: string, correctAnswer: number, answers: Array}} props.defaultValue Default Question data
  * @param {onChange} props.onChangeQuestion function to invoke when Question data changes
@@ -35,6 +36,7 @@ import Question from '../Question'
  * @param {remove} props.remove function to invoke when Question should be removed
  */
 const QuestionList = ({
+  editing,
   questions,
   onChangeQuestion,
   addQuestion,
@@ -45,6 +47,7 @@ const QuestionList = ({
       {questions.map((question, index) => (
         <Question
           key={uuidv4()}
+          editing={editing}
           index={index}
           defaultValue={question}
           onChange={onChangeQuestion}
@@ -63,6 +66,7 @@ const QuestionList = ({
 }
 
 QuestionList.propTypes = {
+  editing: PropTypes.bool.isRequired,
   questions: PropTypes.array.isRequired,
   onChangeQuestion: PropTypes.func.isRequired,
   addQuestion: PropTypes.func.isRequired,

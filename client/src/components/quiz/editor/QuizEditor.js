@@ -216,6 +216,7 @@ const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
             onChange={changeExpiresIn}
           />
           <QuestionList
+            editing={editing}
             questions={questions}
             onChangeQuestion={changeQuestion}
             addQuestion={addQuestion}
