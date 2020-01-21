@@ -71,7 +71,8 @@ const QuizAnswerForm = ({
         </div>
       </div>
       <Footer
-        text={'Submit'}
+        cancelText='Cancel'
+        confirmText={'Submit'}
         onCancel={goToDashboard}
         onConfirm={submitAnswers}
       />

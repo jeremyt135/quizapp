@@ -225,7 +225,8 @@ const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
         </section>
       </div>
       <Footer
-        text={editing ? 'Confirm edits' : 'Submit'}
+        cancelText='Cancel'
+        confirmText={editing ? 'Confirm edits' : 'Submit'}
         onCancel={goBackToDashboard}
         onConfirm={editing ? submitEditedQuiz : submitNewQuiz}
       />
