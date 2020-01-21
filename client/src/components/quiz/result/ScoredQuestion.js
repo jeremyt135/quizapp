@@ -11,7 +11,9 @@ const ScoredQuestion = ({ index: questionIndex, text, answers, result }) => {
         {result.correctAnswer !== undefined ? (
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
-              <h5 className='mb-0'>Correct answer: {result.correctAnswer}</h5>
+              <h5 className='mb-0'>
+                Correct answer: {result.correctAnswer + 1}
+              </h5>
             </div>
           </div>
         ) : null}
