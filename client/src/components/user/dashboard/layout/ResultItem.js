@@ -1,14 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 /**
  * Displays the brief info for a result
  * @param {object} props Component props
- * @param {string} props.title Title of the quiz
- * @param {number} props.score User's score on quiz
- * @param {string} props.createdBy User who created quiz
+ * @param {object} props.result Result object
+ * @param {string} props.result.title Title of the quiz
+ * @param {number} props.result.score User's score on quiz
+ * @param {string} props.result.createdBy User who created quiz
  */
-const ResultItem = ({ title, score, createdBy }) => {
+const ResultItem = ({
+  result: {
+    quiz: quizId,
+    user: userId,
+    quizTitle: title,
+    score,
+    ownerUsername: createdBy
+  }
+}) => {
+  const browserHistory = useHistory()
+  const goToResult = () => {
+    browserHistory.push(`/results?quiz=${quizId}&user=${userId}`)
+  }
+  // console.log(props)
   return (
     <>
       <div className='row mb-1 align-items-center'>
@@ -16,7 +31,10 @@ const ResultItem = ({ title, score, createdBy }) => {
           <h4 className='mb-0'>{title}</h4>
         </div>
         <div className='col d-flex align-items-center justify-content-end'>
-          <button className='btn btn-primary btn-sm ml-1' type='button'>
+          <button
+            className='btn btn-primary btn-sm ml-1'
+            type='button'
+            onClick={() => goToResult()}>
             Details
           </button>
         </div>
@@ -31,12 +49,6 @@ const ResultItem = ({ title, score, createdBy }) => {
       </div>
     </>
   )
-}
-
-ResultItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  score: PropTypes.number.isRequired,
-  createdBy: PropTypes.string.isRequired
 }
 
 export default ResultItem

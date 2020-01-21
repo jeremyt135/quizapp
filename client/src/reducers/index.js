@@ -5,13 +5,14 @@ import storage from 'redux-persist/lib/storage'
 import { auth } from './user/auth'
 import { user } from './user/user'
 import { quiz } from './quiz/quiz'
-import { quizList } from './quiz/quizlist'
-import { resultList } from './quiz/resultlist'
+import { result } from './result/result'
+import { quizList } from './user/quizlist'
+import { resultList } from './user/resultlist'
 
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'quizList']
+  blacklist: ['auth', 'quizList', 'resultList', 'quiz', 'result']
 }
 const authPersistConfig = {
   key: 'auth',
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, auth),
   user,
   quiz,
+  result,
   quizList,
   resultList
 })

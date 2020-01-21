@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import QuizItem from './layout/QuizItem'
 import Spinner from '../../common/Spinner'
 
-import { clearQuizList, getQuizList } from '../../../actions/quiz/quizlist'
+import { clearQuizList, getQuizList } from '../../../actions/user/quizlist'
 import { deleteQuiz, goToQuizEditor } from '../../../actions/quiz/quiz'
 
 /**

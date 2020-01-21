@@ -89,7 +89,7 @@ QuizAnswerForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  quiz: state.quiz.quiz,
+  quiz: state.quiz.data,
   loading: state.quiz.loading
 })
 

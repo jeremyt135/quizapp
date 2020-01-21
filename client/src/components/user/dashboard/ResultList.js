@@ -8,7 +8,7 @@ import Spinner from '../../common/Spinner'
 import {
   clearResultList,
   getResultList
-} from '../../../actions/quiz/resultlist'
+} from '../../../actions/user/resultlist'
 
 /**
  *
@@ -44,11 +44,7 @@ const ResultList = ({ loading, results, getResultList, clearResultList }) => {
                 results.map((result, index) => {
                   return (
                     <li key={index} className='list-group-item'>
-                      <ResultItem
-                        title={result.quizTitle}
-                        score={result.score}
-                        createdBy={result.ownerUsername}
-                      />
+                      <ResultItem result={result} />
                     </li>
                   )
                 })

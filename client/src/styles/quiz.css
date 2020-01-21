@@ -7,3 +7,7 @@
 .answer--selected {
   border: 2px solid rgb(54, 202, 41);
 }
+
+.answer--incorrect {
+  border: 2px solid rgb(202, 41, 41);
+}

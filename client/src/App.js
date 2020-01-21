@@ -11,6 +11,8 @@ import Login from './components/user/Login'
 import QuizEditor from './components/quiz/editor/QuizEditor'
 import Dashboard from './components/user/dashboard/Dashboard'
 import QuizAnswerForm from './components/quiz/answer/QuizAnswerForm'
+import QuizResult from './components/quiz/result/QuizResult'
+
 import createStore from './store/store'
 
 import PrivateRoute from './components/routing/PrivateRoute'
@@ -41,6 +43,7 @@ const App = () => {
               path='/quizzes/:id/edit'
               component={QuizEditor}
             />
+            <PrivateRoute path='/results' component={QuizResult} />
           </Switch>
         </Router>
       </PersistGate>

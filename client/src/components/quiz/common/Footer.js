@@ -14,12 +14,17 @@ const Footer = ({ confirmText, cancelText, onCancel, onConfirm }) => {
     <footer className='footer bg-light'>
       <div className='container h-100'>
         <div className='col-md-8 mx-auto h-100 d-flex align-items-center justify-content-end'>
-          <button className='btn btn-secondary ml-1' onClick={onCancel}>
-            {cancelText}
-          </button>
-          <button className='btn btn-success ml-1' onClick={onConfirm}>
-            {confirmText}
-          </button>
+          {cancelText && onConfirm ? (
+            <button className='btn btn-secondary ml-1' onClick={onCancel}>
+              {cancelText}
+            </button>
+          ) : null}
+
+          {confirmText && onConfirm ? (
+            <button className='btn btn-success ml-1' onClick={onConfirm}>
+              {confirmText}
+            </button>
+          ) : null}
         </div>
       </div>
     </footer>
@@ -27,10 +32,10 @@ const Footer = ({ confirmText, cancelText, onCancel, onConfirm }) => {
 }
 
 Footer.propTypes = {
-  confirmText: PropTypes.string.isRequired,
-  cancelText: PropTypes.string.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired
+  confirmText: PropTypes.string,
+  cancelText: PropTypes.string,
+  onCancel: PropTypes.func,
+  onConfirm: PropTypes.func
 }
 
 export default Footer

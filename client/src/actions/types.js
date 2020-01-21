@@ -50,20 +50,13 @@ const ActionTypes = {
     CLEAR_QUIZLIST: 'CLEAR_QUIZLIST',
     CLEAR_RESULT_LIST: 'CLEAR_RESULT_LIST',
     CLEAR_QUIZ: 'CLEAR_QUIZ'
+  },
+  Result: {
+    // User loads quiz results
+    LOAD_RESULT: 'LOAD_RESULT',
+    LOAD_RESULT_ERROR: 'LOAD_RESULT_ERROR',
+    CLEAR_RESULT: 'CLEAR_RESULT'
   }
-  // Edit: {
-  //   EDIT_TITLE: 'EDIT_TITLE',
-  //   ADD_QUESTION: 'ADD_QUESTION',
-  //   REMOVE_QUESTION: 'REMOVE_QUESTION',
-  //   ADD_ANSWER: 'ADD_ANSWER',
-  //   REMOVE_ANSWER: 'REMOVE_ANSWER',
-  //   SELECT_CORRECT_ANSWER: 'SELECT_CORRECT_ANSWER',
-  //   SAVE_QUIZ: 'SAVE_QUIZ'
-  // },
-  // Answer: {
-  //   CHANGE_ANSWER: 'CHANGE_ANSWER',
-  //   SUBMIT_QUIZ: 'SUBMIT_QUIZ'
-  // }
 }
 
 export default ActionTypes
