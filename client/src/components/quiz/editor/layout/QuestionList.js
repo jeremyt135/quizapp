@@ -56,7 +56,10 @@ const QuestionList = ({
       ))}
       <div className='row mt-4'>
         <div className='col d-flex align-items-center justify-content-start'>
-          <button className='btn btn-primary btn-sm' onClick={addQuestion}>
+          <button
+            className='btn btn-primary btn-sm'
+            onClick={addQuestion}
+            disabled={editing}>
             Add Question
           </button>
         </div>
