@@ -1,10 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
 import QuizItem from './layout/QuizItem'
 import Spinner from '../../common/Spinner'
+
+import { clearQuizList, getQuizList } from '../../../actions/quiz/quizlist'
+import { deleteQuiz, goToQuizEditor } from '../../../actions/quiz/quiz'
 
 /**
  * Calculates the difference in days, months, years of two times
@@ -47,25 +51,31 @@ const createTimestamp = ({ days, months, years }) => {
 }
 
 /**
- * Deletes a quiz by id
- * @callback deleteQuiz
- * @param {object} quiz quiz to delete
- */
-
-/**
  *
  * @param {object} props Component props
- * @param {[object]} props.quizzes list of quizzes to show
- * @param {boolean} props.loading true if quizzes is still loading
- * @param {deleteQuiz} props.deleteQuiz Callback to delete a quiz
- * @param {function} props.editQuiz Callback to go to quiz editor with quiz
+ * @param {boolean} props.loading True if quiz list is loading
+ * @param {[object]} props.quizzes List of quizzes
+ * @param {function} props.deleteQuiz Function to delete a quiz
+ * @param {function} props.getQuizList Function to get quiz list
+ * @param {function} props.clearQuizList Function to clear quiz list
  */
-const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
-  if (loading) {
-    return <Spinner />
-  }
+const QuizList = ({
+  loading,
+  quizzes,
+  deleteQuiz,
+  getQuizList,
+  clearQuizList,
+  goToQuizEditor
+}) => {
+  const browserHistory = useHistory()
+
   // store current time when component is mounted
   const now = moment()
+
+  useEffect(() => {
+    getQuizList()
+    return clearQuizList
+  }, [])
 
   return (
     <>
@@ -84,29 +94,34 @@ const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
           </Link>
         </div>
       </div>
+
       <div className='row mb-1'>
         <div className='col'>
-          <ul className='list-group w-100'>
-            {quizzes.map((quiz, index) => {
-              const expiration = moment(quiz.expiresIn)
-              return (
-                <li key={index} className='list-group-item'>
-                  <QuizItem
-                    id={quiz._id}
-                    title={quiz.title}
-                    timestamp={createTimestamp(
-                      calculateTimeDifference(now, expiration)
-                    )}
-                    isExpired={checkIfQuizExpired(expiration)}
-                    resultCount={quiz.resultsCount}
-                    questionCount={quiz.questionCount}
-                    onDelete={() => deleteQuiz(quiz)}
-                    onEdit={() => editQuiz(quiz._id)}
-                  />
-                </li>
-              )
-            })}
-          </ul>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <ul className='list-group w-100'>
+              {quizzes.map((quiz, index) => {
+                const expiration = moment(quiz.expiresIn)
+                return (
+                  <li key={index} className='list-group-item'>
+                    <QuizItem
+                      id={quiz._id}
+                      title={quiz.title}
+                      timestamp={createTimestamp(
+                        calculateTimeDifference(now, expiration)
+                      )}
+                      isExpired={checkIfQuizExpired(expiration)}
+                      resultCount={quiz.resultsCount}
+                      questionCount={quiz.questionCount}
+                      onDelete={() => deleteQuiz(quiz)}
+                      onEdit={() => goToQuizEditor(quiz._id, browserHistory)}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
         </div>
       </div>
     </>
@@ -115,9 +130,21 @@ const QuizList = ({ loading, quizzes, deleteQuiz, editQuiz }) => {
 
 QuizList.propTypes = {
   loading: PropTypes.bool.isRequired,
-  quizzes: PropTypes.array.isRequired,
+  quizzes: PropTypes.array,
   deleteQuiz: PropTypes.func.isRequired,
-  editQuiz: PropTypes.func.isRequired
+  getQuizList: PropTypes.func.isRequired,
+  clearQuizList: PropTypes.func.isRequired,
+  goToQuizEditor: PropTypes.func.isRequired
 }
 
-export default QuizList
+const mapStateToProps = state => ({
+  loading: state.quizList.loading,
+  quizzes: state.quizList.quizzes
+})
+
+export default connect(mapStateToProps, {
+  getQuizList,
+  deleteQuiz,
+  goToQuizEditor,
+  clearQuizList
+})(QuizList)

@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 import PasswordForm from './layout/PasswordForm'
 import EmailForm from './layout/EmailForm'
+
+import {
+  changeUserEmail,
+  changeUserPassword,
+  deleteUser
+} from '../../../actions/user/user'
 
 /**
  * Displays the User's info to a dashboard block. Allows editing of password and email
@@ -16,7 +24,7 @@ const UserInfo = ({
   const [editingPassword, setEditingPassword] = useState(false)
   const [editingEmail, setEditingEmail] = useState(false)
 
-  const { username, email, date } = user
+  const { username, email, date } = user.data
   const dateString = new Date(date).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
@@ -101,4 +109,12 @@ UserInfo.propTypes = {
   deleteUser: PropTypes.func.isRequired
 }
 
-export default UserInfo
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, {
+  changeUserEmail,
+  changeUserPassword,
+  deleteUser
+})(UserInfo)
