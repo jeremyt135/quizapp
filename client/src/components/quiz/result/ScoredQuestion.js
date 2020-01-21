@@ -23,7 +23,11 @@ const ScoredQuestion = ({ index: questionIndex, text, answers, result }) => {
             index={index}
             text={answer.text}
             selected={index === result.choice}
-            correct={result.isCorrect}
+            correct={
+              result.correctAnswer !== undefined
+                ? result.correctAnswer === index
+                : result.isCorrect
+            }
           />
         ))}
       </div>

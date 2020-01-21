@@ -2,8 +2,9 @@ import React from 'react'
 
 const Answer = ({ index, text, selected, correct }) => {
   let border = ''
-  if (correct) {
-    border = 'answer--selected'
+
+  if (correct || (selected && correct)) {
+    border = 'answer--correct'
   } else if (selected) {
     border = 'answer--incorrect'
   }

@@ -4,6 +4,7 @@
   border-radius: 5px;
 }
 
+.answer--correct,
 .answer--selected {
   border: 2px solid rgb(54, 202, 41);
 }
