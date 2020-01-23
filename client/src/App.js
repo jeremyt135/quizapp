@@ -17,6 +17,8 @@ import createStore from './store/store'
 
 import PrivateRoute from './components/routing/PrivateRoute'
 
+import ErrorPage from './components/errors/ErrorPage'
+
 import './styles/theme.css'
 
 let { store, persistor } = createStore()
@@ -44,6 +46,7 @@ const App = () => {
               component={QuizEditor}
             />
             <PrivateRoute path='/results' component={QuizResult} />
+            <Route render={() => <ErrorPage status={404} />} />
           </Switch>
         </Router>
       </PersistGate>

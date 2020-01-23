@@ -1,0 +1,20 @@
+html,
+body {
+  height: 100%;
+}
+
+.error-container {
+  height: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-widget {
+  position: relative;
+  top: -60px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
