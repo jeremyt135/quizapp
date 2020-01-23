@@ -17,7 +17,10 @@ const Question = ({
     <div className='row'>
       <div className='col'>
         <h2 className='mb-2'>
-          {questionIndex + 1}. {text}
+          {questionIndex + 1}. {text}{' '}
+          {highlightMissing && answerIndex === null ? (
+            <i className='fas fa-exclamation-triangle text-danger'></i>
+          ) : null}
         </h2>
         {highlightMissing && answerIndex === null ? (
           <h5 className='text-danger mb-2'>Please select an answer.</h5>
