@@ -5,36 +5,45 @@ import PropTypes from 'prop-types'
 
 import QuestionList from './QuestionList'
 import Footer from '../common/Footer'
+import Spinner from '../../common/Spinner'
+import ErrorPage from '../../errors/ErrorPage'
 
 import {
   getQuizForm,
   clearQuiz,
   postQuizAnswers
 } from '../../../actions/quiz/quiz'
+import { getResult } from '../../../actions/result/result'
 
 import '../../../styles/quiz.css'
-import Spinner from '../../common/Spinner'
+import QuizTakenError from './QuizTakenError'
 
 const QuizAnswerForm = ({
+  user,
+  result,
   quiz,
   loading,
+  error,
   getQuiz,
   clearQuiz,
-  postQuizAnswers
+  postQuizAnswers,
+  getResult
 }) => {
   const browserHistory = useHistory()
   const { id: quizId } = useParams()
 
+  // Load the quiz from the route params on mount
   useEffect(() => {
     getQuiz(quizId)
+    getResult(quizId, user)
     return clearQuiz
   }, [])
 
   const answers = useRef(null)
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !error) {
       answers.current = Array.from({ length: quiz.questions.length }, () => {
-        return { choice: 0 }
+        return {}
       })
     }
   }, [loading])
@@ -51,9 +60,22 @@ const QuizAnswerForm = ({
     postQuizAnswers(quizId, answers.current, goToDashboard)
   }
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  if (loading) {
+    return <Spinner />
+  }
+
+  if (error) {
+    const status = error.status
+    if (status !== 400) {
+      return <ErrorPage status={status} />
+    }
+  }
+
+  if (!result.loading && result.data) {
+    return <QuizTakenError />
+  }
+
+  return (
     <>
       <div className='container'>
         <div className='content col-md-8 mx-auto mt-3'>
@@ -67,7 +89,11 @@ const QuizAnswerForm = ({
               <h3>By {quiz.user}</h3>
             </div>
           </div>
-          <QuestionList questions={quiz.questions} onChange={changeAnswer} />
+          <QuestionList
+            error={error}
+            questions={quiz.questions}
+            onChange={changeAnswer}
+          />
         </div>
       </div>
       <Footer
@@ -85,16 +111,21 @@ QuizAnswerForm.propTypes = {
   loading: PropTypes.bool.isRequired,
   getQuiz: PropTypes.func.isRequired,
   clearQuiz: PropTypes.func.isRequired,
-  postQuizAnswers: PropTypes.func.isRequired
+  postQuizAnswers: PropTypes.func.isRequired,
+  getResult: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
+  user: state.user.data._id,
+  result: state.result,
   quiz: state.quiz.data,
-  loading: state.quiz.loading
+  loading: state.quiz.loading,
+  error: state.quiz.error
 })
 
 export default connect(mapStateToProps, {
   getQuiz: getQuizForm,
   clearQuiz,
-  postQuizAnswers
+  postQuizAnswers,
+  getResult
 })(QuizAnswerForm)

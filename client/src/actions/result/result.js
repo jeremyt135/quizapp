@@ -13,8 +13,9 @@ const fetchResult = async (quizId, userId) => {
     if (response.ok) {
       result = await response.json()
     } else {
+      const contentType = response.headers.get('Content-Type')
       const error =
-        response.headers.get('Content-Type') === 'application/json'
+        contentType && contentType.startsWith('application/json')
           ? await response.json()
           : response.status
       errors.push(error)
@@ -38,10 +39,11 @@ const fetchUser = async userId => {
     if (response.ok) {
       user = await response.json()
     } else {
-      const error =
-        response.headers.get('Content-Type') === 'application/json'
-          ? await response.json()
-          : response.status
+      const error = response.headers
+        .get('Content-Type')
+        .startsWith('application/json')
+        ? await response.json()
+        : response.status
       errors.push(error)
     }
   } catch (error) {

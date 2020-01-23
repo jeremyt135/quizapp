@@ -1,5 +1,6 @@
 import ActionTypes from '../types'
 import { loadUser } from '../user/user'
+import { parseError } from '../parse-error'
 
 export const getQuizForm = quizId => async dispatch => {
   try {
@@ -11,21 +12,22 @@ export const getQuizForm = quizId => async dispatch => {
     })
     if (response.ok) {
       const quiz = await response.json()
-
       dispatch({
         type: ActionTypes.Quiz.LOAD_QUIZ,
         data: quiz
       })
     } else {
-      console.error(response)
+      const error = await parseError(response)
       dispatch({
-        type: ActionTypes.Quiz.LOAD_QUIZ_ERROR
+        type: ActionTypes.Quiz.LOAD_QUIZ_ERROR,
+        data: error
       })
     }
   } catch (error) {
-    console.error(error)
+    // network failure or other error
     dispatch({
-      type: ActionTypes.Quiz.LOAD_QUIZ_ERROR
+      type: ActionTypes.Quiz.LOAD_QUIZ_ERROR,
+      data: { status: 500, errors: [error.message] }
     })
   }
 }
@@ -54,12 +56,16 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
       dispatch(loadUser())
       onSuccess()
     } else {
-      // some validation error from server
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.Quiz.CREATE_QUIZ_ERROR,
+        data: error
+      })
     }
   } catch (error) {
-    console.error(error)
     dispatch({
-      type: ActionTypes.Quiz.CREATE_QUIZ_ERROR
+      type: ActionTypes.Quiz.CREATE_QUIZ_ERROR,
+      data: { status: 500, errors: [error.message] }
     })
   }
 }
@@ -82,12 +88,16 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
       dispatch(loadUser())
       onSuccess()
     } else {
-      // some validation error from server
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.Quiz.POST_EDITED_QUIZ_ERROR,
+        data: error
+      })
     }
   } catch (error) {
-    console.error(error)
     dispatch({
-      type: ActionTypes.Quiz.POST_EDITED_QUIZ_ERROR
+      type: ActionTypes.Quiz.POST_EDITED_QUIZ_ERROR,
+      data: { status: 500, errors: [error.message] }
     })
   }
 }
@@ -101,18 +111,15 @@ export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
         'x-auth-token': localStorage.getItem('token')
       }
     })
+    let quiz = null
     if (response.ok) {
-      const quiz = await response.json()
-      // go to quiz editor
-      dispatch({
-        type: ActionTypes.Quiz.EDIT_QUIZ
-      })
-      browserHistory.push(`/quizzes/${quiz._id}/edit`, { quiz, editing: true })
+      quiz = await response.json()
     }
+    browserHistory.push(`/quizzes/${quiz._id}/edit`, { quiz, editing: true })
   } catch (error) {
-    console.error(error)
     dispatch({
-      type: ActionTypes.User.EDIT_QUIZ_ERROR
+      type: ActionTypes.User.LOAD_QUIZ_ERROR,
+      data: { status: 500, errors: [error.message] }
     })
   }
 }
@@ -132,12 +139,17 @@ export const deleteQuiz = quiz => async dispatch => {
       // load the updated user data with quiz list
       dispatch(loadUser())
     } else {
-      // some error from server
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.Quiz.DELETE_QUIZ_ERROR,
+        data: error
+      })
     }
   } catch (error) {
     console.error(error)
     dispatch({
-      type: ActionTypes.Quiz.DELETE_QUIZ_ERROR
+      type: ActionTypes.Quiz.DELETE_QUIZ_ERROR,
+      data: { status: 500, errors: [error.message] }
     })
   }
 }
@@ -164,14 +176,17 @@ export const postQuizAnswers = (
       dispatch(loadUser())
       onSuccess()
     } else {
-      // some validation error from server
-      const err = await response.json()
-      console.error(err)
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.Quiz.POST_ANSWERS_ERROR,
+        data: error
+      })
     }
   } catch (error) {
     console.error(error)
     dispatch({
-      type: ActionTypes.Quiz.POST_ANSWERS_ERROR
+      type: ActionTypes.Quiz.POST_ANSWERS_ERROR,
+      data: { status: 500, errors: [error.message] }
     })
   }
 }

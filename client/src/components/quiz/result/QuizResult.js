@@ -17,9 +17,7 @@ function useQuery() {
 }
 
 const QuizResult = ({
-  quizLoading,
   quiz,
-  resultLoading,
   result,
   getResult,
   clearResult,
@@ -44,7 +42,7 @@ const QuizResult = ({
     browserHistory.push('/dashboard')
   }
 
-  if ((quizLoading, resultLoading)) {
+  if (quiz.loading || result.loading) {
     return <Spinner />
   }
 
@@ -55,19 +53,21 @@ const QuizResult = ({
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
               <h1 className='mb-0'>
-                {result.username}'s results for: <br />"{quiz.title}"
+                {result.data.username}'s results for: <br />"{quiz.data.title}"
               </h1>
             </div>
           </div>
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
-              <h3>By {quiz.user}</h3>
+              <h3>By {quiz.data.user}</h3>
             </div>
           </div>
           <hr />
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
-              <h3 className='mb-0'>Overall score: {result.score * 100.0}%</h3>
+              <h3 className='mb-0'>
+                Overall score: {result.data.score * 100.0}%
+              </h3>
             </div>
           </div>
           <hr />
@@ -77,8 +77,8 @@ const QuizResult = ({
             </div>
           </div>
           <ScoredQuestionList
-            questions={quiz.questions}
-            results={result.answers}
+            questions={quiz.data.questions}
+            results={result.data.answers}
           />
         </div>
       </div>
@@ -88,10 +88,8 @@ const QuizResult = ({
 }
 
 QuizResult.propTypes = {
-  quizLoading: PropTypes.bool.isRequired,
-  quiz: PropTypes.object,
-  resultLoading: PropTypes.bool.isRequired,
-  result: PropTypes.object,
+  quiz: PropTypes.object.isRequired,
+  result: PropTypes.object.isRequired,
   getResult: PropTypes.func.isRequired,
   clearResult: PropTypes.func.isRequired,
   getQuiz: PropTypes.func.isRequired,
@@ -99,10 +97,8 @@ QuizResult.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  quizLoading: state.quiz.loading,
-  quiz: state.quiz.data,
-  resultLoading: state.result.loading,
-  result: state.result.data
+  quiz: state.quiz,
+  result: state.result
 })
 
 export default connect(mapStateToProps, {

@@ -3,7 +3,7 @@ import Question from './Question'
 
 import PropTypes from 'prop-types'
 
-const QuestionList = ({ questions, onChange }) => {
+const QuestionList = ({ error, questions, onChange }) => {
   return (
     <>
       {questions.map((question, index) => (
@@ -13,6 +13,7 @@ const QuestionList = ({ questions, onChange }) => {
           text={question.text}
           answers={question.answers}
           onChange={onChange}
+          highlightMissing={error && error.status === 400}
         />
       ))}
     </>
@@ -20,6 +21,7 @@ const QuestionList = ({ questions, onChange }) => {
 }
 
 QuestionList.propTypes = {
+  error: PropTypes.object,
   questions: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired
 }
