@@ -1,23 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { useFormData } from '../../../util/useFormData'
+import { useFormData } from '../../util/useFormData'
 
 /**
- * Displays and controls a form for the user to change their password.
+ * Displays and controls a form for the user to change their email.
  */
-const PasswordForm = ({ submitChanges, closeForm }) => {
+const EmailForm = ({ initialEmail, submitChanges, closeForm }) => {
   const [formData, handleChange] = useFormData({
-    password: '',
-    confirmPassword: ''
+    email: ''
   })
 
-  const { password, confirmPassword } = formData
+  const { email } = formData
 
   const onSubmit = e => {
     e.preventDefault()
-    if (password !== '' && password === confirmPassword) {
-      submitChanges({ password })
+    if (email !== '' && email !== initialEmail) {
+      submitChanges({ email })
     }
   }
 
@@ -29,22 +28,10 @@ const PasswordForm = ({ submitChanges, closeForm }) => {
             <div className='col'>
               <input
                 className=' form-control'
-                type='password'
-                placeholder='New password'
-                name='password'
-                value={password}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className='row my-2'>
-            <div className='col'>
-              <input
-                className=' form-control'
-                type='password'
-                placeholder='Confirm new password'
-                name='confirmPassword'
-                value={confirmPassword}
+                type='email'
+                placeholder='New email'
+                name='email'
+                value={email}
                 onChange={handleChange}
               />
             </div>
@@ -74,9 +61,10 @@ const PasswordForm = ({ submitChanges, closeForm }) => {
   )
 }
 
-PasswordForm.propTypes = {
+EmailForm.propTypes = {
+  initialEmail: PropTypes.string.isRequired,
   submitChanges: PropTypes.func.isRequired,
   closeForm: PropTypes.func.isRequired
 }
 
-export default PasswordForm
+export default EmailForm

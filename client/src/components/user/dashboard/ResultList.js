@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import ResultItem from './layout/ResultItem'
+import ResultItem from './/ResultItem'
 import Spinner from '../../common/Spinner'
 
 import {

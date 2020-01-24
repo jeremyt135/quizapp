@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import PasswordForm from './layout/PasswordForm'
-import EmailForm from './layout/EmailForm'
+import PasswordForm from './/PasswordForm'
+import EmailForm from './/EmailForm'
 
 import {
   changeUserEmail,
