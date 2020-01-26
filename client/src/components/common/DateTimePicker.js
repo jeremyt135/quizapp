@@ -15,38 +15,40 @@ const momentFormat = 'MM-DD-YYYY h:mm A'
 /**
  * Displays an input for the user to select a date and time.
  */
-const DateTimePicker = ({ id, defaultValue, minValue, onChange }) => {
-  const [dateTime, setDateTime] = useState(moment(defaultValue))
+const DateTimePicker = React.memo(
+  ({ id, defaultValue, minValue, onChange }) => {
+    const [dateTime, setDateTime] = useState(moment(defaultValue))
 
-  const inputRef = useRef(null)
+    const inputRef = useRef(null)
 
-  useEffect(() => {
-    const datePicker = flatpickr(inputRef.current, {
-      dateFormat: flatpickrFormat,
-      defaultDate: dateTime.format(momentFormat).toString(),
-      minDate: moment(minValue)
-        .format(momentFormat)
-        .toString(),
-      enableTime: true,
-      minuteIncrement: 1,
-      onClose: (_, dateStr) => {
-        setDateTime(moment(dateStr, momentFormat))
-        onChange(moment(dateStr, momentFormat).toISOString())
-      }
-    })
-    return () => datePicker.destroy()
-  })
-  return (
-    <input
-      type='text'
-      className='form-control date-time-picker'
-      id={id}
-      placeholder='Select date and time'
-      ref={inputRef}
-      readOnly={true}
-    />
-  )
-}
+    useEffect(() => {
+      const datePicker = flatpickr(inputRef.current, {
+        dateFormat: flatpickrFormat,
+        defaultDate: dateTime.format(momentFormat).toString(),
+        minDate: moment(minValue)
+          .format(momentFormat)
+          .toString(),
+        enableTime: true,
+        minuteIncrement: 1,
+        onClose: (_, dateStr) => {
+          setDateTime(moment(dateStr, momentFormat))
+          onChange(moment(dateStr, momentFormat).toISOString())
+        }
+      })
+      return () => datePicker.destroy()
+    }, [])
+    return (
+      <input
+        type='text'
+        className='form-control date-time-picker'
+        id={id}
+        placeholder='Select date and time'
+        ref={inputRef}
+        readOnly={true}
+      />
+    )
+  }
+)
 
 DateTimePicker.propTypes = {
   id: PropTypes.string,

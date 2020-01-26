@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import '../../styles/register.css'
 
-import { register } from '../../actions/user/auth'
+import { register } from '../../actions/auth'
 import { useFormData } from '../util/useFormData'
 
 /**

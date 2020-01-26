@@ -1,6 +1,6 @@
-import ActionTypes from '../types'
-import { getQuizList } from './quizlist'
-import { getResultList } from './resultlist'
+import ActionTypes from './types'
+import { parseError } from './parse-error'
+import { loadDashboard } from './dashboard'
 /**
  * Loads data for the User represented by the current JWT.
  * Dispatches an action of type LOAD_USER on success and
@@ -20,8 +20,7 @@ export const loadUser = () => async dispatch => {
         type: ActionTypes.User.LOAD_USER,
         data
       })
-      dispatch(getQuizList())
-      dispatch(getResultList())
+      dispatch(loadDashboard())
     }
   } catch (error) {
     console.error(error)
@@ -123,4 +122,33 @@ export const logout = () => dispatch => {
   dispatch({
     type: ActionTypes.Auth.CLEAR_AUTH
   })
+}
+
+/**
+ * Deletes a user's quiz
+ */
+export const deleteQuiz = quiz => async dispatch => {
+  try {
+    const response = await fetch(`/api/quizzes/${quiz}`, {
+      method: 'DELETE',
+      headers: {
+        'x-auth-token': localStorage.getItem('token')
+      }
+    })
+    if (response.ok) {
+      dispatch({
+        type: ActionTypes.User.DELETE_QUIZ
+      })
+      // load the updated user data with quiz list
+      dispatch(loadUser())
+    } else {
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.User.DELETE_QUIZ_ERROR,
+        data: error
+      })
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }

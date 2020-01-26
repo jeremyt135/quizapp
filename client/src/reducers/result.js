@@ -1,20 +1,20 @@
-import ActionTypes from '../../actions/types'
+import ActionTypes from '../actions/types'
 
 export const result = (
-  state = { data: null, errors: null, loading: true },
+  state = { result: null, errors: null, loading: true },
   action
 ) => {
   switch (action.type) {
     case ActionTypes.Result.LOAD_RESULT_ERROR:
     case ActionTypes.Result.CLEAR_RESULT:
       return {
-        data: null,
+        result: null,
         errors: [],
         loading: true
       }
     case ActionTypes.Result.LOAD_RESULT:
       return {
-        data: { ...action.data },
+        result: { ...action.data },
         errors: null,
         loading: false
       }

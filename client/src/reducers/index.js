@@ -2,17 +2,17 @@ import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { auth } from './user/auth'
-import { user } from './user/user'
-import { quiz } from './quiz/quiz'
-import { result } from './result/result'
-import { quizList } from './user/quizlist'
-import { resultList } from './user/resultlist'
+import { auth } from './auth'
+import { user } from './user'
+import { quiz } from './quiz'
+import { result } from './result'
+import { dashboard } from './dashboard'
+import { editor } from './editor'
 
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'quizList', 'resultList', 'quiz', 'result']
+  blacklist: ['auth', 'quiz', 'result', 'dashboard', 'editor']
 }
 const authPersistConfig = {
   key: 'auth',
@@ -25,8 +25,8 @@ const rootReducer = combineReducers({
   user,
   quiz,
   result,
-  quizList,
-  resultList
+  dashboard,
+  editor
 })
 
 export default persistReducer(rootPersistConfig, rootReducer)

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { deleteQuiz, goToQuizEditor } from '../../../actions/quiz/quiz'
+import { deleteQuiz } from '../../../actions/user'
+import { goToQuizEditor } from '../../../actions/editor'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import { loadDashboard } from '../../../actions/dashboard'
 
 /**
  * Calculates the difference in days, months, years of two times
@@ -52,13 +54,13 @@ const createTimestamp = ({ days, months, years }) => {
  * @param {string} props.quiz.id Id of the quiz
  * @param {string} props.quiz.title Title of the quiz
  * @param {string} props.quiz.expiresIn Expiration date of quiz
- * @param {number} props.quiz.resultCount Number of results
+ * @param {number} props.quiz.resultsCount Number of results
  * @param {number} props.quiz.questionCount Number of questions
  * @param {function} props.goToQuizEditor Action creator function to edit quiz
  * @param {function} props.deleteQuiz Action creator function to delete quiz
  */
 const QuizItem = ({
-  quiz: { _id: id, title, expiresIn, questionCount, resultCount },
+  quiz: { _id: id, title, expiresIn, questionCount, resultsCount },
   deleteQuiz,
   goToQuizEditor
 }) => {
@@ -73,7 +75,6 @@ const QuizItem = ({
     setTimestamp(createTimestamp(calculateTimeDifference(now, expiration)))
     setIsExpired(checkIfQuizExpired(expiration))
   }, [])
-
   return (
     <>
       <div className='row mb-1 align-items-center'>
@@ -108,7 +109,7 @@ const QuizItem = ({
       <div className='row'>
         <div className='col'>
           <p className='mb-1'>
-            {resultCount} {resultCount === 1 ? 'Response' : 'Responses'}
+            {resultsCount} {resultsCount === 1 ? 'Response' : 'Responses'}
           </p>
         </div>
       </div>

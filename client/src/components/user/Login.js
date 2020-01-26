@@ -5,7 +5,7 @@ import '../../styles/login.css'
 
 import PropTypes from 'prop-types'
 
-import { login } from '../../actions/user/auth'
+import { login } from '../../actions/auth'
 import { useFormData } from '../util/useFormData'
 
 const Login = ({ isAuthenticated, login }) => {

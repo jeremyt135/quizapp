@@ -8,12 +8,8 @@ import Footer from '../common/Footer'
 import Spinner from '../../common/Spinner'
 import ErrorPage from '../../errors/ErrorPage'
 
-import {
-  getQuizForm,
-  clearQuiz,
-  postQuizAnswers
-} from '../../../actions/quiz/quiz'
-import { getResult } from '../../../actions/result/result'
+import { getQuiz, clearQuiz, postQuizAnswers } from '../../../actions/quiz'
+import { getResult } from '../../../actions/result'
 
 import '../../../styles/quiz.css'
 import QuizTakenError from './QuizTakenError'
@@ -29,6 +25,7 @@ const QuizAnswerForm = ({
   postQuizAnswers,
   getResult
 }) => {
+  console.log(loading)
   const browserHistory = useHistory()
   const { id: quizId } = useParams()
 
@@ -116,15 +113,15 @@ QuizAnswerForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.data._id,
+  user: state.user.user._id,
   result: state.result,
-  quiz: state.quiz.data,
+  quiz: state.quiz.quiz,
   loading: state.quiz.loading,
   error: state.quiz.error
 })
 
 export default connect(mapStateToProps, {
-  getQuiz: getQuizForm,
+  getQuiz,
   clearQuiz,
   postQuizAnswers,
   getResult

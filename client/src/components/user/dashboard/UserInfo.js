@@ -9,7 +9,7 @@ import {
   changeUserEmail,
   changeUserPassword,
   deleteUser
-} from '../../../actions/user/user'
+} from '../../../actions/user'
 
 /**
  * Displays the User's info to a dashboard block. Allows editing of password and email
@@ -24,7 +24,7 @@ const UserInfo = ({
   const [editingPassword, setEditingPassword] = useState(false)
   const [editingEmail, setEditingEmail] = useState(false)
 
-  const { username, email, date } = user.data
+  const { username, email, date } = user.user
   const dateString = new Date(date).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',

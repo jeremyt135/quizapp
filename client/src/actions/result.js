@@ -1,4 +1,4 @@
-import ActionTypes from '../types'
+import ActionTypes from './types'
 
 const fetchResult = async (quizId, userId) => {
   let result = null

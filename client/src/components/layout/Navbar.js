@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { logout } from '../../actions/user/user'
+import { logout } from '../../actions/user'
 
 const Navbar = ({ isAuthenticated, logout }) => {
   const history = useHistory()

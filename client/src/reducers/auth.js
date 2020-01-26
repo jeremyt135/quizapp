@@ -1,4 +1,4 @@
-import ActionTypes from '../../actions/types'
+import ActionTypes from '../actions/types'
 
 export const auth = (
   state = {

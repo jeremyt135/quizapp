@@ -7,8 +7,8 @@ import Footer from '../common/Footer'
 import Spinner from '../../common/Spinner'
 import ScoredQuestionList from './ScoredQuestionList'
 
-import { getResult, clearResult } from '../../../actions/result/result'
-import { getQuizForm, clearQuiz } from '../../../actions/quiz/quiz'
+import { getResult, clearResult } from '../../../actions/result'
+import { getQuiz, clearQuiz } from '../../../actions/quiz'
 
 import '../../../styles/quiz.css'
 
@@ -41,7 +41,6 @@ const QuizResult = ({
   const goToDashboard = () => {
     browserHistory.push('/dashboard')
   }
-
   if (quiz.loading || result.loading) {
     return <Spinner />
   }
@@ -53,20 +52,21 @@ const QuizResult = ({
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
               <h1 className='mb-0'>
-                {result.data.username}'s results for: <br />"{quiz.data.title}"
+                {result.result.username}'s results for: <br />"{quiz.quiz.title}
+                "
               </h1>
             </div>
           </div>
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
-              <h3>By {quiz.data.user}</h3>
+              <h3>By {quiz.quiz.user}</h3>
             </div>
           </div>
           <hr />
           <div className='row mb-4'>
             <div className='col d-flex align-items-center'>
               <h3 className='mb-0'>
-                Overall score: {result.data.score * 100.0}%
+                Overall score: {result.result.score * 100.0}%
               </h3>
             </div>
           </div>
@@ -77,8 +77,8 @@ const QuizResult = ({
             </div>
           </div>
           <ScoredQuestionList
-            questions={quiz.data.questions}
-            results={result.data.answers}
+            questions={quiz.quiz.questions}
+            results={result.result.answers}
           />
         </div>
       </div>
@@ -104,6 +104,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getResult,
   clearResult,
-  getQuiz: getQuizForm,
+  getQuiz,
   clearQuiz
 })(QuizResult)

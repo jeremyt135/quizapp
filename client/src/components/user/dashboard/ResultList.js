@@ -1,29 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ResultItem from './ResultItem'
 import Spinner from '../../common/Spinner'
 
-import {
-  clearResultList,
-  getResultList
-} from '../../../actions/user/resultlist'
-
 /**
  *
  * @param {object} props Component props
  * @param {[object]} props.results list of results to show
  * @param {boolean} props.loading true if results is still loading
- * @param {function} getResultList function to get result list
- * @param {function} clearResultList function to clear result list
  */
-const ResultList = ({ loading, results, getResultList, clearResultList }) => {
-  useEffect(() => {
-    getResultList()
-    return clearResultList
-  }, [])
-
+const ResultList = ({ loading, results }) => {
   return (
     <>
       <div className='row mb-2 align-items-center'>
@@ -59,16 +47,12 @@ const ResultList = ({ loading, results, getResultList, clearResultList }) => {
 
 ResultList.propTypes = {
   loading: PropTypes.bool.isRequired,
-  results: PropTypes.array,
-  getResultList: PropTypes.func.isRequired,
-  clearResultList: PropTypes.func.isRequired
+  results: PropTypes.array
 }
 
 const mapStateToProps = state => ({
-  loading: state.resultList.loading,
-  results: state.resultList.results
+  loading: state.dashboard.loading,
+  results: state.dashboard.results
 })
 
-export default connect(mapStateToProps, { getResultList, clearResultList })(
-  ResultList
-)
+export default connect(mapStateToProps)(ResultList)

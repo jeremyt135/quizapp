@@ -13,7 +13,7 @@ import Title from './layout/Title'
 import ExpirationPicker from './layout/ExpirationPicker'
 import QuestionList from './layout/QuestionList'
 
-import { postQuiz, postEditedQuiz } from '../../../actions/quiz/quiz'
+import { postQuiz, postEditedQuiz } from '../../../actions/editor'
 
 import '../../../styles/quiz.css'
 
