@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 
-import QuizItem from './/QuizItem'
+import QuizItem from './QuizItem'
 import Spinner from '../../common/Spinner'
 
 import { clearQuizList, getQuizList } from '../../../actions/user/quizlist'
