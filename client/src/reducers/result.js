@@ -1,23 +1,29 @@
 import ActionTypes from '../actions/types'
 
 export const result = (
-  state = { result: null, errors: null, loading: true },
+  state = { result: null, error: null, loading: true },
   action
 ) => {
   switch (action.type) {
-    case ActionTypes.Result.LOAD_RESULT_ERROR:
     case ActionTypes.Result.CLEAR_RESULT:
       return {
         result: null,
-        errors: [],
+        error: null,
         loading: true
       }
     case ActionTypes.Result.LOAD_RESULT:
       return {
         result: { ...action.data },
-        errors: null,
+        error: null,
         loading: false
       }
+    case ActionTypes.Result.LOAD_RESULT_ERROR:
+      return {
+        result: null,
+        error: action.data,
+        loading: false
+      }
+
     default:
       return state
   }

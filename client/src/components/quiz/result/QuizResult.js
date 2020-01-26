@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import Footer from '../common/Footer'
 import Spinner from '../../common/Spinner'
 import ScoredQuestionList from './ScoredQuestionList'
+import ErrorPage from '../../errors/ErrorPage'
 
 import { getResult, clearResult } from '../../../actions/result'
 import { getQuiz, clearQuiz } from '../../../actions/quiz'
@@ -41,8 +42,16 @@ const QuizResult = ({
   const goToDashboard = () => {
     browserHistory.push('/dashboard')
   }
+
   if (quiz.loading || result.loading) {
     return <Spinner />
+  }
+
+  if (result.error) {
+    return <ErrorPage status={result.error.status} />
+  }
+  if (quiz.error) {
+    return <ErrorPage status={quiz.error.status} />
   }
 
   return (
