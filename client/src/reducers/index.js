@@ -12,16 +12,11 @@ import { editor } from './editor'
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth', 'quiz', 'result', 'dashboard', 'editor']
-}
-const authPersistConfig = {
-  key: 'auth',
-  storage,
-  blacklist: ['token']
+  blacklist: ['quiz', 'result', 'dashboard', 'editor']
 }
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, auth),
+  auth,
   user,
   quiz,
   result,

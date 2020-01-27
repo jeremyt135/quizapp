@@ -63,3 +63,12 @@ export const login = (username, password) => async dispatch => {
     })
   }
 }
+
+/**
+ * Clears the auth data (token, isAuthenticated)
+ */
+export const clearAuth = () => dispatch => {
+  dispatch({
+    type: ActionTypes.Auth.CLEAR_AUTH
+  })
+}
