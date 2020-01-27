@@ -21,6 +21,7 @@ const PasswordForm = ({ changeUserPassword }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const handleChange = e => {
+    setFormError('')
     setPasswordInput({
       ...passwordInput,
       [e.target.name]: e.target.value

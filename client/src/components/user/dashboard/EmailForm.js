@@ -15,6 +15,7 @@ const EmailForm = ({ initialEmail, changeUserEmail }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const handleChange = e => {
+    setFormError('')
     setEmail(e.target.value)
   }
 
