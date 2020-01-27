@@ -24,11 +24,11 @@ const Login = ({ isAuthenticated, login }) => {
 
   const handleFailure = error => {
     if (error && error.status === 400) {
-      for (const error of error.errors) {
-        if (error.username) {
+      for (const err of error.errors) {
+        if (err.username) {
           setUsernameError(error.username)
         }
-        if (error.password) {
+        if (err.password) {
           setPasswordError(error.password)
         }
       }

@@ -51,4 +51,8 @@ const ResultItem = ({
   )
 }
 
+ResultItem.propTypes = {
+  result: PropTypes.object.isRequired
+}
+
 export default ResultItem

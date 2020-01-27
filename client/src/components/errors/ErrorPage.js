@@ -14,6 +14,8 @@ const ErrorPage = ({ status }) => {
     case 500:
       message = 'Internal server error.'
       break
+    default:
+      message = ''
   }
   return (
     <div className='container error-container'>

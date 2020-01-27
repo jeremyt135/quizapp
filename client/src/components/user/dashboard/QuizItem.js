@@ -5,7 +5,6 @@ import { deleteQuiz } from '../../../actions/user'
 import { goToQuizEditor } from '../../../actions/editor'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { loadDashboard } from '../../../actions/dashboard'
 
 /**
  * Calculates the difference in days, months, years of two times

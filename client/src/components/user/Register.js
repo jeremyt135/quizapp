@@ -44,12 +44,11 @@ const Register = ({ isAuthenticated, register }) => {
   }
 
   const handleFailure = error => {
-    console.log(error)
     if (error && (error.status === 400 || error.status === 409)) {
-      for (const error of error.errors) {
+      for (const err of error.errors) {
         setFormError(prev => ({
           ...prev,
-          ...error
+          ...err
         }))
       }
     }

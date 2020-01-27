@@ -65,6 +65,5 @@ export default {
   User,
   Editor,
   Quiz,
-  Quiz,
   Result
 }
