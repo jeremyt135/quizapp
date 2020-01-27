@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../../styles/login.css'
@@ -9,20 +9,37 @@ import { login } from '../../actions/auth'
 import { useFormData } from '../util/useFormData'
 
 const Login = ({ isAuthenticated, login }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />
+  }
+
   const [formData, handleChange] = useFormData({
     username: '',
     password: ''
   })
 
+  const [usernameError, setUsernameError] = useState(null)
+  const [passwordError, setPasswordError] = useState(null)
   const { username, password } = formData
+
+  const handleFailure = error => {
+    if (error && error.status === 400) {
+      for (const error of error.errors) {
+        if (error.username) {
+          setUsernameError(error.username)
+        }
+        if (error.password) {
+          setPasswordError(error.password)
+        }
+      }
+    }
+  }
 
   const onSubmit = e => {
     e.preventDefault()
-    login(username, password)
-  }
-
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />
+    setUsernameError(null)
+    setPasswordError(null)
+    login(username, password, handleFailure)
   }
 
   return (
@@ -34,22 +51,32 @@ const Login = ({ isAuthenticated, login }) => {
             <fieldset className='form-group'>
               <input
                 type='text'
-                className='form-control mb-2'
+                className={
+                  'form-control my-2' + (usernameError ? ' is-invalid' : '')
+                }
                 name='username'
                 value={username}
                 onChange={handleChange}
                 placeholder='Username'
                 required
               />
+              {usernameError ? (
+                <div className='invalid-feedback'>{usernameError}</div>
+              ) : null}
               <input
                 type='password'
-                className='form-control'
+                className={
+                  'form-control my-2' + (passwordError ? ' is-invalid' : '')
+                }
                 name='password'
                 value={password}
                 onChange={handleChange}
                 placeholder='Password'
                 required
               />
+              {passwordError ? (
+                <div className='invalid-feedback'>{passwordError}</div>
+              ) : null}
             </fieldset>
             <input className='btn btn-primary' type='submit' value='Login' />
           </form>
@@ -64,11 +91,13 @@ const Login = ({ isAuthenticated, login }) => {
 
 Login.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  loginError: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  loginError: state.auth.error
 })
 
 export default connect(mapStateToProps, { login })(Login)

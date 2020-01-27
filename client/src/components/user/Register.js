@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -6,29 +6,64 @@ import PropTypes from 'prop-types'
 import '../../styles/register.css'
 
 import { register } from '../../actions/auth'
-import { useFormData } from '../util/useFormData'
 
 /**
  * Handles user registration through a form.
  */
 const Register = ({ isAuthenticated, register }) => {
-  const [formData, handleChange] = useFormData({
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirm: ''
-  })
-
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />
   }
 
-  const { username, email, password, passwordConfirm } = formData
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [passwordInput, setPasswordInput] = useState({
+    password: '',
+    passwordConfirm: ''
+  })
+  const [formError, setFormError] = useState(null)
+
+  const { password, passwordConfirm } = passwordInput
+
+  const handleUsernameChange = e => {
+    setFormError(prev => ({ ...prev, username: undefined }))
+    setUsername(e.target.value)
+  }
+
+  const handleEmailChange = e => {
+    setFormError(prev => ({ ...prev, email: undefined }))
+    setEmail(e.target.value)
+  }
+
+  const handlePasswordChange = e => {
+    setFormError(prev => ({ ...prev, password: undefined }))
+    setPasswordInput({
+      ...passwordInput,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleFailure = error => {
+    console.log(error)
+    if (error && (error.status === 400 || error.status === 409)) {
+      for (const error of error.errors) {
+        setFormError(prev => ({
+          ...prev,
+          ...error
+        }))
+      }
+    }
+  }
 
   const submitForm = e => {
     e.preventDefault()
     if (password === passwordConfirm) {
-      register(username, email, password)
+      setFormError({ password: undefined })
+      register(username, email, password, handleFailure)
+    } else {
+      setFormError({
+        password: 'Passwords do not match.'
+      })
     }
   }
 
@@ -41,40 +76,68 @@ const Register = ({ isAuthenticated, register }) => {
             <fieldset className='form-group'>
               <input
                 type='text'
-                className='form-control mb-2'
+                className={
+                  'form-control mb-2' +
+                  (formError && formError.username ? ' is-invalid' : '')
+                }
                 name='username'
                 value={username}
-                onChange={handleChange}
+                onChange={handleUsernameChange}
                 placeholder='Username'
+                minLength={5}
                 required
               />
+              {formError && formError.username ? (
+                <div className='invalid-feedback'>
+                  {formError && formError.username}
+                </div>
+              ) : null}
               <input
                 type='text'
-                className='form-control mb-2'
+                className={
+                  'form-control mb-2' +
+                  (formError && formError.email ? ' is-invalid' : '')
+                }
                 name='email'
                 value={email}
-                onChange={handleChange}
+                onChange={handleEmailChange}
                 placeholder='Email'
                 required
               />
+              {formError && formError.email ? (
+                <div className='invalid-feedback'>
+                  {formError && formError.email}
+                </div>
+              ) : null}
               <input
                 type='password'
-                className='form-control mb-2'
+                className={
+                  'form-control mb-2' +
+                  (formError && formError.password ? ' is-invalid' : '')
+                }
                 name='password'
                 value={password}
-                onChange={handleChange}
+                onChange={handlePasswordChange}
                 placeholder='Password'
                 required
               />
               <input
                 type='password'
-                className='form-control'
+                className={
+                  'form-control' +
+                  (formError && formError.password ? ' is-invalid' : '')
+                }
                 name='passwordConfirm'
                 value={passwordConfirm}
-                onChange={handleChange}
+                onChange={handlePasswordChange}
                 placeholder='Confirm Password'
                 required
               />
+              {formError && formError.password ? (
+                <div className='invalid-feedback'>
+                  {formError && formError.password}
+                </div>
+              ) : null}
             </fieldset>
             <input className='btn btn-primary' type='submit' value='Register' />
           </form>

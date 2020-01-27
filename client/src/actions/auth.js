@@ -1,14 +1,20 @@
 import ActionTypes from './types'
 import { loadUser } from './user'
-
+import { parseError } from './parse-error'
 /**
  * Registers a new User with the server. Dispatches an action of type REGISTER_USER on success
  * and REGISTER_ERROR otherwise.
  * @param {string} username
  * @param {string} email
  * @param {string} password
+ * @param {function(object)} callback Function called with action has dispatched
  */
-export const register = (username, email, password) => async dispatch => {
+export const register = (
+  username,
+  email,
+  password,
+  callback
+) => async dispatch => {
   try {
     const response = await fetch('/api/users', {
       method: 'POST',
@@ -24,12 +30,16 @@ export const register = (username, email, password) => async dispatch => {
         data
       })
       dispatch(loadUser())
+      callback(null)
+    } else {
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.Auth.REGISTER_ERROR
+      })
+      callback(error)
     }
   } catch (error) {
     console.error(error)
-    dispatch({
-      type: ActionTypes.Auth.REGISTER_ERROR
-    })
   }
 }
 
@@ -38,8 +48,9 @@ export const register = (username, email, password) => async dispatch => {
  * Dispatches an action of type LOGIN_USER on success and LOGIN_ERROR otherwise.
  * @param {string} username
  * @param {string} password
+ * @param {function(object)} callback Function called with action has dispatched
  */
-export const login = (username, password) => async dispatch => {
+export const login = (username, password, callback) => async dispatch => {
   try {
     const response = await fetch('/api/users/auth', {
       method: 'POST',
@@ -55,12 +66,16 @@ export const login = (username, password) => async dispatch => {
         data
       })
       dispatch(loadUser())
+      callback(null)
+    } else {
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.Auth.LOGIN_ERROR
+      })
+      callback(error)
     }
   } catch (error) {
     console.error(error)
-    dispatch({
-      type: ActionTypes.Auth.LOGIN_ERROR
-    })
   }
 }
 
