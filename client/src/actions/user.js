@@ -21,12 +21,15 @@ export const loadUser = () => async dispatch => {
         data
       })
       dispatch(loadDashboard())
+    } else {
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.User.LOAD_USER_ERROR,
+        data: error
+      })
     }
   } catch (error) {
     console.error(error)
-    dispatch({
-      type: ActionTypes.User.LOAD_USER_ERROR
-    })
   }
 }
 
@@ -34,8 +37,9 @@ export const loadUser = () => async dispatch => {
  * Changes a User's email. Dispatches an action with type CHANGE_USER_INFO
  * on success and CHANGE_USER_INFO_ERROR otherwise.
  * @param {string} email New email to replace current
+ * @param {function(object)} callback Callback when action completed
  */
-export const changeUserEmail = email => async dispatch => {
+export const changeUserEmail = (email, callback) => async dispatch => {
   try {
     const response = await fetch('/api/users/me/email', {
       method: 'PUT',
@@ -43,19 +47,20 @@ export const changeUserEmail = email => async dispatch => {
         'x-auth-token': localStorage.getItem('token'),
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(email)
+      body: JSON.stringify({ email })
     })
     if (response.ok) {
       dispatch({
         type: ActionTypes.User.CHANGE_USER_INFO
       })
       dispatch(loadUser())
+      callback(null)
+    } else {
+      const error = await parseError(response)
+      callback(error)
     }
   } catch (error) {
     console.error(error)
-    dispatch({
-      type: ActionTypes.User.CHANGE_USER_INFO_ERROR
-    })
   }
 }
 
@@ -63,8 +68,9 @@ export const changeUserEmail = email => async dispatch => {
  * Changes a User's login password. Dispatches an action with type CHANGE_USER_INFO
  * on success and CHANGE_USER_INFO_ERROR otherwise.
  * @param {string} password New password to replace current
+ * @param {function(object)} callback Callback when action completed
  */
-export const changeUserPassword = password => async dispatch => {
+export const changeUserPassword = (password, callback) => async dispatch => {
   try {
     const response = await fetch('/api/users/me/password', {
       method: 'PUT',
@@ -72,19 +78,20 @@ export const changeUserPassword = password => async dispatch => {
         'x-auth-token': localStorage.getItem('token'),
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(password)
+      body: JSON.stringify({ password })
     })
     if (response.ok) {
       dispatch({
         type: ActionTypes.User.CHANGE_USER_INFO
       })
       dispatch(loadUser())
+      callback(null)
+    } else {
+      const error = await parseError(response)
+      callback(error)
     }
   } catch (error) {
     console.error(error)
-    dispatch({
-      type: ActionTypes.User.CHANGE_USER_INFO_ERROR
-    })
   }
 }
 
@@ -106,12 +113,15 @@ export const deleteUser = () => async dispatch => {
       dispatch({
         type: ActionTypes.Auth.CLEAR_AUTH
       })
+    } else {
+      const error = await parseError(response)
+      dispatch({
+        type: ActionTypes.User.DELETE_USER_ERROR,
+        data: error
+      })
     }
   } catch (error) {
     console.error(error)
-    dispatch({
-      type: ActionTypes.User.DELETE_USER_INFO
-    })
   }
 }
 

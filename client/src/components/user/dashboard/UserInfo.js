@@ -1,45 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import PasswordForm from './PasswordForm'
 import EmailForm from './EmailForm'
 
-import {
-  changeUserEmail,
-  changeUserPassword,
-  deleteUser
-} from '../../../actions/user'
+import { deleteUser } from '../../../actions/user'
 
 /**
  * Displays the User's info to a dashboard block. Allows editing of password and email
  * through child components.
  */
-const UserInfo = ({
-  user,
-  changeUserEmail,
-  changeUserPassword,
-  deleteUser
-}) => {
-  const [editingPassword, setEditingPassword] = useState(false)
-  const [editingEmail, setEditingEmail] = useState(false)
-
+const UserInfo = ({ user, deleteUser }) => {
   const { username, email, date } = user.user
   const dateString = new Date(date).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   })
-
-  const submitPassword = password => {
-    setEditingPassword(false)
-    changeUserPassword(password)
-  }
-
-  const submitEmail = email => {
-    setEditingEmail(false)
-    changeUserEmail(email)
-  }
 
   return (
     <>
@@ -58,39 +36,9 @@ const UserInfo = ({
           Joined: <span>{dateString}</span>
         </h4>
       </div>
-      {editingEmail ? (
-        <EmailForm
-          initialEmail={email}
-          submitChanges={submitEmail}
-          closeForm={() => setEditingEmail(false)}
-        />
-      ) : (
-        <div className='row my-2'>
-          <div className='col'>
-            <button
-              className='btn btn-info btn-sm'
-              onClick={() => setEditingEmail(true)}>
-              Change Email
-            </button>
-          </div>
-        </div>
-      )}
-      {editingPassword ? (
-        <PasswordForm
-          submitChanges={submitPassword}
-          closeForm={() => setEditingPassword(false)}
-        />
-      ) : (
-        <div className='row my-2'>
-          <div className='col'>
-            <button
-              className='btn btn-info btn-sm'
-              onClick={() => setEditingPassword(true)}>
-              Change Password
-            </button>
-          </div>
-        </div>
-      )}
+
+      <EmailForm initialEmail={email} />
+      <PasswordForm />
       <div className='row my-2'>
         <div className='col'>
           <button className='btn btn-danger btn-sm' onClick={deleteUser}>
@@ -104,8 +52,6 @@ const UserInfo = ({
 
 UserInfo.propTypes = {
   user: PropTypes.object.isRequired,
-  changeUserEmail: PropTypes.func.isRequired,
-  changeUserPassword: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired
 }
 
@@ -114,7 +60,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  changeUserEmail,
-  changeUserPassword,
   deleteUser
 })(UserInfo)
