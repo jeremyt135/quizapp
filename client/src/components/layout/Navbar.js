@@ -15,7 +15,7 @@ const Navbar = ({ isAuthenticated, logout }) => {
   return (
     <nav className='navbar navbar-expand-md navbar-light bg-light'>
       <Link className='navbar-brand' to='/'>
-        Quiz Maker
+        QuizNow
       </Link>
       <button
         className='navbar-toggler'

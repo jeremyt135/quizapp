@@ -7,10 +7,11 @@ const Landing = () => {
       <div className='jumbotron jumbotron-fluid'>
         <div className='container'>
           <section>
-            <h1 className='display-4'>Quiz Maker</h1>
+            <h1 className='display-4'>QuizNow</h1>
             <p>
               Assessing others and collecting feedback made easy. Get started
-              making quizzes today by signing up for free.
+              making quizzes for your class or organization today by signing up
+              for free.
             </p>
             <Link
               className='btn btn-primary btn-lg'
@@ -22,22 +23,32 @@ const Landing = () => {
         </div>
       </div>
       <div className='container'>
+        <div className='row mb-4'>
+          <section className='col d-flex justify-content-center '>
+            <h2>Why QuizNow?</h2>
+          </section>
+        </div>
         <div className='row'>
-          <section className='col-md-6'>
-            <h2>Streamlined process</h2>
-            <p>
-              Making and delivering a quiz should be easy. With Quiz Maker,
-              making quizzes is as easy as clicking buttons and editing text
-              fields.
+          <section className='col-md-4'>
+            <h3 className='text-center'>Streamlined process</h3>
+            <p className='text-justify'>
+              Making and delivering quizzes should be easy. With QuizNow, making
+              quizzes is as easy as clicking buttons and editing text fields.
+              Deliver your quizzes by sharing its direct link.
             </p>
           </section>
-          <section className='col-md-6'>
-            <h2>Privacy and control</h2>
-            <p>
-              Quizzes are set to private by default, which restricts access to
-              only yourself and a list of allowed users (who can access the quiz
-              through its link or their profile). Public quizzes can be accessed
-              by anyone with the link.
+          <section className='col-md-4'>
+            <h3 className='text-center'>Full control</h3>
+            <p className='text-justify'>
+              Control who can answer a quiz by setting it to private. Quizzes
+              also have expiration dates to ensure timely responses.
+            </p>
+          </section>
+          <section className='col-md-4'>
+            <h3 className='text-center'>Instant feedback</h3>
+            <p className='text-justify'>
+              Quiz results are instant and can be found on users' dashboards.
+              Quiz administrators can also view results for quiz takers.
             </p>
           </section>
         </div>
