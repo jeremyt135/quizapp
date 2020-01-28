@@ -11,6 +11,11 @@ export const quiz = (
         loading: true,
         quiz: null
       }
+    case Quiz.POST_ANSWERS_ERROR:
+      return {
+        ...state,
+        error: action.data
+      }
     case Quiz.LOAD_QUIZ:
       return {
         error: null,
@@ -18,7 +23,6 @@ export const quiz = (
         quiz: action.data
       }
     case Quiz.LOAD_QUIZ_ERROR:
-    case Quiz.POST_ANSWERS_ERROR:
       return {
         error: action.data,
         loading: false,
