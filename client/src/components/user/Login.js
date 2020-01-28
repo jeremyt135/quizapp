@@ -26,15 +26,14 @@ const Login = ({ isAuthenticated, login }) => {
     if (error && error.status === 400) {
       for (const err of error.errors) {
         if (err.username) {
-          setUsernameError(error.username)
+          setUsernameError(err.username)
         }
         if (err.password) {
-          setPasswordError(error.password)
+          setPasswordError(err.password)
         }
       }
     }
   }
-
   const onSubmit = e => {
     e.preventDefault()
     setUsernameError(null)
