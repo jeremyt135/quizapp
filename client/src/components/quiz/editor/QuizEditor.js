@@ -212,7 +212,7 @@ const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
             />
           ) : null}
           <ExpirationPicker
-            defaultValue={defaultExpiration}
+            defaultValue={expiresIn.current}
             onChange={changeExpiresIn}
           />
           <QuestionList
