@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 
 import QuestionList from './QuestionList'
@@ -13,6 +14,7 @@ import { getResult } from '../../../actions/result'
 
 import '../../../styles/quiz.css'
 import QuizTakenError from './QuizTakenError'
+import QuizExpiredError from './QuizExpiredError'
 
 const QuizAnswerForm = ({
   user,
@@ -25,7 +27,6 @@ const QuizAnswerForm = ({
   postQuizAnswers,
   getResult
 }) => {
-  console.log(loading)
   const browserHistory = useHistory()
   const { id: quizId } = useParams()
 
@@ -33,7 +34,6 @@ const QuizAnswerForm = ({
   useEffect(() => {
     getQuiz(quizId)
     getResult(quizId, user)
-    return clearQuiz
   }, [])
 
   const answers = useRef(null)
@@ -63,13 +63,18 @@ const QuizAnswerForm = ({
 
   if (error) {
     const status = error.status
-    if (status !== 400) {
+    if (status === 403 && error.errors.length > 0) {
+      const expired = error.errors.some(e => e.hasOwnProperty('expiresIn'))
+      if (expired) {
+        return <QuizExpiredError />
+      }
+    } else if (status !== 400) {
       return <ErrorPage status={status} />
     }
-  }
-
-  if (!result.loading && result.data) {
+  } else if (!result.loading && result.result) {
     return <QuizTakenError />
+  } else if (moment(quiz.expiresIn).diff(moment()) < 0) {
+    return <QuizExpiredError />
   }
 
   return (
