@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 
 import PasswordForm from './PasswordForm'
 import EmailForm from './EmailForm'
-import DeleteButton from './DeleteButton'
+import DeleteAccountButton from './DeleteAccountButton'
+import { deleteUser } from '../../../actions/user'
 
 /**
  * Displays the User's info to a dashboard block. Allows editing of password and email
@@ -38,7 +39,11 @@ const UserInfo = ({ user, deleteUser }) => {
 
       <EmailForm initialEmail={email} />
       <PasswordForm />
-      <DeleteButton />
+      <div className='row my-2'>
+        <div className='col'>
+          <DeleteAccountButton text='Delete Account' onClick={deleteUser} />
+        </div>
+      </div>
     </>
   )
 }
@@ -51,4 +56,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(UserInfo)
+export default connect(mapStateToProps, { deleteUser })(UserInfo)

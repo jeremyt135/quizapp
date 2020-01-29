@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { deleteQuiz } from '../../../actions/user'
 import { goToQuizEditor } from '../../../actions/editor'
+import DeleteQuizButton from './DeleteQuizButton'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
@@ -81,12 +82,7 @@ const QuizItem = ({
           <h4 className='mb-0'>{title}</h4>
         </div>
         <div className='col d-flex align-items-center justify-content-end'>
-          <button
-            className='btn btn-danger btn-sm ml-1'
-            type='button'
-            onClick={() => deleteQuiz(id)}>
-            Delete
-          </button>
+          <DeleteQuizButton text='Delete' onClick={() => deleteQuiz(id)} />
           <button
             className='btn btn-info btn-sm ml-1'
             type='button'
