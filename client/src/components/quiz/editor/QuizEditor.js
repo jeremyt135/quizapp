@@ -249,4 +249,6 @@ const mapStateToProps = state => ({
   error: state.editor.error
 })
 
-export default connect(null, { postQuiz, postEditedQuiz })(QuizEditor)
+export default connect(mapStateToProps, { postQuiz, postEditedQuiz })(
+  QuizEditor
+)

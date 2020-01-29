@@ -14,7 +14,6 @@ const Title = ({ value, onChange }) => {
         <div className='col'>
           <input
             type='text'
-            className={'form-control my-2'}
             className={
               'form-control form-control-lg mb-0 ' +
               (!isValid ? ' is-invalid' : '')
