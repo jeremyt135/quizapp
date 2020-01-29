@@ -12,7 +12,7 @@ import PublicCheckbox from './layout/PublicCheckbox'
 import Title from './layout/Title'
 import ExpirationPicker from './layout/ExpirationPicker'
 import QuestionList from './layout/QuestionList'
-
+import ErrorPage from '../../errors/ErrorPage'
 import { postQuiz, postEditedQuiz } from '../../../actions/editor'
 
 import '../../../styles/quiz.css'
@@ -68,8 +68,9 @@ const questionsReducer = (questions, action) => {
  * Displays subforms for editing a quiz and directly handles submission of the quiz.
  * @param {object} props Component props
  * @param {postQuiz} props.postEditedQuiz Function to call when submitting the quiz to server
+ * @param {object} error Error state from attempting to post quiz
  */
-const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
+const QuizEditor = ({ postQuiz, postEditedQuiz, error }) => {
   // The default expiration date of a quiz
   const defaultExpiration = moment()
     .add(1, 'day')
@@ -198,6 +199,10 @@ const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
     )
   }
 
+  if (error && error.status !== 400) {
+    return <ErrorPage status={error.status} />
+  }
+
   return (
     <>
       <div className='container'>
@@ -236,7 +241,12 @@ const QuizEditor = ({ postQuiz, postEditedQuiz }) => {
 
 QuizEditor.propTypes = {
   postQuiz: PropTypes.func.isRequired,
-  postEditedQuiz: PropTypes.func.isRequired
+  postEditedQuiz: PropTypes.func.isRequired,
+  error: PropTypes.object
 }
+
+const mapStateToProps = state => ({
+  error: state.editor.error
+})
 
 export default connect(null, { postQuiz, postEditedQuiz })(QuizEditor)

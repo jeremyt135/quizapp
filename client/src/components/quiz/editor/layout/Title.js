@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Title = ({ value, onChange }) => {
+  const isValid = value.length !== 0
   return (
     <>
       <div className='row'>
@@ -13,11 +14,21 @@ const Title = ({ value, onChange }) => {
         <div className='col'>
           <input
             type='text'
-            className='form-control form-control-lg mb-0'
+            className={'form-control my-2'}
+            className={
+              'form-control form-control-lg mb-0 ' +
+              (!isValid ? ' is-invalid' : '')
+            }
             id='quizTitle'
             value={value}
             onChange={onChange}
+            minLength={1}
           />
+          {!isValid ? (
+            <div className='invalid-feedback'>
+              Please enter at least one character.
+            </div>
+          ) : null}
         </div>
       </div>
     </>

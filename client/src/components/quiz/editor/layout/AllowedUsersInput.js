@@ -24,7 +24,7 @@ const AllowedUsersInput = ({ defaultValue, onChange, isValid }) => {
         <div className='row'>
           <div className='col'>
             <input
-              className={'form-control' + (!isValid ? ' border-danger' : '')}
+              className={'form-control' + (!isValid ? ' is-invalid' : '')}
               type='text'
               placeholder='User1, User2, ...'
               name='value'
@@ -32,6 +32,12 @@ const AllowedUsersInput = ({ defaultValue, onChange, isValid }) => {
               value={value}
               onChange={onInputChange}
             />
+            {!isValid ? (
+              <div className='invalid-feedback'>
+                Please enter a comma separated list of usernames, or leave blank
+                to allow no users.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

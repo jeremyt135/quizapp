@@ -18,7 +18,7 @@ const momentFormat = 'MM-DD-YYYY h:mm A'
 const DateTimePicker = React.memo(
   ({ id, defaultValue, minValue, onChange }) => {
     const [dateTime, setDateTime] = useState(moment(defaultValue))
-
+    const [isValid, setIsValid] = useState(true)
     const inputRef = useRef(null)
 
     useEffect(() => {
@@ -37,15 +37,29 @@ const DateTimePicker = React.memo(
       })
       return () => datePicker.destroy()
     }, [])
+
+    useEffect(() => {
+      setIsValid(moment(dateTime, momentFormat).diff(moment()) >= 0)
+    }, [moment(dateTime, momentFormat).toString()])
+
     return (
-      <input
-        type='text'
-        className='form-control date-time-picker'
-        id={id}
-        placeholder='Select date and time'
-        ref={inputRef}
-        readOnly={true}
-      />
+      <>
+        <input
+          type='text'
+          className={
+            'form-control date-time-picker' + (!isValid ? ' is-invalid' : '')
+          }
+          id={id}
+          placeholder='Select date and time'
+          ref={inputRef}
+          readOnly={true}
+        />
+        {!isValid ? (
+          <div className='invalid-feedback'>
+            Expiration date must be in the future.
+          </div>
+        ) : null}
+      </>
     )
   }
 )
