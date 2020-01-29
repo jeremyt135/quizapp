@@ -93,7 +93,10 @@ const QuizItem = ({
             onClick={() => goToQuizEditor(id, browserHistory)}>
             Edit
           </button>
-          <button className='btn btn-primary btn-sm ml-1' type='button'>
+          <button
+            className='btn btn-primary btn-sm ml-1'
+            type='button'
+            onClick={() => browserHistory.push(`/quizzes/${id}`)}>
             Results
           </button>
         </div>

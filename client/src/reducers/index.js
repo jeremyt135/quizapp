@@ -6,13 +6,14 @@ import { auth } from './auth'
 import { user } from './user'
 import { quiz } from './quiz'
 import { result } from './result'
+import { quizResults } from './quizresults'
 import { dashboard } from './dashboard'
 import { editor } from './editor'
 
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['quiz', 'result', 'dashboard', 'editor']
+  blacklist: ['quiz', 'result', 'quizResults', 'dashboard', 'editor']
 }
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   user,
   quiz,
   result,
+  quizResults,
   dashboard,
   editor
 })

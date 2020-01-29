@@ -58,6 +58,11 @@ export const Result = {
   LOAD_RESULT_ERROR: 'LOAD_RESULT_ERROR',
   CLEAR_RESULT: 'CLEAR_RESULT'
 }
+export const QuizResults = {
+  LOAD_RESULT_LIST: 'LOAD_RESULT_LIST',
+  LOAD_RESULT_LIST_ERROR: 'LOAD_RESULT_LIST_ERROR',
+  CLEAR_RESULT_LIST: 'CLEAR_RESULT_LIST'
+}
 
 export default {
   Auth,
@@ -65,5 +70,6 @@ export default {
   User,
   Editor,
   Quiz,
-  Result
+  Result,
+  QuizResults
 }

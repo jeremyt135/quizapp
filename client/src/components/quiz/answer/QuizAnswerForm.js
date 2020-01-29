@@ -10,7 +10,7 @@ import Spinner from '../../common/Spinner'
 import ErrorPage from '../../errors/ErrorPage'
 
 import { getQuiz, clearQuiz, postQuizAnswers } from '../../../actions/quiz'
-import { getResult } from '../../../actions/result'
+import { getResult, clearResult } from '../../../actions/result'
 
 import '../../../styles/quiz.css'
 import QuizTakenError from './QuizTakenError'
@@ -34,6 +34,10 @@ const QuizAnswerForm = ({
   useEffect(() => {
     getQuiz(quizId)
     getResult(quizId, user)
+    return () => {
+      clearQuiz()
+      clearResult()
+    }
   }, [])
 
   const answers = useRef(null)

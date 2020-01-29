@@ -39,10 +39,6 @@ const QuizResult = ({
     }
   }, [])
 
-  const goToDashboard = () => {
-    browserHistory.push('/dashboard')
-  }
-
   if (quiz.loading || result.loading) {
     return <Spinner />
   }
@@ -91,7 +87,10 @@ const QuizResult = ({
           />
         </div>
       </div>
-      <Footer confirmText={'Back to dashboard'} onConfirm={goToDashboard} />
+      <Footer
+        confirmText={'Go back'}
+        onConfirm={() => browserHistory.goBack()}
+      />
     </>
   )
 }
