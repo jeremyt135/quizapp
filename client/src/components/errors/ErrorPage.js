@@ -8,7 +8,7 @@ const ErrorPage = ({ status }) => {
     case 404:
       message = "That resource wasn't found."
       break
-    case 503:
+    case 403:
       message = 'You are not authorized to view this resource.'
       break
     case 500:

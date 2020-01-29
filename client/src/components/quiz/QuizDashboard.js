@@ -13,7 +13,7 @@ import ErrorPage from '../errors/ErrorPage'
  * Handles redirection to a Quiz answer form or the results page depending
  * on the logged in user
  */
-const QuizDashboard = ({ user, quiz, loading, getQuiz, clearQuiz }) => {
+const QuizDashboard = ({ user, quiz, error, loading, getQuiz, clearQuiz }) => {
   const { id: quizId } = useParams()
   // Load the quiz from the route params on mount
   useEffect(() => {
@@ -25,8 +25,8 @@ const QuizDashboard = ({ user, quiz, loading, getQuiz, clearQuiz }) => {
     return <Spinner />
   }
 
-  if (quiz.error) {
-    return <ErrorPage status={quiz.error.status} />
+  if (error) {
+    return <ErrorPage status={error.status} />
   }
 
   if (quiz.user === user) {
@@ -39,12 +39,14 @@ const QuizDashboard = ({ user, quiz, loading, getQuiz, clearQuiz }) => {
 QuizDashboard.propTypes = {
   user: PropTypes.string.isRequired,
   quiz: PropTypes.object,
+  error: PropTypes.object,
   loading: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
   user: state.user.user.username,
   quiz: state.quiz.quiz,
+  error: state.quiz.error,
   loading: state.quiz.loading
 })
 
