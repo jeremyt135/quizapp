@@ -25,7 +25,7 @@ const QuizDashboard = ({ user, quiz, error, loading, getQuiz, clearQuiz }) => {
     return <Spinner />
   }
 
-  if (error) {
+  if (error && error.status !== 400) {
     return <ErrorPage status={error.status} />
   }
 
