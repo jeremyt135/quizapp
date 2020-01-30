@@ -1,0 +1,15 @@
+@import 'form';
+
+.register {
+  @extend %form;
+  height: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.register__form {
+  @extend %form__body;
+  position: relative;
+  top: -60px;
+}

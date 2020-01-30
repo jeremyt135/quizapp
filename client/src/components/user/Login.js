@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import '../../styles/login.css'
+import '../../styles/login.scss'
 
 import PropTypes from 'prop-types'
 

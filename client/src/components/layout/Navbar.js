@@ -13,7 +13,7 @@ const Navbar = ({ isAuthenticated, logout }) => {
     history.push('/')
   }
   return (
-    <nav className='navbar navbar-expand-md navbar-light bg-light'>
+    <nav className='navbar navbar-expand-md navbar-dark'>
       <Link className='navbar-brand' to='/'>
         QuizNow
       </Link>

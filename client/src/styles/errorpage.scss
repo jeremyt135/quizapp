@@ -1,7 +1,4 @@
-html,
-body {
-  height: 100%;
-}
+@use 'variables';
 
 .error-container {
   height: calc(100% - 60px);

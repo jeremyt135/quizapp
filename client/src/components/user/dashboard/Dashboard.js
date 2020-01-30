@@ -10,7 +10,7 @@ import ResultList from './ResultList'
 
 import { loadDashboard, clearDashboard } from '../../../actions/dashboard'
 
-import '../../../styles/dashboard.css'
+import '../../../styles/dashboard.scss'
 
 /**
  * Dashboard for a user that shows their info and quizzes
@@ -28,19 +28,19 @@ const Dashboard = ({ auth, userLoading, loadDashboard, clearDashboard }) => {
   return userLoading ? (
     <Spinner />
   ) : (
-    <div className='dashboard container'>
-      <div className='dashboard__block row p-3 my-3'>
-        <section className='col-md-10 mx-auto'>
+    <div className='dashboard container-fluid'>
+      <div className='row p-3 mt-1'>
+        <section className='dashboard__block col-md-8 mx-auto'>
           <UserInfo />
         </section>
       </div>
-      <div className='dashboard__block row p-3 my-3'>
-        <section className='col-md-10 mx-auto'>
+      <div className='row p-3 mt-1'>
+        <section className='dashboard__block col-md-8 mx-auto'>
           <QuizList />
         </section>
       </div>
-      <div className='dashboard__block row p-3 my-3'>
-        <section className='col-md-10 mx-auto'>
+      <div className='row p-3 mt-1'>
+        <section className='dashboard__block col-md-8 mx-auto'>
           <ResultList />
         </section>
       </div>

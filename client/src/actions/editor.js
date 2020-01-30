@@ -28,10 +28,6 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
     }
   } catch (error) {
     console.log(error)
-    dispatch({
-      type: Editor.CREATE_QUIZ_ERROR,
-      data: { status: 500, errors: [error.message] }
-    })
   }
 }
 
@@ -60,10 +56,7 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
       })
     }
   } catch (error) {
-    dispatch({
-      type: Editor.POST_EDITED_QUIZ_ERROR,
-      data: { status: 500, errors: [error.message] }
-    })
+    console.log(error)
   }
 }
 

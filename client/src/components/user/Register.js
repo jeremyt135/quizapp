@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import '../../styles/register.css'
+import '../../styles/register.scss'
 
 import { register } from '../../actions/auth'
 

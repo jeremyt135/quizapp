@@ -1,16 +1,13 @@
-html,
-body {
-  height: 100%;
-}
+@import 'variables';
 
-.login {
+%form {
   height: calc(100% - 60px);
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.login__form {
+%form__body {
   position: relative;
   top: -60px;
 }

@@ -11,7 +11,7 @@ import ErrorPage from '../../errors/ErrorPage'
 import { getResult, clearResult } from '../../../actions/result'
 import { getQuiz, clearQuiz } from '../../../actions/quiz'
 
-import '../../../styles/quiz.css'
+import '../../../styles/quiz.scss'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)

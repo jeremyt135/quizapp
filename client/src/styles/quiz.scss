@@ -1,3 +1,7 @@
+@import 'variables';
+@import 'panel';
+@import 'node_modules/bootstrap/scss/bootstrap';
+
 .answer {
   padding: 0 5px;
   border: 2px solid rgba(0, 0, 0, 0);
@@ -11,4 +15,14 @@
 
 .answer--incorrect {
   border: 2px solid rgb(202, 41, 41);
+}
+
+.quiz-editor {
+  color: $color-dark-gray;
+  display: flex;
+  flex-flow: column;
+}
+
+.quiz-editor__block {
+  @extend %panel;
 }

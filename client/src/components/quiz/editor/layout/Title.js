@@ -7,7 +7,7 @@ const Title = ({ value, onChange }) => {
     <>
       <div className='row'>
         <div className='col'>
-          <label htmlFor='quizTitle'>Quiz Title</label>
+          <label htmlFor='quizTitle'>Quiz Title:</label>
         </div>
       </div>
       <div className='row mb-4'>

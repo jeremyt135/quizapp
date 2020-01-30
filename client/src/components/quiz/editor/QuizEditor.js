@@ -15,7 +15,7 @@ import QuestionList from './layout/QuestionList'
 import ErrorPage from '../../errors/ErrorPage'
 import { postQuiz, postEditedQuiz } from '../../../actions/editor'
 
-import '../../../styles/quiz.css'
+import '../../../styles/quiz.scss'
 
 /**
  * Parses allowed users from a comma-separated string.
@@ -204,30 +204,32 @@ const QuizEditor = ({ postQuiz, postEditedQuiz, error }) => {
   }
 
   return (
-    <>
-      <div className='container'>
-        <section className='content col-md-8 mx-auto mt-3'>
-          <Title value={title} onChange={changeTitle} />
-          <PublicCheckbox value={isPublic} onChange={changeIsPublic} />
-          {!isPublic ? (
-            <AllowedUsersInput
-              defaultValue={allowedUsers}
-              onChange={changeAllowedUsers}
-              isValid={allowedUsers.length > 0}
+    <div className='content'>
+      <div className='quiz-editor container-fluid'>
+        <div className='row'>
+          <div className='quiz-editor__block col-md-8 mx-auto'>
+            <Title value={title} onChange={changeTitle} />
+            <PublicCheckbox value={isPublic} onChange={changeIsPublic} />
+            {!isPublic ? (
+              <AllowedUsersInput
+                defaultValue={allowedUsers}
+                onChange={changeAllowedUsers}
+                isValid={allowedUsers.length > 0}
+              />
+            ) : null}
+            <ExpirationPicker
+              defaultValue={expiresIn.current}
+              onChange={changeExpiresIn}
             />
-          ) : null}
-          <ExpirationPicker
-            defaultValue={expiresIn.current}
-            onChange={changeExpiresIn}
-          />
-          <QuestionList
-            editing={editing}
-            questions={questions}
-            onChangeQuestion={changeQuestion}
-            addQuestion={addQuestion}
-            removeQuestion={removeQuestion}
-          />
-        </section>
+            <QuestionList
+              editing={editing}
+              questions={questions}
+              onChangeQuestion={changeQuestion}
+              addQuestion={addQuestion}
+              removeQuestion={removeQuestion}
+            />
+          </div>
+        </div>
       </div>
       <Footer
         cancelText='Cancel'
@@ -235,7 +237,7 @@ const QuizEditor = ({ postQuiz, postEditedQuiz, error }) => {
         onCancel={goBackToDashboard}
         onConfirm={editing ? submitEditedQuiz : submitNewQuiz}
       />
-    </>
+    </div>
   )
 }
 

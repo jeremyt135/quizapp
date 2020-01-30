@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Landing = () => {
   return (
     <>
-      <div className='jumbotron jumbotron-fluid'>
+      <div className='jumbotron jumbotron-fluid qa-jumbotron'>
         <div className='container'>
           <section>
             <h1 className='display-4'>QuizNow</h1>
@@ -14,7 +14,7 @@ const Landing = () => {
               for free.
             </p>
             <Link
-              className='btn btn-primary btn-lg'
+              className='btn btn-signup btn-lg'
               to='/register'
               role='button'>
               Sign Up
@@ -22,7 +22,7 @@ const Landing = () => {
           </section>
         </div>
       </div>
-      <div className='container'>
+      <div className='container qa-info'>
         <div className='row mb-4'>
           <section className='col d-flex justify-content-center '>
             <h2>Why QuizNow?</h2>

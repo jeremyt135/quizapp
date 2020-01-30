@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../../styles/errorpage.css'
+import '../../styles/errorpage.scss'
 
 const ErrorPage = ({ status }) => {
   let message = ''

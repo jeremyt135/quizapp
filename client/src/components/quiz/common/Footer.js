@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  */
 const Footer = ({ confirmText, cancelText, onCancel, onConfirm }) => {
   return (
-    <footer className='footer bg-light'>
+    <footer className='footer'>
       <div className='container h-100'>
         <div className='col-md-8 mx-auto h-100 d-flex align-items-center justify-content-end'>
           {cancelText && onConfirm ? (

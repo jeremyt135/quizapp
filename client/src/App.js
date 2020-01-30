@@ -19,7 +19,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 
 import ErrorPage from './components/errors/ErrorPage'
 
-import './styles/theme.css'
+import './styles/theme.scss'
 
 let { store, persistor } = createStore()
 

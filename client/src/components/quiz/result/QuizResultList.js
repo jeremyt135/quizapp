@@ -11,7 +11,7 @@ import ResultItem from './ResultItem'
 import { getQuizResults, clearQuizResults } from '../../../actions/quizresults'
 import { getQuiz, clearQuiz } from '../../../actions/quiz'
 
-import '../../../styles/quiz.css'
+import '../../../styles/quiz.scss'
 
 const QuizResultList = ({
   quiz,
