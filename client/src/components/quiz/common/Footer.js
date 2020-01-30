@@ -13,7 +13,7 @@ const Footer = ({ confirmText, cancelText, onCancel, onConfirm }) => {
   return (
     <footer className='footer'>
       <div className='container-fluid h-100'>
-        <div className='col-md-6 mx-auto h-100 d-flex align-items-center justify-content-end'>
+        <div className='col-sm-8 mx-auto h-100 d-flex align-items-center justify-content-end'>
           {cancelText && onConfirm ? (
             <button className='btn btn-secondary ml-1' onClick={onCancel}>
               {cancelText}

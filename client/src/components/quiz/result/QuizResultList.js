@@ -57,7 +57,7 @@ const QuizResultList = ({
       <div className='content'>
         <div className='quiz-results container-fluid'>
           <div className='row'>
-            <div className='quiz-results__block col-md-6 mx-auto'>
+            <div className='quiz-results__block col-sm-8 mx-auto'>
               <div className='row mb-2 align-items-center'>
                 <h3 className='col mb-0'>
                   Results for quiz "{quiz.quiz.title}":
