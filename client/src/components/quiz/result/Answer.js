@@ -9,9 +9,9 @@ const Answer = ({ index, text, selected, correct }) => {
     border = 'answer--incorrect'
   }
   return (
-    <div className={'row mb-2 answer ' + border}>
+    <div className='row mb-2'>
       <div className='col'>
-        <p>
+        <p className={'answer answer__text py-1 ' + border}>
           {index + 1}. {text}
         </p>
       </div>

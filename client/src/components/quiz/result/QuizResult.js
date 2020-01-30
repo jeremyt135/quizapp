@@ -52,41 +52,46 @@ const QuizResult = ({
 
   return (
     <>
-      <div className='container'>
-        <div className='content col-md-8 mx-auto mt-3'>
-          <div className='row mb-4'>
-            <div className='col d-flex align-items-center'>
-              <h1 className='mb-0'>
-                {result.result.username}'s results for: <br />"{quiz.quiz.title}
-                "
-              </h1>
+      <div className='content'>
+        <div className='quiz-results container-fluid'>
+          <div className='row'>
+            <div className='quiz-results__block col-md-6 mx-auto'>
+              <div className='row mb-4'>
+                <div className='col d-flex align-items-center'>
+                  <h2 className='mb-0'>
+                    {result.result.username}'s results for: <br />"
+                    {quiz.quiz.title}"
+                  </h2>
+                </div>
+              </div>
+              <div className='row mb-4'>
+                <div className='col d-flex align-items-center'>
+                  <h4>By {quiz.quiz.user}</h4>
+                </div>
+              </div>
+              <hr />
+              <div className='row mb-4'>
+                <div className='col d-flex align-items-center'>
+                  <h3 className='mb-0'>
+                    Overall score: {result.result.score * 100.0}%
+                  </h3>
+                </div>
+              </div>
+              <hr />
+              <div className='row mb-4'>
+                <div className='col d-flex align-items-center'>
+                  <h3 className='mb-0'>Graded questions:</h3>
+                </div>
+              </div>
+              <ScoredQuestionList
+                questions={quiz.quiz.questions}
+                results={result.result.answers}
+              />
             </div>
           </div>
-          <div className='row mb-4'>
-            <div className='col d-flex align-items-center'>
-              <h3>By {quiz.quiz.user}</h3>
-            </div>
-          </div>
-          <hr />
-          <div className='row mb-4'>
-            <div className='col d-flex align-items-center'>
-              <h3 className='mb-0'>
-                Overall score: {result.result.score * 100.0}%
-              </h3>
-            </div>
-          </div>
-          <hr />
-          <div className='row mb-4'>
-            <div className='col d-flex align-items-center'>
-              <h3 className='mb-0'>Graded questions:</h3>
-            </div>
-          </div>
-          <ScoredQuestionList
-            questions={quiz.quiz.questions}
-            results={result.result.answers}
-          />
         </div>
       </div>
+
       <Footer
         confirmText={'Go back'}
         onConfirm={() => browserHistory.goBack()}

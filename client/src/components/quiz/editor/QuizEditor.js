@@ -207,7 +207,7 @@ const QuizEditor = ({ postQuiz, postEditedQuiz, error }) => {
     <div className='content'>
       <div className='quiz-editor container-fluid'>
         <div className='row'>
-          <div className='quiz-editor__block col-md-8 mx-auto'>
+          <div className='quiz-editor__block col-md-6 mx-auto'>
             <Title value={title} onChange={changeTitle} />
             <PublicCheckbox value={isPublic} onChange={changeIsPublic} />
             {!isPublic ? (

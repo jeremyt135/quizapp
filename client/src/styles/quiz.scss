@@ -3,9 +3,12 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 
 .answer {
-  padding: 0 5px;
   border: 2px solid rgba(0, 0, 0, 0);
   border-radius: 5px;
+}
+
+.answer__text {
+  font-size: $font-size-base * 1.2;
 }
 
 .answer--correct,
@@ -24,5 +27,17 @@
 }
 
 .quiz-editor__block {
+  @extend %panel;
+}
+
+.quiz-results,
+.quiz-answer-form {
+  color: $color-dark-gray;
+  display: flex;
+  flex-flow: column;
+}
+
+.quiz-results__block,
+.quiz-answer-form__block {
   @extend %panel;
 }

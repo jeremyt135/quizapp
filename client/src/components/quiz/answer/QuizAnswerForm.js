@@ -81,25 +81,30 @@ const QuizAnswerForm = ({
 
   return (
     <>
-      <div className='container'>
-        <div className='content col-md-8 mx-auto mt-3'>
-          <div className='row mb-4'>
-            <div className='col d-flex align-items-center'>
-              <h1 className='mb-0'>{quiz.title}</h1>
+      <div className='content'>
+        <div className='quiz-answer-form container-fluid'>
+          <div className='row'>
+            <div className='quiz-answer-form__block col-md-6 mx-auto mt-3'>
+              <div className='row mb-4'>
+                <div className='col d-flex align-items-center'>
+                  <h1 className='mb-0'>{quiz.title}</h1>
+                </div>
+              </div>
+              <div className='row mb-4'>
+                <div className='col d-flex align-items-center'>
+                  <h3>By {quiz.user}</h3>
+                </div>
+              </div>
+              <QuestionList
+                error={error}
+                questions={quiz.questions}
+                onChange={changeAnswer}
+              />
             </div>
           </div>
-          <div className='row mb-4'>
-            <div className='col d-flex align-items-center'>
-              <h3>By {quiz.user}</h3>
-            </div>
-          </div>
-          <QuestionList
-            error={error}
-            questions={quiz.questions}
-            onChange={changeAnswer}
-          />
         </div>
       </div>
+
       <Footer
         cancelText='Cancel'
         confirmText={'Submit'}
