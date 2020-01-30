@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Answer from './Answer'
-
+import Icon from '@mdi/react'
+import { mdiAlertCircle } from '@mdi/js'
 const Question = ({
   index: questionIndex,
   text,
@@ -16,14 +17,18 @@ const Question = ({
   return (
     <div className='row'>
       <div className='col'>
-        <h2 className='mb-2'>
-          {questionIndex + 1}. {text}{' '}
-          {highlightMissing && answerIndex === null ? (
-            <i className='fas fa-exclamation-triangle text-danger'></i>
-          ) : null}
-        </h2>
+        <div className='row mb-2'>
+          <h2 className='col mb-0'>
+            {questionIndex + 1}. {text}{' '}
+          </h2>
+        </div>
         {highlightMissing && answerIndex === null ? (
-          <h5 className='text-danger mb-2'>Please select an answer.</h5>
+          <div className='row mb-2'>
+            <div className='col d-flex align-items-center '>
+              <h5 className='text-danger mb-0'>Please select an answer. </h5>
+              <Icon path={mdiAlertCircle} size={1} color='red' />
+            </div>
+          </div>
         ) : null}
         {answers.map((answer, index) => (
           <Answer
