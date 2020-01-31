@@ -1,5 +1,7 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
+import { setAlert } from './alerts'
+
 const fetchResult = async (quizId, userId) => {
   let result = null
   let error = null
@@ -44,10 +46,17 @@ export const getResult = (quizId, userId) => async dispatch => {
   }
   const [user, userError] = await fetchUser(userId)
   if (userError) {
-    return dispatch({
+    dispatch({
       type: ActionTypes.Result.LOAD_RESULT_ERROR,
       data: userError
     })
+    dispatch(
+      setAlert({
+        msg: "We couldn't load your quiz results right now.",
+        type: 'danger'
+      })
+    )
+    return
   }
   result.username = user.username
   dispatch({

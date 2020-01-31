@@ -1,5 +1,6 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
+import { setAlert } from './alerts'
 
 /**
  * Loads user's list of quizzes
@@ -52,6 +53,12 @@ export const loadDashboard = () => async dispatch => {
         type: ActionTypes.Dashboard.LOAD_DASHBOARD_ERROR,
         data: quizError
       })
+      dispatch(
+        setAlert({
+          msg: "We couldn't load your quizzes right now.",
+          type: 'danger'
+        })
+      )
       return
     }
     const [results, resultError] = await getResultList()
@@ -60,6 +67,12 @@ export const loadDashboard = () => async dispatch => {
         type: ActionTypes.Dashboard.LOAD_DASHBOARD_ERROR,
         data: resultError
       })
+      dispatch(
+        setAlert({
+          msg: "We couldn't load your quiz results right now.",
+          type: 'danger'
+        })
+      )
       return
     }
     dispatch({
@@ -70,7 +83,7 @@ export const loadDashboard = () => async dispatch => {
       }
     })
   } catch (err) {
-    throw err
+    console.error(err)
   }
 }
 

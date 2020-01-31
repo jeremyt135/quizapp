@@ -63,8 +63,13 @@ export const QuizResults = {
   LOAD_RESULT_LIST_ERROR: 'LOAD_RESULT_LIST_ERROR',
   CLEAR_RESULT_LIST: 'CLEAR_RESULT_LIST'
 }
+export const Alerts = {
+  SET_ALERT: 'SET_ALERT',
+  CLEAR_ALERT: 'CLEAR_ALERT'
+}
 
 export default {
+  Alerts,
   Auth,
   Dashboard,
   User,

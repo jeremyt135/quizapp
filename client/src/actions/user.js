@@ -1,6 +1,8 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
 import { loadDashboard } from './dashboard'
+import { setAlert } from './alerts'
+
 /**
  * Loads data for the User represented by the current JWT.
  * Dispatches an action of type LOAD_USER on success and
@@ -27,6 +29,12 @@ export const loadUser = () => async dispatch => {
         type: ActionTypes.User.LOAD_USER_ERROR,
         data: error
       })
+      dispatch(
+        setAlert({
+          msg: "We couldn't load your account right now.",
+          type: 'danger'
+        })
+      )
     }
   } catch (error) {
     console.error(error)
@@ -53,6 +61,12 @@ export const changeUserEmail = (email, callback) => async dispatch => {
       dispatch({
         type: ActionTypes.User.CHANGE_USER_INFO
       })
+      dispatch(
+        setAlert({
+          msg: 'Your email was changed successfully',
+          type: 'success'
+        })
+      )
       dispatch(loadUser())
       callback(null)
     } else {
@@ -85,6 +99,12 @@ export const changeUserPassword = (password, callback) => async dispatch => {
         type: ActionTypes.User.CHANGE_USER_INFO
       })
       dispatch(loadUser())
+      dispatch(
+        setAlert({
+          msg: 'Your pssword was changed successfully',
+          type: 'success'
+        })
+      )
       callback(null)
     } else {
       const error = await parseError(response)

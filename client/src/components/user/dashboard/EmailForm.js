@@ -22,12 +22,12 @@ const EmailForm = ({ initialEmail, changeUserEmail }) => {
   const closeForm = () => {
     setIsOpen(false)
     setFormError(null)
-    setEmail(initialEmail)
   }
 
   const openForm = () => {
     setFormError(null)
     setIsOpen(true)
+    setEmail(initialEmail)
   }
 
   const showModal = e => {

@@ -1,6 +1,7 @@
 import { Editor } from './types'
 import { loadUser } from './user'
 import { parseError } from './parse-error'
+import { setAlert } from './alerts'
 
 export const postQuiz = (quiz, onSuccess) => async dispatch => {
   try {
@@ -18,6 +19,12 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
       })
       // load the updated user data
       dispatch(loadUser())
+      dispatch(
+        setAlert({
+          msg: 'Quiz created successfully',
+          type: 'success'
+        })
+      )
       onSuccess()
     } else {
       const error = await parseError(response)
@@ -25,9 +32,15 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
         type: Editor.CREATE_QUIZ_ERROR,
         data: error
       })
+      dispatch(
+        setAlert({
+          msg: 'Failed to create quiz - are there invalid fields?',
+          type: 'danger'
+        })
+      )
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -47,6 +60,12 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
       })
       // load the updated user data
       dispatch(loadUser())
+      dispatch(
+        setAlert({
+          msg: 'Quiz edited successfully',
+          type: 'success'
+        })
+      )
       onSuccess()
     } else {
       const error = await parseError(response)
@@ -54,9 +73,15 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
         type: Editor.POST_EDITED_QUIZ_ERROR,
         data: error
       })
+      dispatch(
+        setAlert({
+          msg: 'Failed to create quiz - are there invalid fields?',
+          type: 'danger'
+        })
+      )
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -75,6 +100,6 @@ export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
     }
     browserHistory.push(`/quizzes/${quiz._id}/edit`, { quiz, editing: true })
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }

@@ -29,17 +29,17 @@ const Dashboard = ({ auth, userLoading, loadDashboard, clearDashboard }) => {
     <Spinner />
   ) : (
     <div className='dashboard container-fluid'>
-      <div className='row p-3 mt-1'>
+      <div className='row pt-1 mt-1'>
         <section className='dashboard__block col-sm-8 mx-auto'>
           <UserInfo />
         </section>
       </div>
-      <div className='row p-3 mt-1'>
+      <div className='row pt-1 mt-1'>
         <section className='dashboard__block col-sm-8 mx-auto'>
           <QuizList />
         </section>
       </div>
-      <div className='row p-3 mt-1'>
+      <div className='row pt-1 mt-1'>
         <section className='dashboard__block col-sm-8 mx-auto'>
           <ResultList />
         </section>

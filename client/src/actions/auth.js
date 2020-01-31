@@ -1,6 +1,8 @@
 import ActionTypes from './types'
 import { loadUser } from './user'
 import { parseError } from './parse-error'
+import { setAlert } from './alerts'
+
 /**
  * Registers a new User with the server. Dispatches an action of type REGISTER_USER on success
  * and REGISTER_ERROR otherwise.
@@ -30,6 +32,12 @@ export const register = (
         data
       })
       dispatch(loadUser())
+      dispatch(
+        setAlert({
+          msg: 'Welcome to QuizNow!',
+          type: 'success'
+        })
+      )
       callback(null)
     } else {
       const error = await parseError(response)
@@ -66,6 +74,12 @@ export const login = (username, password, callback) => async dispatch => {
         data
       })
       dispatch(loadUser())
+      dispatch(
+        setAlert({
+          msg: 'Welcome back!',
+          type: 'success'
+        })
+      )
       callback(null)
     } else {
       const error = await parseError(response)

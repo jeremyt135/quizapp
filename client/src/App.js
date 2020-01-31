@@ -20,6 +20,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 import ErrorPage from './components/errors/ErrorPage'
 
 import './styles/theme.scss'
+import AlertBar from './components/common/AlertBar'
 
 let { store, persistor } = createStore()
 
@@ -29,6 +30,7 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <Router>
           <Navbar />
+          <AlertBar />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/register' component={Register} />
