@@ -6,21 +6,27 @@ import '../../styles/login.scss'
 import PropTypes from 'prop-types'
 
 import { login } from '../../actions/auth'
-import { useFormData } from '../util/useFormData'
 
 const Login = ({ isAuthenticated, login }) => {
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />
   }
 
-  const [formData, handleChange] = useFormData({
-    username: '',
-    password: ''
-  })
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const [usernameError, setUsernameError] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
-  const { username, password } = formData
+
+  const handleUsernameChange = e => {
+    setUsernameError(null)
+    setUsername(e.target.value)
+  }
+
+  const handlePasswordChange = e => {
+    setPasswordError(null)
+    setPassword(e.target.value)
+  }
 
   const handleFailure = error => {
     if (error && error.status === 400) {
@@ -55,7 +61,7 @@ const Login = ({ isAuthenticated, login }) => {
                 }
                 name='username'
                 value={username}
-                onChange={handleChange}
+                onChange={handleUsernameChange}
                 placeholder='Username'
                 required
               />
@@ -69,7 +75,7 @@ const Login = ({ isAuthenticated, login }) => {
                 }
                 name='password'
                 value={password}
-                onChange={handleChange}
+                onChange={handlePasswordChange}
                 placeholder='Password'
                 required
               />
