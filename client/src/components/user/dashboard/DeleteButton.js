@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Button } from 'react-bootstrap'
 
 const DeleteButton = ({ text, onClick }) => {
   return (
-    <>
-      <button className='btn btn-danger btn-sm' onClick={onClick}>
-        {text}
-      </button>
-    </>
+    <Button variant='danger' size='sm' onClick={onClick}>
+      {text}
+    </Button>
   )
 }
 
