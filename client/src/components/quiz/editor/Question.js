@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+
 import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
 
 import uuidv4 from 'uuid/v4'
 
-import QuestionText from './layout/QuestionText'
-import CorrectAnswerDisplay from './layout/CorrectAnswerDisplay'
+import QuestionText from './QuestionText'
+import CorrectAnswerDisplay from './CorrectAnswerDisplay'
 import Answer from './Answer'
 
 /**
@@ -32,7 +34,14 @@ import Answer from './Answer'
  * @param {onChange} props.onChange function to invoke when Question data changes
  * @param {remove} props.remove function to invoke when Question should be removed
  */
-const Question = ({ index, editing, defaultValue, onChange, remove }) => {
+const Question = ({
+  index,
+  error,
+  editing,
+  defaultValue,
+  onChange,
+  remove
+}) => {
   // Name of the question to use as ID for labels
   const questionName = `question${index}`
   // Text value for question text field
@@ -103,7 +112,7 @@ const Question = ({ index, editing, defaultValue, onChange, remove }) => {
                   className='col d-flex align-items-center'
                   htmlFor={questionName}>
                   Question {index + 1}
-                  {answers.length < 2 ? (
+                  {error && error.status === 400 && answers.length < 2 ? (
                     <span className='px-3 d-inline-flex align-items-center text-danger'>
                       Please add at least two answers.
                       <Icon path={mdiAlertCircle} size={0.8} color='red' />
@@ -158,12 +167,17 @@ const Question = ({ index, editing, defaultValue, onChange, remove }) => {
   )
 }
 
+const mapStateToProps = state => ({
+  error: state.editor.error
+})
+
 Question.propTypes = {
   index: PropTypes.number.isRequired,
   editing: PropTypes.bool.isRequired,
+  error: PropTypes.object,
   defaultValue: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired
 }
 
-export default Question
+export default connect(mapStateToProps)(Question)

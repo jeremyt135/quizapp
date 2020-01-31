@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import DateTimePicker from '../../../common/DateTimePicker'
+import DateTimePicker from '../../common/DateTimePicker'
 
 const ExpirationPicker = ({ defaultValue, onChange }) => {
   return (

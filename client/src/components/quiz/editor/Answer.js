@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import AnswerText from './layout/AnswerText'
+import AnswerText from './AnswerText'
 
 /**
  * Callback for changing Answer data in the parent Question

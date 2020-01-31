@@ -1,10 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
 import uuidv4 from 'uuid/v4'
 
-import Question from '../Question'
+import Question from './Question'
 
 /**
  * Callback for changing Question data in QuizEditor
@@ -38,6 +39,7 @@ import Question from '../Question'
  */
 const QuestionList = ({
   editing,
+  error,
   questions,
   onChangeQuestion,
   addQuestion,
@@ -45,7 +47,7 @@ const QuestionList = ({
 }) => {
   return (
     <>
-      {questions.length === 0 ? (
+      {error && error.status === 400 && questions.length === 0 ? (
         <div className='row mb-2'>
           <div className='col d-flex align-items-center '>
             <h5 className='text-danger mb-0'>
@@ -79,12 +81,17 @@ const QuestionList = ({
   )
 }
 
+const mapStateToProps = state => ({
+  error: state.editor.error
+})
+
 QuestionList.propTypes = {
   editing: PropTypes.bool.isRequired,
+  error: PropTypes.object,
   questions: PropTypes.array.isRequired,
   onChangeQuestion: PropTypes.func.isRequired,
   addQuestion: PropTypes.func.isRequired,
   removeQuestion: PropTypes.func.isRequired
 }
 
-export default QuestionList
+export default connect(mapStateToProps)(QuestionList)
