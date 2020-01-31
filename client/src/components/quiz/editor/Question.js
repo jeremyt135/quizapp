@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import Icon from '@mdi/react'
+import { mdiAlertCircle } from '@mdi/js'
 
 import uuidv4 from 'uuid/v4'
 
@@ -96,7 +98,19 @@ const Question = ({ index, editing, defaultValue, onChange, remove }) => {
         <div className='col'>
           <div className='row'>
             <div className='col'>
-              <label htmlFor={questionName}>Question {index + 1}</label>
+              <div className='row'>
+                <label
+                  className='col d-flex align-items-center'
+                  htmlFor={questionName}>
+                  Question {index + 1}
+                  {answers.length < 2 ? (
+                    <span className='px-3 d-inline-flex align-items-center text-danger'>
+                      Please add at least two answers.
+                      <Icon path={mdiAlertCircle} size={0.8} color='red' />
+                    </span>
+                  ) : null}
+                </label>
+              </div>
             </div>
           </div>
           <QuestionText

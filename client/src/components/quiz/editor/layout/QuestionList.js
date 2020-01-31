@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import Icon from '@mdi/react'
+import { mdiAlertCircle } from '@mdi/js'
 import uuidv4 from 'uuid/v4'
 
 import Question from '../Question'
@@ -44,6 +45,16 @@ const QuestionList = ({
 }) => {
   return (
     <>
+      {questions.length === 0 ? (
+        <div className='row mb-2'>
+          <div className='col d-flex align-items-center '>
+            <h5 className='text-danger mb-0'>
+              Please add at least one question.
+            </h5>
+            <Icon path={mdiAlertCircle} size={1} color='red' />
+          </div>
+        </div>
+      ) : null}
       {questions.map((question, index) => (
         <Question
           key={uuidv4()}

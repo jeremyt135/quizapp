@@ -86,7 +86,7 @@ const QuizEditor = ({ postQuiz, postEditedQuiz, error }) => {
   }
 
   const [title, setTitle] = useState(quiz.title || 'My Quiz')
-  const [isPublic, setIsPublic] = useState(quiz.isPublic || false)
+  const [isPublic, setIsPublic] = useState(quiz.isPublic || true)
   const [allowedUsers, setAllowedUsers] = useState(
     editing ? quiz.allowedUsers : []
   )
