@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
+import { Button } from 'react-bootstrap'
 import Footer from '../common/Footer'
 import Spinner from '../../common/Spinner'
 import ScoredQuestionList from './ScoredQuestionList'
@@ -92,10 +92,14 @@ const QuizResult = ({
         </div>
       </div>
 
-      <Footer
-        confirmText={'Go back'}
-        onConfirm={() => browserHistory.goBack()}
-      />
+      <Footer>
+        <Button
+          variant='success'
+          className='ml-1'
+          onClick={() => browserHistory.goBack()}>
+          Go back
+        </Button>
+      </Footer>
     </>
   )
 }

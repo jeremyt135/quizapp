@@ -3,7 +3,7 @@ import React, { useState, useRef, useReducer } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
+import { Button } from 'react-bootstrap'
 import moment from 'moment'
 
 import Footer from '../common/Footer'
@@ -231,12 +231,20 @@ const QuizEditor = ({ postQuiz, postEditedQuiz, error }) => {
           </div>
         </div>
       </div>
-      <Footer
-        cancelText='Cancel'
-        confirmText={editing ? 'Confirm edits' : 'Submit'}
-        onCancel={goBackToDashboard}
-        onConfirm={editing ? submitEditedQuiz : submitNewQuiz}
-      />
+      <Footer>
+        <Button
+          variant='secondary'
+          className='ml-1'
+          onClick={goBackToDashboard}>
+          Cancel
+        </Button>
+        <Button
+          variant='success'
+          className='ml-1'
+          onClick={editing ? submitEditedQuiz : submitNewQuiz}>
+          {editing ? 'Confirm edits' : 'Submit'}
+        </Button>
+      </Footer>
     </div>
   )
 }

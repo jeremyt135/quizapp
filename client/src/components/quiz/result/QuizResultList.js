@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
+import { Button } from 'react-bootstrap'
 import Footer from '../common/Footer'
 import Spinner from '../../common/Spinner'
 import ErrorPage from '../../errors/ErrorPage'
@@ -90,7 +90,11 @@ const QuizResultList = ({
         </div>
       </div>
 
-      <Footer confirmText={'Back to dashboard'} onConfirm={goToDashboard} />
+      <Footer>
+        <Button variant='success' className='ml-1' onClick={goToDashboard}>
+          Back to dashboard
+        </Button>
+      </Footer>
     </>
   )
 }

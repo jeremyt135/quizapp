@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import { Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 import QuestionList from './QuestionList'
@@ -104,13 +105,14 @@ const QuizAnswerForm = ({
           </div>
         </div>
       </div>
-
-      <Footer
-        cancelText='Cancel'
-        confirmText={'Submit'}
-        onCancel={goToDashboard}
-        onConfirm={submitAnswers}
-      />
+      <Footer>
+        <Button variant='secondary' className='ml-1' onClick={goToDashboard}>
+          Cancel
+        </Button>
+        <Button variant='success' className='ml-1' onClick={submitAnswers}>
+          Submit
+        </Button>
+      </Footer>
     </>
   )
 }
