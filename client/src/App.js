@@ -11,7 +11,7 @@ import Login from './components/user/Login'
 import QuizEditor from './components/quiz/editor/QuizEditor'
 import Dashboard from './components/user/dashboard/Dashboard'
 import QuizResult from './components/quiz/result/QuizResult'
-import QuizDashboard from './components/quiz/QuizDashboard'
+import QuizRoute from './components/routing/QuizRoute'
 
 import createStore from './store/store'
 
@@ -37,7 +37,7 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/quizzes/create' component={QuizEditor} />
-            <PrivateRoute exact path='/quizzes/:id' component={QuizDashboard} />
+            <QuizRoute exact path='/quizzes/:id' />
             <PrivateRoute
               exact
               path='/quizzes/:id/edit'
