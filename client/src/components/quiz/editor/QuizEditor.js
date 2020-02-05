@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button } from 'react-bootstrap'
@@ -13,12 +13,7 @@ import ExpirationPicker from './ExpirationPicker'
 import QuestionList from './QuestionList'
 import ErrorPage from '../../errors/ErrorPage'
 import Spinner from '../../common/Spinner'
-import {
-  postQuiz,
-  postEditedQuiz,
-  getQuiz,
-  clearEditor
-} from '../../../actions/editor'
+import { postQuiz, postEditedQuiz, clearEditor } from '../../../actions/editor'
 
 import '../../../styles/quiz.scss'
 
@@ -37,18 +32,22 @@ const QuizEditor = ({
   quiz,
   loading,
   editing,
-  getQuiz,
   postQuiz,
   postEditedQuiz,
   clearEditor,
   error
 }) => {
   const browserHistory = useHistory()
-  const { id: quizId } = useParams()
+
+  const handleBeforeUnload = e => {
+    e.returnValue =
+      'Are you sure you want to reload? Changes will not be saved.'
+  }
 
   useEffect(() => {
-    if (editing) {
-      getQuiz(quizId)
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
     }
   }, [])
 
@@ -58,14 +57,6 @@ const QuizEditor = ({
       clearEditor()
     })
     return unlisten
-  }, [])
-
-  useEffect(() => {
-    const listener = window.addEventListener('beforeunload', e => {
-      e.returnValue =
-        'Are you sure you want to reload? Changes will not be saved.'
-    })
-    return () => window.removeEventListener('beforeunload', listener)
   }, [])
 
   const goBackToDashboard = () => {
@@ -125,7 +116,6 @@ QuizEditor.propTypes = {
   loading: PropTypes.bool.isRequired,
   postQuiz: PropTypes.func.isRequired,
   postEditedQuiz: PropTypes.func.isRequired,
-  getQuiz: PropTypes.func.isRequired,
   clearEditor: PropTypes.func.isRequired,
   error: PropTypes.object
 }
@@ -140,6 +130,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   postQuiz,
   postEditedQuiz,
-  getQuiz,
   clearEditor
 })(QuizEditor)

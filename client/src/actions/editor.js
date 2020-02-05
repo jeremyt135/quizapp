@@ -91,6 +91,7 @@ export const goToQuizEditor = (quizId, browserHistory) => dispatch => {
   dispatch({
     type: Editor.EDIT_QUIZ
   })
+  dispatch(getQuiz(quizId))
   browserHistory.push(`/quizzes/${quizId}/edit`)
 }
 
