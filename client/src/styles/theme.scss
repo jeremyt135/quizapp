@@ -64,14 +64,15 @@ body {
 
 .content {
   padding-top: $spacer;
-  padding-bottom: $footer-height;
+  padding-bottom: $footer-height + 5;
+  margin-bottom: -1 * $footer-height;
+  min-height: calc(100% - #{$footer-height});
 }
 
 .footer {
-  position: fixed;
+  position: relative;
   width: 100%;
   height: $footer-height;
-  bottom: 0;
   background-color: $color-dark-gray;
 }
 
