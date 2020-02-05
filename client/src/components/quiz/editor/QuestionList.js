@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
-import uuidv4 from 'uuid/v4'
 
 import Question from './Question'
 import { addQuestion, removeQuestion } from '../../../actions/editor'
@@ -57,7 +56,7 @@ const QuestionList = ({
       ) : null}
       {questions.map((question, index) => (
         <Question
-          key={uuidv4()}
+          key={index}
           editing={editing}
           index={index}
           defaultValue={question}

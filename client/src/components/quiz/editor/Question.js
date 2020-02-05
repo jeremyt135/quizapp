@@ -5,8 +5,6 @@ import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
 
-import uuidv4 from 'uuid/v4'
-
 import QuestionText from './QuestionText'
 import CorrectAnswerDisplay from './CorrectAnswerDisplay'
 import Answer from './Answer'
@@ -105,7 +103,7 @@ const Question = ({
           ) : null}
           {answers.map((answer, answerIndex) => (
             <Answer
-              key={uuidv4()}
+              key={answerIndex}
               questionName={questionName}
               index={answerIndex}
               defaultText={answer.text}
