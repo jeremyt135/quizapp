@@ -1,5 +1,9 @@
 import ActionTypes from '../actions/types'
 
+/**
+ * User reducer
+ * @param {error: { status: number, errors: [object]}, user: object, loading: boolean} state
+ */
 export const user = (
   state = { loading: true, user: null, error: null },
   action

@@ -1,5 +1,9 @@
 import ActionTypes from '../actions/types'
 
+/**
+ * Dashboard reducer
+ * @param {loading: boolean, quizzes: [object], results: [object], error: { status: number, errors: [object]}} state
+ */
 export const dashboard = (
   state = { loading: true, quizzes: null, results: null, error: null },
   action

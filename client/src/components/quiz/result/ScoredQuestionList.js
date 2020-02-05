@@ -1,7 +1,13 @@
 import React from 'react'
-
 import ScoredQuestion from './ScoredQuestion'
+import PropTypes from 'prop-types'
 
+/**
+ * Displays a list of scored questions
+ * @param {object} props
+ * @param {[{ text: string, answers: { text: string } }]} props.questions List of questions
+ * @param {[{ choice: number, correctAnswer: boolean, isCorrect: boolean}]} props.results List of results
+ */
 const ScoredQuestionList = ({ questions, results }) => {
   return (
     <>
@@ -20,6 +26,11 @@ const ScoredQuestionList = ({ questions, results }) => {
       })}
     </>
   )
+}
+
+ScoredQuestionList.propTypes = {
+  questions: PropTypes.array.isRequired,
+  results: PropTypes.array.isRequired
 }
 
 export default ScoredQuestionList

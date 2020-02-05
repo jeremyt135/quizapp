@@ -5,6 +5,12 @@ import PropTypes from 'prop-types'
 
 import { logout } from '../../actions/user'
 
+/**
+ * Displays the top navigation bar for the site, which is persistent across pages
+ * @param {object} props
+ * @param {bool} props.isAuthenticated True if user is logged in and authenticated
+ * @param {function} props.logout Function to call to log user out
+ */
 const Navbar = ({ isAuthenticated, logout }) => {
   const history = useHistory()
 

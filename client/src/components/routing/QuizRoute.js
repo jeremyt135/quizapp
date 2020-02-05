@@ -22,7 +22,6 @@ const QuizRoute = ({
   clearQuiz,
   ...rest
 }) => {
-  // Extract
   const {
     computedMatch: {
       params: { id: quizId }
@@ -43,7 +42,7 @@ const QuizRoute = ({
       return <ErrorPage status={error.status} />
     }
 
-    if (quiz.user === user) {
+    if (user && quiz.user === user.username) {
       return <QuizResultList />
     } else {
       return <QuizAnswerForm />
@@ -54,14 +53,14 @@ const QuizRoute = ({
 }
 
 QuizRoute.propTypes = {
-  user: PropTypes.string.isRequired,
+  user: PropTypes.object,
   quiz: PropTypes.object,
   error: PropTypes.object,
   loading: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  user: state.user.user.username,
+  user: state.user.user,
   quiz: state.quiz.quiz,
   error: state.quiz.error,
   loading: state.quiz.loading

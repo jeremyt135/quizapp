@@ -1,6 +1,9 @@
 import React from 'react'
 import '../../styles/spinner.scss'
 
+/**
+ * Displays a spinner icon for use when an object is loading
+ */
 const Spinner = () => {
   return (
     <div className='container-fluid spinner-container'>

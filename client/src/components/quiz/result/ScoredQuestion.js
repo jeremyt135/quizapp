@@ -1,6 +1,15 @@
 import React from 'react'
 import Answer from './Answer'
+import PropTypes from 'prop-types'
 
+/**
+ * Displays a single scored question from a quiz
+ * @param {object} props
+ * @param {number} props.index Index of question
+ * @param {string} props.text Question text
+ * @param {[{ text: string }]} props.answers Answers to question
+ * @param {{ correctAnswer: number, isCorrect: boolean }} props.result Result data
+ */
 const ScoredQuestion = ({ index: questionIndex, text, answers, result }) => {
   return (
     <div className='row mb-4'>
@@ -33,6 +42,13 @@ const ScoredQuestion = ({ index: questionIndex, text, answers, result }) => {
       </div>
     </div>
   )
+}
+
+ScoredQuestion.propTypes = {
+  index: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  answers: PropTypes.array.isRequired,
+  result: PropTypes.object.isRequired
 }
 
 export default ScoredQuestion

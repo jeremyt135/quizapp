@@ -13,6 +13,24 @@ import { getQuiz, clearQuiz } from '../../../actions/quiz'
 
 import '../../../styles/quiz.scss'
 
+/**
+ * Displays a list of results belonging to a quiz. This would only be accessed by the owner of the quiz.
+ * @param {object} props
+ * @param {{ loading: boolean, error: object, quiz: {
+ *   questions: [{ text: string }],
+ *   expiresIn: string,
+ *   title: string, }}} props.quiz Quiz data from redux
+ * @param {{ error: object, loading: boolean, results: [
+ *    {
+ *      _id: string, user: string, quiz: string,
+ *      quizOwner: string, score: number, date: string,
+ *      username: string
+ *    }]}} props.quizResults QuizResults data from redux
+ * @param {function} props.getQuizResults Action creator to get results for quiz
+ * @param {function} props.clearQuizResults Action creator to clear quiz results data
+ * @param {function} props.getQuiz Action creator to load quiz data
+ * @param {function} props.clearQuiz Action creator to clear quiz data
+ */
 const QuizResultList = ({
   quiz,
   quizResults,

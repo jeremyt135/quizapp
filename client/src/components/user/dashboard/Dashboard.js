@@ -14,6 +14,11 @@ import '../../../styles/dashboard.scss'
 
 /**
  * Dashboard for a user that shows their info and quizzes
+ * @param {object} props
+ * @param {{ isAuthenticated: boolean }} props.auth Redux auth state
+ * @param {boolean} props.userLoading True if user data is loading
+ * @param {function} props.loadDashboard Action creator to load user's dashboard data (quiz data, result data)
+ * @param {function} props.clearDashboard Action creator to clear dashboard data
  */
 const Dashboard = ({ auth, userLoading, loadDashboard, clearDashboard }) => {
   if (!auth.isAuthenticated) {

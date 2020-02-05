@@ -14,6 +14,11 @@ const momentFormat = 'MM-DD-YYYY h:mm A'
 
 /**
  * Displays an input for the user to select a date and time.
+ * @param {object} props
+ * @param {string} props.id String to use as HTML id value
+ * @param {string} props.defaultValue Default date to display
+ * @param {string} props.minValue Minimum allowed date
+ * @param {function} props.onChange Function to call with updated date
  */
 const DateTimePicker = React.memo(
   ({ id, defaultValue, minValue, onChange }) => {

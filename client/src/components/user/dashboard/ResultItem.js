@@ -23,7 +23,6 @@ const ResultItem = ({
   const goToResult = () => {
     browserHistory.push(`/results?quiz=${quizId}&user=${userId}`)
   }
-  // console.log(props)
   return (
     <>
       <div className='row mb-1 align-items-center'>

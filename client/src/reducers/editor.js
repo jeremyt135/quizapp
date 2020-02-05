@@ -1,5 +1,9 @@
 import { Editor } from '../actions/types'
 
+/**
+ * Editor reducer
+ * @param {quiz: object, loading: boolean, error: { status: number, errors: [object]}} state
+ */
 export const editor = (
   state = { quiz: null, loading: true, error: null },
   action

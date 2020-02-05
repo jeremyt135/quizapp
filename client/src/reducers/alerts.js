@@ -1,5 +1,9 @@
 import { Alerts } from '../actions/types'
 
+/**
+ * Alerts reducer
+ * @param {[{ id: string, msg: string, type: string }]} state Array of alert objects
+ */
 export const alerts = (state = [], action) => {
   switch (action.type) {
     case Alerts.SET_ALERT:

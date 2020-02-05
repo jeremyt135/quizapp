@@ -1,5 +1,9 @@
 import { Quiz } from '../actions/types'
 
+/**
+ * Quiz reducer
+ * @param { error: { status: number, errors: [object]}, quiz: object, loading: boolean} state
+ */
 export const quiz = (
   state = { error: null, quiz: null, loading: true },
   action

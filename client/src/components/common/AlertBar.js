@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Alert } from 'react-bootstrap'
 
+/**
+ * Contains and renders Alert components
+ * @param {[{id: string, type: string, msg: string}]} alerts Array of alert objects
+ */
 const AlertBar = ({ alerts }) => {
   return (
     <div className='container-fluid'>

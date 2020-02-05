@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+/**
+ * Displays an error to the user that the quiz they are taking has expired
+ */
 const QuizExpiredError = () => {
   return (
     <div className='container error-container'>

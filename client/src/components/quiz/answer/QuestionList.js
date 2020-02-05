@@ -3,6 +3,13 @@ import Question from './Question'
 
 import PropTypes from 'prop-types'
 
+/**
+ * Displays the questions to the quiz answer form
+ * @param {object} props
+ * @param {{status: number, errors: [any]}} props.error Quiz error state
+ * @param {{ questions: [{text: string}]}} props.questions List of questions in quiz
+ * @param {function} onChange Function to call when user has selected an answer
+ */
 const QuestionList = ({ error, questions, onChange }) => {
   return (
     <>

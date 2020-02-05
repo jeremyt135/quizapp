@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * The homepage of the website.
+ */
 const Landing = () => {
   return (
     <>

@@ -1,13 +1,19 @@
 import React from 'react'
 
 import '../../styles/errorpage.scss'
+import PropTypes from 'prop-types'
 
+/**
+ * Displays an error page/splash
+ * @param {number} status Error status code
+ */
 const ErrorPage = ({ status }) => {
   let message = ''
   switch (status) {
     case 404:
       message = "That resource wasn't found."
       break
+    case 401:
     case 403:
       message = 'You are not authorized to view this resource.'
       break
@@ -33,6 +39,10 @@ const ErrorPage = ({ status }) => {
       </div>
     </div>
   )
+}
+
+ErrorPage.propTypes = {
+  status: PropTypes.number.isRequired
 }
 
 export default ErrorPage

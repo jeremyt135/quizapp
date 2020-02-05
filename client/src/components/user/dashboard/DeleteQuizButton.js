@@ -1,5 +1,5 @@
 import DeleteButton from './DeleteButton'
-import withModal from './withmodal'
+import withConfirmModal from './withmodal'
 
 const modalConfig = {
   header: 'Confirm Quiz Deletion',
@@ -8,4 +8,4 @@ const modalConfig = {
   confirm: 'Yes, delete this quiz.'
 }
 
-export default withModal(DeleteButton, modalConfig)
+export default withConfirmModal(DeleteButton, modalConfig)

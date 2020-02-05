@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+/**
+ * Displays an error page to the user indicating they already took the quiz
+ */
 const QuizTakenError = () => {
   return (
     <div className='container error-container'>

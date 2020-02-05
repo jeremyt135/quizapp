@@ -17,6 +17,22 @@ import '../../../styles/quiz.scss'
 import QuizTakenError from './QuizTakenError'
 import QuizExpiredError from './QuizExpiredError'
 
+/**
+ * Displays a form for a user to take/answer a quiz.
+ * @param {object} props
+ * @param {string} props.user Id of logged in user
+ * @param {object} props.result Result state from redux (used to determine if user has answered quiz)
+ * @param {{
+ *   questions: [{ text: string }],
+ *   expiresIn: string,
+ *   title: string, }} props.quiz Quiz data from redux (for displaying what the user has to answer)
+ * @param {boolean} props.loading True if Quiz data is loading
+ * @param {{ status: number, errors: [any]}} props.error Quiz redux error state
+ * @param {function} props.getQuiz Action creator to load a quiz by id
+ * @param {function} props.clearQuiz Action creator to clear quiz data
+ * @param {function} props.postQuizAnswers Action creator to post the quiz answers
+ * @param {function} props.getResult Action creator to get a user's result for a quiz
+ */
 const QuizAnswerForm = ({
   user,
   result,

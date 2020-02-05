@@ -1,5 +1,9 @@
 import ActionTypes from '../actions/types'
 
+/**
+ * Authentication reducer
+ * @param {token: string, isAuthenticated: boolean} state
+ */
 export const auth = (
   state = {
     token: localStorage.getItem('token'),

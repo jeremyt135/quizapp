@@ -17,6 +17,19 @@ function useQuery() {
   return new URLSearchParams(useLocation().search)
 }
 
+/**
+ * Displays a single quiz result.
+ * @param {object} props
+ * @param {object} props.result Result state from redux
+ * @param {{ loading: boolean, error: object, quiz: {
+ *   questions: [{ text: string }],
+ *   expiresIn: string,
+ *   title: string, }}} props.quiz Quiz data from redux
+ * @param {function} props.getResult Action creator to load result data
+ * @param {function} props.clearResult Action creator to clear result data
+ * @param {function} props.getQuiz Action creator to load quiz data
+ * @param {function} props.clearQuiz Action creator to clear quiz data
+ */
 const QuizResult = ({
   quiz,
   result,

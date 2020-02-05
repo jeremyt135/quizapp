@@ -2,6 +2,17 @@ import React, { useState } from 'react'
 import Answer from './Answer'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
+import PropTypes from 'prop-types'
+
+/**
+ * Displays one Question from a quiz.
+ * @param {object} props
+ * @param {number} props.index Index of question in quiz
+ * @param {string} props.text Question text
+ * @param {[{text: string}]} props.answers Question answer choices
+ * @param {boolean} props.highlightMissing True if missing choices should be highlighted
+ * @param {function} props.onChange Function to call when user has changed their choice
+ */
 const Question = ({
   index: questionIndex,
   text,
@@ -43,6 +54,14 @@ const Question = ({
       </div>
     </div>
   )
+}
+
+Question.propTypes = {
+  index: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  answers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  highlightMissing: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 export default Question
