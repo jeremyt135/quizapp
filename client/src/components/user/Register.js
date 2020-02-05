@@ -84,6 +84,7 @@ const Register = ({ isAuthenticated, register }) => {
                 onChange={handleUsernameChange}
                 placeholder='Username'
                 minLength={5}
+                maxLength={12}
                 required
               />
               {formError && formError.username ? (
@@ -118,6 +119,8 @@ const Register = ({ isAuthenticated, register }) => {
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder='Password'
+                minLength={8}
+                maxLength={20}
                 required
               />
               <input
@@ -130,6 +133,8 @@ const Register = ({ isAuthenticated, register }) => {
                 value={passwordConfirm}
                 onChange={handlePasswordChange}
                 placeholder='Confirm Password'
+                minLength={8}
+                maxLength={20}
                 required
               />
               {formError && formError.password ? (

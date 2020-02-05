@@ -41,10 +41,14 @@ const PasswordForm = ({ changeUserPassword }) => {
 
   const showModal = e => {
     e.preventDefault()
-    if (password === confirmPassword) {
-      setModalIsOpen(true)
+    if (password && confirmPassword) {
+      if (password === confirmPassword) {
+        setModalIsOpen(true)
+      } else {
+        setFormError('Passwords do not match.')
+      }
     } else {
-      setFormError('Passwords do not match.')
+      setFormError('Please enter a password.')
     }
   }
   const handleClose = () => {
@@ -90,6 +94,8 @@ const PasswordForm = ({ changeUserPassword }) => {
                     name='password'
                     value={password}
                     onChange={handleChange}
+                    minLength={8}
+                    maxLength={20}
                   />
                 </div>
               </div>
@@ -104,6 +110,8 @@ const PasswordForm = ({ changeUserPassword }) => {
                     name='confirmPassword'
                     value={confirmPassword}
                     onChange={handleChange}
+                    minLength={8}
+                    maxLength={20}
                   />
                   {formError ? (
                     <div className='invalid-feedback'>{formError}</div>
