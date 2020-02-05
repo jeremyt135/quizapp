@@ -9,10 +9,10 @@ import { Alert } from 'react-bootstrap'
  */
 const AlertBar = ({ alerts }) => {
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid alertbar'>
       {alerts.map(alert => (
         <div key={alert.id} className='row my-1'>
-          <div className='col-sm-8 mx-auto px-0'>
+          <div className='col-sm-6 mx-auto px-0'>
             <Alert variant={alert.type}>{alert.msg}</Alert>
           </div>
         </div>

@@ -24,6 +24,31 @@ body {
   height: 100%;
 }
 
+.alertbar {
+  position: fixed;
+  z-index: 2000;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.alert {
+  animation-name: toast;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  opacity: 0.95;
+}
+
+@keyframes toast {
+  from {
+    bottom: 0;
+  }
+
+  to {
+    bottom: $navbar-height;
+  }
+}
+
 .navbar {
   min-height: $navbar-height;
   position: relative;
