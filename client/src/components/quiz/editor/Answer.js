@@ -23,7 +23,8 @@ const Answer = ({
   handleChecked,
   removeAnswer,
   correct,
-  disabled
+  disabled,
+  error
 }) => {
   const id = `${questionName}answer${index}`
 
@@ -38,7 +39,7 @@ const Answer = ({
                 type='radio'
                 name={questionName}
                 id={id}
-                value='1'
+                value={index}
                 onChange={() => handleChecked(index)}
                 checked={correct}
                 disabled={disabled}
@@ -54,9 +55,10 @@ const Answer = ({
           </div>
         </div>
         <AnswerText
+          index={index}
           defaultValue={defaultText}
-          placeholder={`Answer ${index + 1} text...`}
           onBlur={text => handleTextChange(index, text)}
+          error={error}
         />
       </div>
     </>
@@ -71,7 +73,8 @@ Answer.propTypes = {
   handleChecked: PropTypes.func.isRequired,
   removeAnswer: PropTypes.func.isRequired,
   correct: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
+  error: PropTypes.object
 }
 
 export default Answer

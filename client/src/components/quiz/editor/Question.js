@@ -39,10 +39,8 @@ const Question = memo(
     changeQuestion,
     removeQuestion
   }) => {
-    const { text, answers } = question
+    const { text, answers, correctAnswer } = question
     const questionName = `question${index}`
-
-    const [correctAnswer, setCorrectAnswer] = useState(question.correctAnswer)
 
     const changeText = text => {
       changeQuestion(index, { text })
@@ -55,7 +53,6 @@ const Question = memo(
     }
 
     const changeCorrectAnswer = answerIndex => {
-      setCorrectAnswer(answerIndex)
       changeQuestion(index, { correctAnswer: answerIndex })
     }
 

@@ -9,7 +9,7 @@ const defaultExpiration = moment()
   .toISOString()
 const defaultQuestion = { text: '', correctAnswer: 0, answers: [] }
 const defaultQuiz = {
-  title: 'My Quiz',
+  title: '',
   isPublic: true,
   allowedUsers: [],
   expiresIn: defaultExpiration,
@@ -39,8 +39,13 @@ const addAnswerToQuestion = (questions, questionIndex) =>
 const removeAnswerFromQuestion = (questions, questionIndex, answerIndex) =>
   questions.map((question, index) => {
     if (index === questionIndex) {
+      let correctAnswer = question.correctAnswer
+      if (correctAnswer === answerIndex) {
+        correctAnswer = Math.max(0, correctAnswer - 1)
+      }
       return {
         ...question,
+        correctAnswer,
         answers: question.answers.filter((_, i) => i !== answerIndex)
       }
     } else {
