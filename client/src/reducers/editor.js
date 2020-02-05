@@ -24,6 +24,42 @@ const defaultState = {
   editing: false,
   error: null
 }
+
+const addAnswerToQuestion = (questions, questionIndex) =>
+  questions.map((question, index) => {
+    if (index === questionIndex) {
+      return {
+        ...question,
+        answers: [...question.answers, defaultAnswer]
+      }
+    } else {
+      return question
+    }
+  })
+const removeAnswerFromQuestion = (questions, questionIndex, answerIndex) =>
+  questions.map((question, index) => {
+    if (index === questionIndex) {
+      return {
+        ...question,
+        answers: question.answers.filter((_, i) => i !== answerIndex)
+      }
+    } else {
+      return question
+    }
+  })
+
+const changeQuestion = (questions, questionIndex, data) =>
+  questions.map((question, index) => {
+    if (index === questionIndex) {
+      return {
+        ...question,
+        ...data
+      }
+    } else {
+      return question
+    }
+  })
+
 /**
  * Editor reducer
  * @param {quiz: object, loading: boolean, error: { status: number, errors: [object]}} state
@@ -57,7 +93,7 @@ export const editor = (state = defaultState, action) => {
         ...state,
         quiz: {
           ...quiz,
-          questions: [...clone(questions), defaultQuestion]
+          questions: [...questions, defaultQuestion]
         }
       }
     }
@@ -68,41 +104,34 @@ export const editor = (state = defaultState, action) => {
         ...state,
         quiz: {
           ...quiz,
-          questions: [
-            ...clone(questions.slice(0, index)),
-            ...clone(questions.slice(index + 1))
-          ]
+          questions: questions.filter((_, i) => i !== index)
         }
       }
     }
     case Editor.ADD_ANSWER: {
       const { questions, ...quiz } = state.quiz
       const questionIndex = action.data
-      const nextQuestions = clone(questions)
-      nextQuestions[questionIndex].answers.push(defaultAnswer)
+
       return {
         ...state,
         quiz: {
           ...quiz,
-          questions: nextQuestions
+          questions: addAnswerToQuestion(questions, questionIndex)
         }
       }
     }
     case Editor.REMOVE_ANSWER: {
       const { questions, ...quiz } = state.quiz
       const { questionIndex, answerIndex } = action.data
-      const nextQuestions = clone(questions)
-      const { answers, ...modifiedQuestion } = nextQuestions[questionIndex]
-      modifiedQuestion.answers = [
-        ...answers.slice(0, answerIndex),
-        ...answers.slice(answerIndex + 1)
-      ]
-      nextQuestions[questionIndex] = modifiedQuestion
       return {
         ...state,
         quiz: {
           ...quiz,
-          questions: nextQuestions
+          questions: removeAnswerFromQuestion(
+            questions,
+            questionIndex,
+            answerIndex
+          )
         }
       }
     }
@@ -149,16 +178,15 @@ export const editor = (state = defaultState, action) => {
     case Editor.CHANGE_QUESTION: {
       const { questions, ...quiz } = state.quiz
       const { questionIndex, questionData } = action.data
-      const nextQuestions = clone(questions)
-      nextQuestions[questionIndex] = {
-        ...nextQuestions[questionIndex],
-        ...clone(questionData)
-      }
       return {
         ...state,
         quiz: {
           ...quiz,
-          questions: nextQuestions
+          questions: changeQuestion(
+            questions,
+            questionIndex,
+            clone(questionData)
+          )
         }
       }
     }

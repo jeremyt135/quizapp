@@ -6,45 +6,19 @@ import { mdiAlertCircle } from '@mdi/js'
 
 import Question from './Question'
 import { addQuestion, removeQuestion } from '../../../actions/editor'
-/**
- * Callback for changing Question data in QuizEditor
- *
- * @callback onChangeQuestion
- * @param {{text: string, correctAnswer: number, answers: Array}} question Question data
- * @param {number} questionIndex
- */
-
-/**
- * Callback for removing a Question
- * @callback remove
- * @param {number} questionIndex
- */
-
-/**
- * Callback for adding a Question
- * @callback add
- * @param {number} questionIndex
- */
 
 /**
  * Presentational component that displays a list of Question components
  * @param {object} props Component props
  * @param {boolean} props.editing True if questions are being edited
- * @param {Array} props.questions Array of Question objects to display
- * @param {{text: string, correctAnswer: number, answers: Array}} props.defaultValue Default Question data
- * @param {add} props.addQuestion function to invoke when a Question is added
- * @param {remove} props.remove function to invoke when Question should be removed
+ * @param {number} props.questionCount Number of questions in quiz
+ * @param {function} props.addQuestion function to invoke when a Question is added
+ * @param {status: number, errors: [object]} props.error Editor error state
  */
-const QuestionList = ({
-  editing,
-  error,
-  questions,
-  addQuestion,
-  removeQuestion
-}) => {
+const QuestionList = ({ editing, error, questionCount, addQuestion }) => {
   return (
     <>
-      {error && error.status === 400 && questions.length === 0 ? (
+      {error && error.status === 400 && questionCount === 0 ? (
         <div className='row mb-2'>
           <div className='col d-flex align-items-center '>
             <h5 className='text-danger mb-0'>
@@ -54,14 +28,8 @@ const QuestionList = ({
           </div>
         </div>
       ) : null}
-      {questions.map((question, index) => (
-        <Question
-          key={index}
-          editing={editing}
-          index={index}
-          defaultValue={question}
-          removeQuestion={() => removeQuestion(index)}
-        />
+      {Array.from({ length: questionCount }, (_, index) => (
+        <Question key={index} index={index} />
       ))}
       <div className='row mt-4'>
         <div className='col d-flex align-items-center justify-content-start'>
@@ -78,7 +46,7 @@ const QuestionList = ({
 }
 
 const mapStateToProps = state => ({
-  questions: state.editor.quiz.questions,
+  questionCount: state.editor.quiz.questions.length,
   editing: state.editor.editing,
   error: state.editor.error
 })
@@ -86,7 +54,7 @@ const mapStateToProps = state => ({
 QuestionList.propTypes = {
   editing: PropTypes.bool.isRequired,
   error: PropTypes.object,
-  questions: PropTypes.array.isRequired,
+  questionCount: PropTypes.number.isRequired,
   addQuestion: PropTypes.func.isRequired,
   removeQuestion: PropTypes.func.isRequired
 }
