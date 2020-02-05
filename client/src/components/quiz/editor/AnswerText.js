@@ -1,10 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const AnswerText = ({ text, error, placeholder, onChange }) => {
+const AnswerText = ({ defaultValue, error, placeholder, onBlur }) => {
+  const [text, setText] = useState(defaultValue)
   const isValid = text.length !== 0
   const shouldDisplayWarning = error && error.status === 400 && !isValid
+  const onChange = e => {
+    setText(e.target.value)
+  }
   return (
     <div className='row mb-1'>
       <div className='col'>
@@ -15,6 +18,7 @@ const AnswerText = ({ text, error, placeholder, onChange }) => {
             (shouldDisplayWarning ? ' is-invalid' : '')
           }
           onChange={onChange}
+          onBlur={() => onBlur(text)}
           value={text}
           placeholder={placeholder}
           minLength={1}
@@ -29,15 +33,11 @@ const AnswerText = ({ text, error, placeholder, onChange }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  error: state.editor.error
-})
-
 AnswerText.propTypes = {
-  text: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string.isRequired,
   error: PropTypes.object,
   placeholder: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onBlur: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(AnswerText)
+export default AnswerText

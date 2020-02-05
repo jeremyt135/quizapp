@@ -1,50 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import AnswerText from './AnswerText'
 
 /**
- * Callback for changing Answer data in the parent Question
- *
- * @callback onChange
- * @param {{text: string, correctAnswer: number, answers: Array}} question Question data
- */
-
-/**
- * Callback for removing an answer
- * @callback remove
- * @param {number} answerIndex
- */
-
-/**
  * Displays an answer with button to remove itself
  * @param {object} props Component props
  * @param {number} props.index Index of this answer
- * @param {text: string} props.defaultValue Default Answer data
+ * @param {string} props.defaultText Default Answer data
  * @param {string} props.questionName The name of the parent question
- * @param {onChange} props.onChange function to invoke when Answer data changes
- * @param {remove} props.remove function to invoke when Answer should be removed
+ * @param {function} props.handleTextChange function to invoke when Answer text changes
+ * @param {function} props.handleChecked function to invoke when checked Answer changes
+ * @param {function} props.removeAnswer function to invoke when Answer should be removed
  * @param {boolean} props.correct represents whether this answer should be considered correct
  * @param {boolean} props.disabled True if checkboxes can be pressed to change correct answer
  */
 const Answer = ({
   index,
-  defaultValue,
+  defaultText,
   questionName,
-  onChange,
-  onChecked,
-  remove,
+  handleTextChange,
+  handleChecked,
+  removeAnswer,
   correct,
   disabled
 }) => {
   const id = `${questionName}answer${index}`
-
-  const [text, setText] = useState(defaultValue)
-
-  const changeText = e => {
-    setText(e.target.value)
-    onChange({ text: e.target.value }, index)
-  }
 
   return (
     <>
@@ -58,7 +39,7 @@ const Answer = ({
                 name={questionName}
                 id={id}
                 value='1'
-                onChange={() => onChecked(index)}
+                onChange={() => handleChecked(index)}
                 checked={correct}
                 disabled={disabled}
               />
@@ -66,16 +47,16 @@ const Answer = ({
             </div>
             <button
               className='btn btn-danger btn-sm ml-auto'
-              onClick={() => remove(index)}
+              onClick={removeAnswer}
               disabled={disabled}>
               Delete
             </button>
           </div>
         </div>
         <AnswerText
-          text={text}
+          defaultValue={defaultText}
           placeholder={`Answer ${index + 1} text...`}
-          onChange={changeText}
+          onBlur={text => handleTextChange(index, text)}
         />
       </div>
     </>
@@ -84,11 +65,11 @@ const Answer = ({
 
 Answer.propTypes = {
   index: PropTypes.number.isRequired,
-  defaultValue: PropTypes.string.isRequired,
+  defaultText: PropTypes.string.isRequired,
   questionName: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onChecked: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
+  handleTextChange: PropTypes.func.isRequired,
+  handleChecked: PropTypes.func.isRequired,
+  removeAnswer: PropTypes.func.isRequired,
   correct: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired
 }

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-
+import { connect } from 'react-redux'
 import DateTimePicker from '../../common/DateTimePicker'
-
-const ExpirationPicker = ({ defaultValue, onChange }) => {
+import { changeExpiration } from '../../../actions/editor'
+const ExpirationPicker = ({ defaultValue, changeExpiration }) => {
+  const [date, setDate] = useState(defaultValue)
+  const onChange = str => {
+    setDate(str)
+    changeExpiration(str)
+  }
   return (
     <>
       <div className='row'>
@@ -16,7 +21,7 @@ const ExpirationPicker = ({ defaultValue, onChange }) => {
           <DateTimePicker
             label={'Expires on:'}
             id={'expirationPicker'}
-            defaultValue={defaultValue}
+            defaultValue={date}
             minValue={new Date().toISOString()}
             onChange={onChange}
           />
@@ -29,7 +34,11 @@ const ExpirationPicker = ({ defaultValue, onChange }) => {
 
 ExpirationPicker.propTypes = {
   defaultValue: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  changeExpiration: PropTypes.func.isRequired
 }
 
-export default ExpirationPicker
+const mapStateToProps = state => ({
+  defaultValue: state.editor.quiz.expiresIn
+})
+
+export default connect(mapStateToProps, { changeExpiration })(ExpirationPicker)

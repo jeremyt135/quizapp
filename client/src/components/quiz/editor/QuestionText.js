@@ -1,10 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const QuestionText = ({ text, error, id, placeholder, onChange }) => {
+const QuestionText = ({ index, defaultValue, error, onBlur }) => {
+  const [text, setText] = useState(defaultValue)
   const isValid = text.length !== 0
   const shouldDisplayWarning = error && error.status === 400 && !isValid
+  const onChange = e => {
+    setText(e.target.value)
+  }
   return (
     <div className='row mb-2'>
       <div className='col'>
@@ -13,10 +16,11 @@ const QuestionText = ({ text, error, id, placeholder, onChange }) => {
           className={
             'form-control' + (shouldDisplayWarning ? ' is-invalid' : '')
           }
-          id={id}
+          id={`question${index}`}
           onChange={onChange}
+          onBlur={() => onBlur(text)}
           value={text}
-          placeholder={placeholder}
+          placeholder={`Question ${index + 1} text...`}
           minLength={1}
         />
         {shouldDisplayWarning ? (
@@ -29,16 +33,11 @@ const QuestionText = ({ text, error, id, placeholder, onChange }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  error: state.editor.error
-})
-
 QuestionText.propTypes = {
-  text: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  defaultValue: PropTypes.string.isRequired,
   error: PropTypes.object,
-  id: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onBlur: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(QuestionText)
+export default QuestionText

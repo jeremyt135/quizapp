@@ -31,7 +31,7 @@ export const User = {
   // Log the user out
   LOGOUT: 'LOGOUT'
 }
-// Types for actions done in quiz editor
+// Types for actsions done in quiz editor
 export const Editor = {
   // User posting a quiz to server
   CREATE_QUIZ: 'CREATE_QUIZ',
@@ -41,7 +41,24 @@ export const Editor = {
   POST_EDITED_QUIZ_ERROR: 'POST_EDITED_QUIZ_ERROR',
   // Opening quiz editor
   EDIT_QUIZ: 'EDIT_QUIZ',
-  EDIT_QUIZ_ERROR: 'EDIT_QUIZ_ERROR'
+  EDIT_QUIZ_ERROR: 'EDIT_QUIZ_ERROR',
+  // Add question to current quiz
+  ADD_QUESTION: 'ADD_QUESTION',
+  // Removes question from quiz
+  REMOVE_QUESTION: 'REMOVE_QUESTION',
+  // Add answer to a question
+  ADD_ANSWER: 'ADD_ANSWER',
+  // Remove answer from question
+  REMOVE_ANSWER: 'REMOVE_ANSWER',
+  // Change answer
+  CHANGE_ANSWER_TEXT: 'CHANGE_ANSWER_TEXT',
+  // Change non-answer part of question
+  CHANGE_QUESTION: 'CHANGE_QUESTION',
+  // Change quiz settings
+  CHANGE_TITLE: 'CHANGE_TITLE',
+  CHANGE_PUBLIC: 'CHANGE_PUBLIC',
+  CHANGE_EXPIRATION: 'CHANGE_EXPIRATION',
+  CHANGE_ALLOWED_USERS: 'CHANGE_ALLOWED_USERSE'
 }
 export const Quiz = {
   // User getting the quiz form to answer

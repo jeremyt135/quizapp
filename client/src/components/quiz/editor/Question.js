@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-
+import clone from 'clone'
 import PropTypes from 'prop-types'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
@@ -10,6 +10,12 @@ import uuidv4 from 'uuid/v4'
 import QuestionText from './QuestionText'
 import CorrectAnswerDisplay from './CorrectAnswerDisplay'
 import Answer from './Answer'
+
+import {
+  addAnswer,
+  removeAnswer,
+  changeQuestion
+} from '../../../actions/editor'
 
 /**
  * Callback for changing Question data in QuizEditor
@@ -31,74 +37,40 @@ import Answer from './Answer'
  * @param {number} props.index Index of this question in the list
  * @param {boolean} props.editing True if question is being edited
  * @param {{text: string, correctAnswer: number, answers: Array}} props.defaultValue Default Question data
- * @param {onChange} props.onChange function to invoke when Question data changes
- * @param {remove} props.remove function to invoke when Question should be removed
+ * @param {remove} props.removeQuestion function to invoke when Question should be removed
+ * @param {function} props.addAnswer function to add answer
+ * @param {function} props.removeAnswer function to remove answer
+ * @param {function} props.changeQuestion function to change question
  */
 const Question = ({
   index,
   error,
   editing,
   defaultValue,
-  onChange,
-  remove
+  addAnswer,
+  removeAnswer,
+  changeQuestion,
+  removeQuestion
 }) => {
-  // Name of the question to use as ID for labels
+  const { text } = defaultValue
   const questionName = `question${index}`
-  // Text value for question text field
-  const [text, setText] = useState(defaultValue.text)
-  // Index of the correct answer
-  const [correctAnswer, setCorrectAnswer] = useState(
-    defaultValue.correctAnswer || 0
-  )
+
+  const [correctAnswer, setCorrectAnswer] = useState(defaultValue.correctAnswer)
   const answers = defaultValue.answers
 
-  const changeText = e => {
-    setText(e.target.value)
-    onChange(
-      {
-        text: e.target.value,
-        answers,
-        correctAnswer
-      },
-      index
-    )
+  const changeText = text => {
+    changeQuestion(index, { text })
   }
 
-  const addAnswer = () => {
-    onChange(
-      {
-        text,
-        correctAnswer,
-        answers: [...answers, { text: '' }]
-      },
-      index
-    )
+  const changeAnswerText = (answerIndex, text) => {
+    const nextAnswers = clone(answers)
+    nextAnswers[answerIndex].text = text
+    changeQuestion(index, { answers: nextAnswers })
   }
 
-  const removeAnswer = answerIndex => {
-    const updatedCorrectAnswer = Math.max(0, correctAnswer - 1)
-    setCorrectAnswer(updatedCorrectAnswer)
-    onChange(
-      {
-        text,
-        answers: [
-          ...answers.slice(0, answerIndex),
-          ...answers.slice(answerIndex + 1)
-        ],
-        correctAnswer: updatedCorrectAnswer
-      },
-      index
-    )
-  }
-
-  const changeAnswer = (updatedAnswer, answerIndex) => {
-    answers[answerIndex] = { ...updatedAnswer }
-    onChange({ text, answers: [...answers], correctAnswer }, index)
-  }
-
-  const selectAnswer = answerIndex => {
+  const changeCorrectAnswer = answerIndex => {
     setCorrectAnswer(answerIndex)
-    onChange({ text, answers, correctAnswer: answerIndex }, index)
+    changeQuestion(index, { correctAnswer: answerIndex })
   }
 
   return (
@@ -123,25 +95,26 @@ const Question = ({
             </div>
           </div>
           <QuestionText
-            text={text}
-            id={questionName}
-            placeholder={`Question ${index + 1} text...`}
-            onChange={changeText}
+            index={index}
+            defaultValue={text}
+            onBlur={changeText}
+            error={error}
           />
           {answers.length > 0 ? (
             <CorrectAnswerDisplay number={correctAnswer + 1} />
           ) : null}
-          {answers.map((answer, index) => (
+          {answers.map((answer, answerIndex) => (
             <Answer
               key={uuidv4()}
               questionName={questionName}
-              index={index}
-              defaultValue={answer.text}
-              correct={correctAnswer === index}
-              onChange={changeAnswer}
-              onChecked={selectAnswer}
+              index={answerIndex}
+              defaultText={answer.text}
+              correct={correctAnswer === answerIndex}
+              handleTextChange={changeAnswerText}
+              handleChecked={changeCorrectAnswer}
+              removeAnswer={() => removeAnswer(index, answerIndex)}
               disabled={editing}
-              remove={removeAnswer}
+              error={error}
             />
           ))}
 
@@ -149,13 +122,13 @@ const Question = ({
             <div className='col d-flex align-items-center justify-content-start'>
               <button
                 className='btn btn-secondary btn-sm mr-2'
-                onClick={addAnswer}
+                onClick={() => addAnswer(index)}
                 disabled={editing}>
                 Add Answer
               </button>
               <button
                 className='btn btn-danger btn-sm mr-2'
-                onClick={() => remove(index)}
+                onClick={removeQuestion}
                 disabled={editing}>
                 Delete Question
               </button>
@@ -176,8 +149,14 @@ Question.propTypes = {
   editing: PropTypes.bool.isRequired,
   error: PropTypes.object,
   defaultValue: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired
+  addAnswer: PropTypes.func.isRequired,
+  removeAnswer: PropTypes.func.isRequired,
+  changeQuestion: PropTypes.func.isRequired,
+  removeQuestion: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(Question)
+export default connect(mapStateToProps, {
+  addAnswer,
+  removeAnswer,
+  changeQuestion
+})(Question)

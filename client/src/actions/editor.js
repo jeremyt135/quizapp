@@ -14,18 +14,19 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
       body: JSON.stringify(quiz)
     })
     if (response.ok) {
-      dispatch({
-        type: Editor.CREATE_QUIZ
-      })
       // load the updated user data
-      dispatch(loadUser())
-      dispatch(
-        setAlert({
-          msg: 'Quiz created successfully',
-          type: 'success'
+      dispatch(loadUser()).then(() => {
+        onSuccess()
+        dispatch({
+          type: Editor.CREATE_QUIZ
         })
-      )
-      onSuccess()
+        dispatch(
+          setAlert({
+            msg: 'Quiz created successfully',
+            type: 'success'
+          })
+        )
+      })
     } else {
       const error = await parseError(response)
       dispatch({
@@ -55,18 +56,19 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
       body: JSON.stringify(quiz)
     })
     if (response.ok) {
-      dispatch({
-        type: Editor.POST_EDITED_QUIZ
-      })
       // load the updated user data
-      dispatch(loadUser())
-      dispatch(
-        setAlert({
-          msg: 'Quiz edited successfully',
-          type: 'success'
+      dispatch(loadUser()).then(() => {
+        onSuccess()
+        dispatch({
+          type: Editor.POST_EDITED_QUIZ
         })
-      )
-      onSuccess()
+        dispatch(
+          setAlert({
+            msg: 'Quiz edited successfully',
+            type: 'success'
+          })
+        )
+      })
     } else {
       const error = await parseError(response)
       dispatch({
@@ -97,9 +99,81 @@ export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
     let quiz = null
     if (response.ok) {
       quiz = await response.json()
+      dispatch({
+        type: Editor.EDIT_QUIZ,
+        data: quiz
+      })
+    } else {
+      const error = await parseError(response)
+      dispatch({
+        type: Editor.EDIT_QUIZ_ERROR,
+        data: error
+      })
     }
-    browserHistory.push(`/quizzes/${quiz._id}/edit`, { quiz, editing: true })
+    browserHistory.push(`/quizzes/${quiz._id}/edit`)
   } catch (error) {
     console.error(error)
   }
+}
+
+export const addQuestion = () => dispatch => {
+  dispatch({
+    type: Editor.ADD_QUESTION
+  })
+}
+
+export const removeQuestion = index => dispatch => {
+  dispatch({
+    type: Editor.REMOVE_QUESTION,
+    data: index
+  })
+}
+
+export const addAnswer = questionIndex => dispatch => {
+  dispatch({
+    type: Editor.ADD_ANSWER,
+    data: questionIndex
+  })
+}
+
+export const removeAnswer = (questionIndex, answerIndex) => dispatch => {
+  dispatch({
+    type: Editor.REMOVE_ANSWER,
+    data: { questionIndex, answerIndex }
+  })
+}
+
+export const changeIsPublic = isPublic => dispatch => {
+  dispatch({
+    type: Editor.CHANGE_PUBLIC,
+    data: isPublic
+  })
+}
+
+export const changeExpiration = expiration => dispatch => {
+  dispatch({
+    type: Editor.CHANGE_EXPIRATION,
+    data: expiration
+  })
+}
+
+export const changeAllowedUsers = users => dispatch => {
+  dispatch({
+    type: Editor.CHANGE_ALLOWED_USERS,
+    data: users
+  })
+}
+
+export const changeTitle = title => dispatch => {
+  dispatch({
+    type: Editor.CHANGE_TITLE,
+    data: title
+  })
+}
+
+export const changeQuestion = (questionIndex, questionData) => dispatch => {
+  dispatch({
+    type: Editor.CHANGE_QUESTION,
+    data: { questionIndex, questionData }
+  })
 }

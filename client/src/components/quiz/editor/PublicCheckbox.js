@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-const PublicCheckbox = ({ value, onChange }) => {
+import { changeIsPublic } from '../../../actions/editor'
+
+const PublicCheckbox = ({ defaultValue, changeIsPublic }) => {
+  const [checked, setChecked] = useState(defaultValue)
+  const onChange = e => {
+    const value = e.target.checked
+    setChecked(value)
+    changeIsPublic(value)
+  }
   return (
     <div className='row mb-4'>
       <div className='col d-flex align-items-center'>
@@ -10,7 +19,7 @@ const PublicCheckbox = ({ value, onChange }) => {
             type='checkbox'
             className='custom-control-input'
             id='publicCheckbox'
-            checked={value}
+            checked={checked}
             onChange={onChange}
           />
           <label className='custom-control-label' htmlFor='publicCheckbox'>
@@ -23,8 +32,12 @@ const PublicCheckbox = ({ value, onChange }) => {
 }
 
 PublicCheckbox.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  defaultValue: PropTypes.bool.isRequired,
+  changeIsPublic: PropTypes.func.isRequired
 }
 
-export default PublicCheckbox
+const mapStateToProps = state => ({
+  defaultValue: state.editor.quiz.isPublic
+})
+
+export default connect(mapStateToProps, { changeIsPublic })(PublicCheckbox)

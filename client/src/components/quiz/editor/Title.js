@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-const Title = ({ value, onChange }) => {
-  const isValid = value.length !== 0
+import { changeTitle } from '../../../actions/editor'
+
+const Title = ({ defaultValue, changeTitle }) => {
+  const [text, setText] = useState(defaultValue)
+  const isValid = text.length !== 0
+  const onChange = e => {
+    setText(e.target.value)
+  }
+  const onBlur = () => {
+    changeTitle(text)
+  }
   return (
     <>
       <div className='row'>
@@ -19,8 +29,9 @@ const Title = ({ value, onChange }) => {
               (!isValid ? ' is-invalid' : '')
             }
             id='quizTitle'
-            value={value}
+            value={text}
             onChange={onChange}
+            onBlur={onBlur}
             minLength={1}
           />
           {!isValid ? (
@@ -35,8 +46,12 @@ const Title = ({ value, onChange }) => {
 }
 
 Title.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  defaultValue: PropTypes.string.isRequired,
+  changeTitle: PropTypes.func.isRequired
 }
 
-export default Title
+const mapStateToProps = state => ({
+  defaultValue: state.editor.quiz.title
+})
+
+export default connect(mapStateToProps, { changeTitle })(Title)
