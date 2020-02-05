@@ -6,6 +6,7 @@
     "@mdi/js": "^4.8.95",
     "@mdi/react": "^1.2.1",
     "bootstrap": "^4.4.1",
+    "clone": "^2.1.2",
     "flatpickr": "^4.6.3",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
