@@ -80,15 +80,17 @@ const QuizEditor = ({
   }
 
   return (
-    <div className='content'>
-      <div className='quiz-editor container-fluid'>
-        <div className='row'>
-          <div className='quiz-editor__block col-sm-8 mx-auto'>
-            <Title />
-            <PublicCheckbox />
-            {!quiz.isPublic ? <AllowedUsersInput /> : null}
-            <ExpirationPicker />
-            <QuestionList />
+    <>
+      <div className='content'>
+        <div className='quiz-editor container-fluid'>
+          <div className='row'>
+            <div className='quiz-editor__block col-sm-8 mx-auto'>
+              <Title />
+              <PublicCheckbox />
+              {!quiz.isPublic ? <AllowedUsersInput /> : null}
+              <ExpirationPicker />
+              <QuestionList />
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +108,7 @@ const QuizEditor = ({
           {editing ? 'Confirm edits' : 'Submit'}
         </Button>
       </Footer>
-    </div>
+    </>
   )
 }
 
