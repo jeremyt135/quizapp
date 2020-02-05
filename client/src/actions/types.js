@@ -39,9 +39,11 @@ export const Editor = {
   // User sends edited quiz to server
   POST_EDITED_QUIZ: 'POST_EDITED_QUIZ',
   POST_EDITED_QUIZ_ERROR: 'POST_EDITED_QUIZ_ERROR',
-  // Opening quiz editor
+  // Loaded quiz to edit
+  LOAD_QUIZ: 'LOAD_EDITED_QUIZ',
+  LOAD_QUIZ_ERROR: 'LOAD_EDITED_QUIZ_ERROR',
+  // Opening quiz editor in edit mode
   EDIT_QUIZ: 'EDIT_QUIZ',
-  EDIT_QUIZ_ERROR: 'EDIT_QUIZ_ERROR',
   // Add question to current quiz
   ADD_QUESTION: 'ADD_QUESTION',
   // Removes question from quiz
@@ -58,12 +60,14 @@ export const Editor = {
   CHANGE_TITLE: 'CHANGE_TITLE',
   CHANGE_PUBLIC: 'CHANGE_PUBLIC',
   CHANGE_EXPIRATION: 'CHANGE_EXPIRATION',
-  CHANGE_ALLOWED_USERS: 'CHANGE_ALLOWED_USERSE'
+  CHANGE_ALLOWED_USERS: 'CHANGE_ALLOWED_USERS',
+  // Clear all edited quiz data (usually at the moment when user leaves editor)
+  CLEAR_EDITOR: 'CLEAR_EDITOR'
 }
 export const Quiz = {
   // User getting the quiz form to answer
-  LOAD_QUIZ: 'LOAD_QUIZ',
-  LOAD_QUIZ_ERROR: 'LOAD_QUIZ_ERROR',
+  LOAD_QUIZ: 'LOAD_ANSWER_FORM',
+  LOAD_QUIZ_ERROR: 'LOAD_ANSWER_FORM_ERROR',
   // User submits answers to a quiz
   POST_ANSWERS: 'POST_ANSWERS',
   POST_ANSWERS_ERROR: 'POST_ANSWERS_ERROR',

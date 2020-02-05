@@ -14,7 +14,7 @@ import { editor } from './editor'
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['alerts', 'quiz', 'result', 'quizResults', 'dashboard', 'editor']
+  blacklist: ['alerts', 'quiz', 'result', 'quizResults', 'dashboard']
 }
 
 const rootReducer = combineReducers({

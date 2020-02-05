@@ -18,34 +18,38 @@ const defaultQuiz = {
 const defaultAnswer = {
   text: ''
 }
+const defaultState = {
+  quiz: defaultQuiz,
+  loading: true,
+  editing: false,
+  error: null
+}
 /**
  * Editor reducer
  * @param {quiz: object, loading: boolean, error: { status: number, errors: [object]}} state
  */
-export const editor = (
-  state = {
-    quiz: defaultQuiz,
-    loading: true,
-    editing: false,
-    error: null
-  },
-  action
-) => {
+export const editor = (state = defaultState, action) => {
   switch (action.type) {
     case Editor.CREATE_QUIZ:
     case Editor.POST_EDITED_QUIZ:
       return {
-        quiz: null,
+        quiz: defaultQuiz,
         loading: true,
         editing: false,
         error: null
       }
-    case Editor.EDIT_QUIZ:
+    case Editor.LOAD_QUIZ:
       return {
         quiz: action.data,
         loading: false,
         editing: true,
         error: null
+      }
+    case Editor.EDIT_QUIZ:
+      return {
+        ...state,
+        loading: true,
+        editing: true
       }
     case Editor.ADD_QUESTION: {
       const { questions, ...quiz } = state.quiz
@@ -160,12 +164,14 @@ export const editor = (
     }
     case Editor.CREATE_QUIZ_ERROR:
     case Editor.POST_EDITED_QUIZ_ERROR:
-    case Editor.EDIT_QUIZ_ERROR:
+    case Editor.LOAD_QUIZ_ERROR:
       return {
         ...state,
         loading: false,
         error: action.data
       }
+    case Editor.CLEAR_EDITOR:
+      return defaultState
     default:
       return state
   }

@@ -87,7 +87,14 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
   }
 }
 
-export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
+export const goToQuizEditor = (quizId, browserHistory) => dispatch => {
+  dispatch({
+    type: Editor.EDIT_QUIZ
+  })
+  browserHistory.push(`/quizzes/${quizId}/edit`)
+}
+
+export const getQuiz = quizId => async dispatch => {
   try {
     // get the corresponding quiz
     const response = await fetch(`/api/quizzes/${quizId}`, {
@@ -100,17 +107,16 @@ export const goToQuizEditor = (quizId, browserHistory) => async dispatch => {
     if (response.ok) {
       quiz = await response.json()
       dispatch({
-        type: Editor.EDIT_QUIZ,
+        type: Editor.LOAD_QUIZ,
         data: quiz
       })
     } else {
       const error = await parseError(response)
       dispatch({
-        type: Editor.EDIT_QUIZ_ERROR,
+        type: Editor.LOAD_QUIZ_ERROR,
         data: error
       })
     }
-    browserHistory.push(`/quizzes/${quiz._id}/edit`)
   } catch (error) {
     console.error(error)
   }
@@ -175,5 +181,11 @@ export const changeQuestion = (questionIndex, questionData) => dispatch => {
   dispatch({
     type: Editor.CHANGE_QUESTION,
     data: { questionIndex, questionData }
+  })
+}
+
+export const clearEditor = () => dispatch => {
+  dispatch({
+    type: Editor.CLEAR_EDITOR
   })
 }

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button } from 'react-bootstrap'
@@ -12,7 +12,13 @@ import Title from './Title'
 import ExpirationPicker from './ExpirationPicker'
 import QuestionList from './QuestionList'
 import ErrorPage from '../../errors/ErrorPage'
-import { postQuiz, postEditedQuiz } from '../../../actions/editor'
+import Spinner from '../../common/Spinner'
+import {
+  postQuiz,
+  postEditedQuiz,
+  getQuiz,
+  clearEditor
+} from '../../../actions/editor'
 
 import '../../../styles/quiz.scss'
 
@@ -21,14 +27,46 @@ import '../../../styles/quiz.scss'
  * @param {object} props Component props
  * @param {object} props.quiz Quiz data (from redux - either default or from edited quiz)
  * @param {boolean} props.editing True if editing a quiz or false if creating new quiz
+ * @param {boolean} props.loading True if loading a quiz to edit
  * @param {object} props.error Error state from attempting to post quiz
  * @param {function} props.postQuiz Function to submit a new quiz
  * @param {function} props.postEditedQuiz Function to call when submitting the quiz to server
- * @param {function} props.addQuestion Adds question to quiz
- * @param {function} props.removeQuestion Removes question from quiz
+ * @param {function} props.clearEditor Clears the quiz data from the editor
  */
-const QuizEditor = ({ quiz, editing, postQuiz, postEditedQuiz, error }) => {
+const QuizEditor = ({
+  quiz,
+  loading,
+  editing,
+  getQuiz,
+  postQuiz,
+  postEditedQuiz,
+  clearEditor,
+  error
+}) => {
   const browserHistory = useHistory()
+  const { id: quizId } = useParams()
+
+  useEffect(() => {
+    if (editing) {
+      getQuiz(quizId)
+    }
+  }, [])
+
+  useEffect(() => {
+    // Clear editor when leaving the page
+    const unlisten = browserHistory.listen(() => {
+      clearEditor()
+    })
+    return unlisten
+  }, [])
+
+  useEffect(() => {
+    const listener = window.addEventListener('beforeunload', e => {
+      e.returnValue =
+        'Are you sure you want to reload? Changes will not be saved.'
+    })
+    return () => window.removeEventListener('beforeunload', listener)
+  }, [])
 
   const goBackToDashboard = () => {
     browserHistory.push('/dashboard')
@@ -40,6 +78,10 @@ const QuizEditor = ({ quiz, editing, postQuiz, postEditedQuiz, error }) => {
 
   const submitEditedQuiz = () => {
     postEditedQuiz(quiz, goBackToDashboard)
+  }
+
+  if (loading && editing) {
+    return <Spinner />
   }
 
   if (error && error.status !== 400) {
@@ -80,18 +122,24 @@ const QuizEditor = ({ quiz, editing, postQuiz, postEditedQuiz, error }) => {
 QuizEditor.propTypes = {
   quiz: PropTypes.object.isRequired,
   editing: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
   postQuiz: PropTypes.func.isRequired,
   postEditedQuiz: PropTypes.func.isRequired,
+  getQuiz: PropTypes.func.isRequired,
+  clearEditor: PropTypes.func.isRequired,
   error: PropTypes.object
 }
 
 const mapStateToProps = state => ({
   quiz: state.editor.quiz,
+  loading: state.editor.loading,
   editing: state.editor.editing,
   error: state.editor.error
 })
 
 export default connect(mapStateToProps, {
   postQuiz,
-  postEditedQuiz
+  postEditedQuiz,
+  getQuiz,
+  clearEditor
 })(QuizEditor)
