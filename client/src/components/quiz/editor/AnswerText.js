@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const AnswerText = ({ defaultValue, error, placeholder, onBlur }) => {
+const AnswerText = ({ index, defaultValue, error, onBlur }) => {
   const [text, setText] = useState(defaultValue)
   const isValid = text.length !== 0
   const shouldDisplayWarning = error && error.status === 400 && !isValid
@@ -20,7 +20,7 @@ const AnswerText = ({ defaultValue, error, placeholder, onBlur }) => {
           onChange={onChange}
           onBlur={() => onBlur(text)}
           value={text}
-          placeholder={placeholder}
+          placeholder={`Answer ${index + 1} text...`}
           minLength={1}
         />
         {shouldDisplayWarning ? (
@@ -34,9 +34,9 @@ const AnswerText = ({ defaultValue, error, placeholder, onBlur }) => {
 }
 
 AnswerText.propTypes = {
+  index: PropTypes.number.isRequired,
   defaultValue: PropTypes.string.isRequired,
   error: PropTypes.object,
-  placeholder: PropTypes.string.isRequired,
   onBlur: PropTypes.func.isRequired
 }
 
