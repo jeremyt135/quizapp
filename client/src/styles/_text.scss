@@ -3,6 +3,7 @@ $circle-number-font-size: (32/16) + rem;
 $circle-number-padding: (8/16) + rem;
 
 .circled-number {
+  box-sizing: content-box;
   border-radius: 50%;
   border: 1px solid black;
   background-color: $color-dark-gray;
