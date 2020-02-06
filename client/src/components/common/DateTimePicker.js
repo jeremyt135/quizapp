@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import flatpickr from 'flatpickr'
-import 'flatpickr/dist/flatpickr.min.css'
 import PropTypes from 'prop-types'
 
-import '../../styles/datepicker.scss'
 import moment from 'moment'
 
 // Format string accepted by flatpickr for displaying the date

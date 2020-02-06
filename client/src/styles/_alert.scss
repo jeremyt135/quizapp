@@ -1,0 +1,33 @@
+@import 'variables';
+
+.alertbar {
+  position: fixed;
+  z-index: 2000;
+  bottom: 0;
+  pointer-events: none;
+  font-size: 0.8rem;
+  @include media-breakpoint-up(md) {
+    font-size: 1rem;
+  }
+}
+
+.alert {
+  animation-name: toast;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  margin: auto 0;
+}
+
+@keyframes toast {
+  from {
+    bottom: 0;
+  }
+
+  to {
+    bottom: $navbar-height;
+    @include media-breakpoint-up(md) {
+      font-size: 1rem;
+    }
+  }
+}

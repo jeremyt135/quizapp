@@ -13,7 +13,6 @@ import ErrorPage from '../../errors/ErrorPage'
 import { getQuiz, clearQuiz, postQuizAnswers } from '../../../actions/quiz'
 import { getResult, clearResult } from '../../../actions/result'
 
-import '../../../styles/quiz.scss'
 import QuizTakenError from './QuizTakenError'
 import QuizExpiredError from './QuizExpiredError'
 

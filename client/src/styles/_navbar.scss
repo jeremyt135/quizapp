@@ -1,0 +1,9 @@
+.navbar {
+  min-height: $navbar-height;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-dark {
+  background-color: $color-primary-light;
+}

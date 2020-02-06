@@ -10,8 +10,6 @@ import ResultList from './ResultList'
 
 import { loadDashboard, clearDashboard } from '../../../actions/dashboard'
 
-import '../../../styles/dashboard.scss'
-
 /**
  * Dashboard for a user that shows their info and quizzes
  * @param {object} props

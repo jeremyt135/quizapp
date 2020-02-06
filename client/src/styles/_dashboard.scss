@@ -1,6 +1,5 @@
 @import 'variables';
 @import 'panel';
-@import 'node_modules/bootstrap/scss/bootstrap';
 
 .dashboard {
   height: calc(100% - #{$navbar-height});

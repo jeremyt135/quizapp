@@ -15,8 +15,6 @@ import ErrorPage from '../../errors/ErrorPage'
 import Spinner from '../../common/Spinner'
 import { postQuiz, postEditedQuiz, clearEditor } from '../../../actions/editor'
 
-import '../../../styles/quiz.scss'
-
 /**
  * Displays subforms for editing a quiz and directly handles submission of the quiz.
  * @param {object} props Component props

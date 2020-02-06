@@ -11,8 +11,6 @@ import ResultItem from './ResultItem'
 import { getQuizResults, clearQuizResults } from '../../../actions/quizresults'
 import { getQuiz, clearQuiz } from '../../../actions/quiz'
 
-import '../../../styles/quiz.scss'
-
 /**
  * Displays a list of results belonging to a quiz. This would only be accessed by the owner of the quiz.
  * @param {object} props

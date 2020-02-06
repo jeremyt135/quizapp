@@ -14,88 +14,18 @@ $jumbotron-bg: $color-primary-light;
 $jumbotron-color: $color-offwhite;
 
 @import 'node_modules/bootstrap/scss/bootstrap';
-
-html,
-body {
-  height: 100%;
-}
-
-.root {
-  height: 100%;
-}
-
-.alertbar {
-  position: fixed;
-  z-index: 2000;
-  bottom: 0;
-  pointer-events: none;
-  font-size: 0.8rem;
-  @include media-breakpoint-up(md) {
-    font-size: 1rem;
-  }
-}
-
-.alert {
-  animation-name: toast;
-  animation-duration: 0.5s;
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
-  margin: auto 0;
-}
-
-@keyframes toast {
-  from {
-    bottom: 0;
-  }
-
-  to {
-    bottom: $navbar-height;
-    @include media-breakpoint-up(md) {
-      font-size: 1rem;
-    }
-  }
-}
-
-.navbar {
-  min-height: $navbar-height;
-  position: relative;
-  z-index: 1;
-}
-
-.content {
-  padding-top: $spacer;
-  padding-bottom: $footer-height + 5;
-  margin-bottom: -1 * $footer-height;
-  min-height: calc(100% - #{$footer-height});
-}
-
-.footer {
-  position: relative;
-  width: 100%;
-  height: $footer-height;
-  background-color: $color-dark-gray;
-}
-
-.navbar-dark {
-  background-color: $color-primary-light;
-}
-
-.btn-signup {
-  background-color: $color-primary-dark;
-  color: $color-offwhite;
-}
-
-.btn-signup:hover {
-  background-color: darken($color-primary-dark, 2.5%);
-  color: $color-offwhite;
-}
-
-// .qa-navbar {
-//   @extend .navbar-dark;
-//   background-color: $theme-dark-bg;
-// }
-
-// .qa-jumbotron {
-//   background-color: $theme-dark-bg;
-//   color: $offwhite;
-// }
+@import 'alert';
+@import 'base';
+@import 'buttons';
+@import 'dashboard';
+@import 'datepicker';
+@import 'errorpage';
+@import 'footer';
+@import 'form';
+@import 'login';
+@import 'navbar';
+@import 'panel';
+@import 'quiz';
+@import 'register';
+@import 'spinner';
+@import 'text';

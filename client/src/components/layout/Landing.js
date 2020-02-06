@@ -55,6 +55,31 @@ const Landing = () => {
             </p>
           </section>
         </div>
+        <div className='row mb-4'>
+          <section className='col d-flex justify-content-center '>
+            <h2>Quick Start</h2>
+          </section>
+        </div>
+        <div className='row'>
+          <section className='col-md-4'>
+            <h3 className='text-center'>
+              <span className='circled-number'>1</span>
+            </h3>
+            <p className='text-justify'></p>
+          </section>
+          <section className='col-md-4'>
+            <h3 className='text-center'>
+              <span className='circled-number'>2</span>
+            </h3>
+            <p className='text-justify'></p>
+          </section>
+          <section className='col-md-4'>
+            <h3 className='text-center'>
+              <span className='circled-number'>3</span>
+            </h3>
+            <p className='text-justify'></p>
+          </section>
+        </div>
       </div>
     </>
   )

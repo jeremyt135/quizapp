@@ -18,8 +18,6 @@ import createStore from './store/store'
 import PrivateRoute from './components/routing/PrivateRoute'
 
 import ErrorPage from './components/errors/ErrorPage'
-
-import './styles/theme.scss'
 import AlertBar from './components/common/AlertBar'
 
 let { store, persistor } = createStore()

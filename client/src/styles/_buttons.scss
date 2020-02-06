@@ -1,0 +1,11 @@
+@import 'variables';
+
+.btn-signup {
+  background-color: $color-primary-dark;
+  color: $color-offwhite;
+}
+
+.btn-signup:hover {
+  background-color: darken($color-primary-dark, 2.5%);
+  color: $color-offwhite;
+}
