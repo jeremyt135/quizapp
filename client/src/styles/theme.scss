@@ -1,19 +1,14 @@
+// Global variables
 @import 'variables';
 
-// Bootstrap overrides
-$body-bg: $color-offwhite;
-$body-color: $color-dark-gray;
+// Bootstrap override
+@import 'bootstrap-theme';
 
-$navbar-dark-color: $color-gray;
-$navbar-dark-hover-color: $color-offwhite;
-$navbar-dark-active-color: $color-offwhite;
-$navbar-dark-brand-color: $color-offwhite;
-$navbar-dark-brand-hover-color: $color-offwhite;
+// Placeholder selectors
+@import 'form';
+@import 'panel';
 
-$jumbotron-bg: $color-primary-light;
-$jumbotron-color: $color-offwhite;
-
-@import 'node_modules/bootstrap/scss/bootstrap';
+// Component themes
 @import 'alert';
 @import 'base';
 @import 'buttons';
@@ -21,10 +16,9 @@ $jumbotron-color: $color-offwhite;
 @import 'datepicker';
 @import 'errorpage';
 @import 'footer';
-@import 'form';
+@import 'landing';
 @import 'login';
 @import 'navbar';
-@import 'panel';
 @import 'quiz';
 @import 'register';
 @import 'spinner';

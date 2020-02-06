@@ -1,6 +1,3 @@
-@import 'variables';
-@import 'panel';
-
 .dashboard {
   height: calc(100% - #{$navbar-height});
   display: flex;

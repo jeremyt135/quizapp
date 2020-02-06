@@ -1,5 +1,3 @@
-@import 'form';
-
 .login {
   @extend %form;
   height: calc(100% - 60px);
