@@ -114,7 +114,7 @@ const Landing = () => {
                 target='_blank'
                 rel='noreferrer noopener'>
                 {' '}
-                jeremyt135
+                Jeremy Taylor
               </a>
             </p>
           </div>
