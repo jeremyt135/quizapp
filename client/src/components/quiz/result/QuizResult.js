@@ -54,7 +54,7 @@ const QuizResult = ({
     return <Spinner />
   }
 
-  if (result.error) {
+  if (result.error && result.error.status !== 404) {
     return <ErrorPage status={result.error.status} />
   }
   if (quiz.error) {
