@@ -5,14 +5,17 @@ import PropTypes from 'prop-types'
 
 import QuizItem from './QuizItem'
 import Spinner from '../../common/Spinner'
-
+import { clearEditor } from '../../../actions/editor'
 /**
  *
  * @param {object} props Component props
  * @param {boolean} props.loading True if quiz list is loading
  * @param {[object]} props.quizzes List of quizzes
  */
-const QuizList = ({ loading, quizzes }) => {
+const QuizList = ({ loading, quizzes, clearEditor }) => {
+  const onOpenQuizEditor = () => {
+    clearEditor()
+  }
   return (
     <>
       <div className='row mb-2 align-items-center'>
@@ -35,7 +38,8 @@ const QuizList = ({ loading, quizzes }) => {
                 <div className='col'>
                   <Link
                     to='/quizzes/create'
-                    className='btn btn-success btn-sm ml-auto'>
+                    className='btn btn-success btn-sm ml-auto'
+                    onClick={onOpenQuizEditor}>
                     Create A Quiz
                   </Link>
                 </div>
@@ -60,7 +64,8 @@ const QuizList = ({ loading, quizzes }) => {
 
 QuizList.propTypes = {
   loading: PropTypes.bool.isRequired,
-  quizzes: PropTypes.array
+  quizzes: PropTypes.array,
+  clearEditor: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -68,4 +73,4 @@ const mapStateToProps = state => ({
   quizzes: state.dashboard.quizzes
 })
 
-export default connect(mapStateToProps)(QuizList)
+export default connect(mapStateToProps, { clearEditor })(QuizList)
