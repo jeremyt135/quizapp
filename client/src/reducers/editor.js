@@ -2,27 +2,39 @@ import { Editor } from '../actions/types'
 import clone from 'clone'
 import moment from 'moment'
 
-const defaultExpiration = moment()
-  .add(1, 'day')
-  .set('hours', 23)
-  .set('minutes', 59)
-  .toISOString()
-const defaultQuestion = { text: '', correctAnswer: 0, answers: [] }
-const defaultQuiz = {
-  title: '',
-  isPublic: true,
-  allowedUsers: [],
-  expiresIn: defaultExpiration,
-  questions: []
+class Expiration {
+  date = moment()
+    .add(1, 'day')
+    .set('hours', 23)
+    .set('minutes', 59)
+    .toISOString()
+
+  toString = () => this.date
 }
-const defaultAnswer = {
-  text: ''
+
+class Question {
+  text = ''
+  correctAnswer = 0
+  answers = []
 }
-const defaultState = {
-  quiz: defaultQuiz,
-  loading: true,
-  editing: false,
-  error: null
+
+class Answer {
+  text = ''
+}
+
+class Quiz {
+  title = ''
+  isPublic = true
+  allowedUsers = []
+  expiresIn = new Expiration().toString()
+  questions = []
+}
+
+class EditorState {
+  quiz = new Quiz()
+  loading = true
+  editing = false
+  error = null
 }
 
 const addAnswerToQuestion = (questions, questionIndex) =>
@@ -30,7 +42,7 @@ const addAnswerToQuestion = (questions, questionIndex) =>
     if (index === questionIndex) {
       return {
         ...question,
-        answers: [...question.answers, defaultAnswer]
+        answers: [...question.answers, new Answer()]
       }
     } else {
       return question
@@ -69,12 +81,12 @@ const changeQuestion = (questions, questionIndex, data) =>
  * Editor reducer
  * @param {quiz: object, loading: boolean, error: { status: number, errors: [object]}} state
  */
-export const editor = (state = defaultState, action) => {
+export const editor = (state = new EditorState(), action) => {
   switch (action.type) {
     case Editor.CREATE_QUIZ:
     case Editor.POST_EDITED_QUIZ:
       return {
-        quiz: defaultQuiz,
+        quiz: new Quiz(),
         loading: true,
         editing: false,
         error: null
@@ -98,7 +110,7 @@ export const editor = (state = defaultState, action) => {
         ...state,
         quiz: {
           ...quiz,
-          questions: [...questions, defaultQuestion]
+          questions: [...questions, new Question()]
         }
       }
     }
@@ -204,7 +216,7 @@ export const editor = (state = defaultState, action) => {
         error: action.data
       }
     case Editor.CLEAR_EDITOR:
-      return defaultState
+      return new EditorState()
     default:
       return state
   }
