@@ -42,7 +42,10 @@ const DateTimePicker = React.memo(
     }, [])
 
     useEffect(() => {
-      setIsValid(moment(dateTime, momentFormat).diff(moment()) >= 0)
+      setIsValid(
+        moment(dateTime, momentFormat).diff(moment()) >= 0 ||
+          minValue === defaultValue
+      )
     }, [moment(dateTime, momentFormat).toString()])
 
     return (

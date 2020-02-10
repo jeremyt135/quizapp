@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import DateTimePicker from '../../common/DateTimePicker'
 import { changeExpiration } from '../../../actions/editor'
-const ExpirationPicker = ({ defaultValue, changeExpiration }) => {
+const ExpirationPicker = ({ defaultValue, changeExpiration, editing }) => {
   const [date, setDate] = useState(defaultValue)
   const onChange = str => {
     setDate(str)
@@ -22,7 +22,7 @@ const ExpirationPicker = ({ defaultValue, changeExpiration }) => {
             label={'Expires on:'}
             id={'expirationPicker'}
             defaultValue={date}
-            minValue={new Date().toISOString()}
+            minValue={!editing ? new Date().toISOString() : date}
             onChange={onChange}
           />
           <small className='text-muted'>Click to change date and time</small>
@@ -34,11 +34,13 @@ const ExpirationPicker = ({ defaultValue, changeExpiration }) => {
 
 ExpirationPicker.propTypes = {
   defaultValue: PropTypes.string,
-  changeExpiration: PropTypes.func.isRequired
+  changeExpiration: PropTypes.func.isRequired,
+  editing: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  defaultValue: state.editor.quiz.expiresIn
+  defaultValue: state.editor.quiz.expiresIn,
+  editing: state.editor.editing
 })
 
 export default connect(mapStateToProps, { changeExpiration })(ExpirationPicker)
