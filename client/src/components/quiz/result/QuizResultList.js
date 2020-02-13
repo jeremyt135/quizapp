@@ -16,7 +16,7 @@ import { getQuiz, clearQuiz } from '../../../actions/quiz'
  * @param {object} props
  * @param {{ loading: boolean, error: object, quiz: {
  *   questions: [{ text: string }],
- *   expiresIn: string,
+ *   expiration: string,
  *   title: string, }}} props.quiz Quiz data from redux
  * @param {{ error: object, loading: boolean, results: [
  *    {

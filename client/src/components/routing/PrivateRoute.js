@@ -9,13 +9,11 @@ import Spinner from '../common/Spinner'
 import { clearAuth } from '../../actions/auth'
 
 const tokenIsExpired = token => {
-  const decoded = jwt.decode(token, { complete: true })
+  const decoded = jwt.decode(token)
   if (!decoded) {
     return true
   }
-  const {
-    payload: { exp: expiration }
-  } = decoded
+  const { exp: expiration } = decoded
   const now = Math.floor(new Date().getTime() / 1000)
   return expiration < now
 }

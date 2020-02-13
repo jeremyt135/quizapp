@@ -5,8 +5,10 @@ import moment from 'moment'
 class Expiration {
   date = moment()
     .add(1, 'day')
-    .set('hours', 23)
-    .set('minutes', 59)
+    .hours(23)
+    .minutes(59)
+    .seconds(0)
+    .milliseconds(0)
     .toISOString()
 
   toString = () => this.date
@@ -26,7 +28,7 @@ class Quiz {
   title = ''
   isPublic = true
   allowedUsers = []
-  expiresIn = new Expiration().toString()
+  expiration = new Expiration().toString()
   questions = []
 }
 
@@ -188,7 +190,7 @@ export const editor = (state = new EditorState(), action) => {
         ...prev,
         quiz: {
           ...quiz,
-          expiresIn: action.data
+          expiration: action.data
         }
       }
     }

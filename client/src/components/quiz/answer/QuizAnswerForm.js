@@ -23,7 +23,7 @@ import QuizExpiredError from './QuizExpiredError'
  * @param {object} props.result Result state from redux (used to determine if user has answered quiz)
  * @param {{
  *   questions: [{ text: string }],
- *   expiresIn: string,
+ *   expiration: string,
  *   title: string, }} props.quiz Quiz data from redux (for displaying what the user has to answer)
  * @param {boolean} props.loading True if Quiz data is loading
  * @param {{ status: number, errors: [any]}} props.error Quiz redux error state
@@ -82,7 +82,7 @@ const QuizAnswerForm = ({
   if (error) {
     const status = error.status
     if (status === 403 && error.errors.length > 0) {
-      const expired = error.errors.some(e => e.hasOwnProperty('expiresIn'))
+      const expired = error.errors.some(e => e.hasOwnProperty('expiration'))
       if (expired) {
         return <QuizExpiredError />
       }
@@ -91,7 +91,7 @@ const QuizAnswerForm = ({
     }
   } else if (!result.loading && result.result) {
     return <QuizTakenError />
-  } else if (moment(quiz.expiresIn).diff(moment()) < 0) {
+  } else if (moment(quiz.expiration).diff(moment()) < 0) {
     return <QuizExpiredError />
   }
 

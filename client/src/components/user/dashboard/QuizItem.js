@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
  * @returns {{ days: number, months: number, years: number }}
  */
 const calculateTimeDifference = (now, then) => {
-  const diff = moment.duration(now.diff(then))
+  const diff = moment.duration(now.diff(moment(then)))
   return { days: diff.days(), months: diff.months(), years: diff.years() }
 }
 
@@ -24,7 +24,7 @@ const calculateTimeDifference = (now, then) => {
  * @returns {bool} true if the expiration is on a day or time before today
  */
 const checkIfQuizExpired = expiration => {
-  return expiration.diff(moment()) < 0
+  return moment(expiration).diff(moment()) < 0
 }
 
 /**
@@ -53,14 +53,14 @@ const createTimestamp = ({ days, months, years }) => {
  * @param {object} props.quiz Quiz object
  * @param {string} props.quiz.id Id of the quiz
  * @param {string} props.quiz.title Title of the quiz
- * @param {string} props.quiz.expiresIn Expiration date of quiz
+ * @param {string} props.quiz.expiration Expiration date of quiz
  * @param {number} props.quiz.resultsCount Number of results
  * @param {number} props.quiz.questionCount Number of questions
  * @param {function} props.goToQuizEditor Action creator function to edit quiz
  * @param {function} props.deleteQuiz Action creator function to delete quiz
  */
 const QuizItem = ({
-  quiz: { _id: id, title, expiresIn, questionCount, resultsCount },
+  quiz: { _id: id, title, expiration, questionCount, resultsCount },
   deleteQuiz,
   goToQuizEditor
 }) => {
@@ -71,7 +71,6 @@ const QuizItem = ({
   useEffect(() => {
     // calculate if expired
     const now = moment()
-    const expiration = moment(expiresIn)
     setTimestamp(createTimestamp(calculateTimeDifference(now, expiration)))
     setIsExpired(checkIfQuizExpired(expiration))
   }, [])

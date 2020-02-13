@@ -21,7 +21,7 @@ function useQuery() {
  * @param {object} props.result Result state from redux
  * @param {{ loading: boolean, error: object, quiz: {
  *   questions: [{ text: string }],
- *   expiresIn: string,
+ *   expiration: string,
  *   title: string, }}} props.quiz Quiz data from redux
  * @param {function} props.getResult Action creator to load result data
  * @param {function} props.clearResult Action creator to clear result data

@@ -19,35 +19,29 @@ const momentFormat = 'MM-DD-YYYY h:mm A'
  * @param {function} props.onChange Function to call with updated date
  */
 const DateTimePicker = React.memo(
-  ({ id, defaultValue, minValue, onChange }) => {
-    const [dateTime, setDateTime] = useState(moment(defaultValue))
-    const [isValid, setIsValid] = useState(true)
-    const inputRef = useRef(null)
+  ({ id, defaultValue, minValue, onChange, validate, errorStr }) => {
+    const [dateTime, setDateTime] = useState(
+      moment(defaultValue).format(momentFormat)
+    )
 
+    const inputRef = useRef(null)
     useEffect(() => {
       const datePicker = flatpickr(inputRef.current, {
         dateFormat: flatpickrFormat,
-        defaultDate: dateTime.format(momentFormat).toString(),
-        minDate: moment(minValue)
-          .format(momentFormat)
-          .toString(),
+        defaultDate: dateTime,
+        minDate: moment(minValue).format(momentFormat),
         enableTime: true,
+        time_24hr: false,
         minuteIncrement: 1,
         onClose: (_, dateStr) => {
-          setDateTime(moment(dateStr, momentFormat))
+          setDateTime(dateStr)
           onChange(moment(dateStr, momentFormat).toISOString())
         }
       })
       return () => datePicker.destroy()
     }, [])
 
-    useEffect(() => {
-      setIsValid(
-        moment(dateTime, momentFormat).diff(moment()) >= 0 ||
-          minValue === defaultValue
-      )
-    }, [moment(dateTime, momentFormat).toString()])
-
+    const isValid = validate(moment(dateTime, momentFormat).toISOString())
     return (
       <>
         <input
@@ -62,7 +56,7 @@ const DateTimePicker = React.memo(
         />
         {!isValid ? (
           <div className='invalid-feedback'>
-            Expiration date must be in the future.
+            {errorStr || 'Date is invalid.'}
           </div>
         ) : null}
       </>
@@ -74,7 +68,9 @@ DateTimePicker.propTypes = {
   id: PropTypes.string,
   defaultValue: PropTypes.string.isRequired,
   minValue: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  validate: PropTypes.func.isRequired,
+  errorStr: PropTypes.string
 }
 
 export default DateTimePicker
