@@ -40,6 +40,7 @@ const QuizAnswerForm = ({
   error,
   getQuiz,
   clearQuiz,
+  clearResult,
   postQuizAnswers,
   getResult
 }) => {
@@ -50,6 +51,10 @@ const QuizAnswerForm = ({
   useEffect(() => {
     getQuiz(quizId)
     getResult(quizId, user)
+    return () => {
+      clearQuiz()
+      clearResult()
+    }
   }, [])
 
   const answers = useRef(null)
@@ -62,8 +67,6 @@ const QuizAnswerForm = ({
   }, [loading])
 
   const goToDashboard = () => {
-    clearQuiz()
-    clearResult()
     browserHistory.push('/dashboard')
   }
 
@@ -133,11 +136,15 @@ const QuizAnswerForm = ({
 }
 
 QuizAnswerForm.propTypes = {
+  user: PropTypes.string.isRequired,
+  result: PropTypes.object,
   quiz: PropTypes.object,
+  error: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   getQuiz: PropTypes.func.isRequired,
   clearQuiz: PropTypes.func.isRequired,
   postQuizAnswers: PropTypes.func.isRequired,
+  clearResult: PropTypes.func.isRequired,
   getResult: PropTypes.func.isRequired
 }
 
@@ -153,5 +160,6 @@ export default connect(mapStateToProps, {
   getQuiz,
   clearQuiz,
   postQuizAnswers,
-  getResult
+  getResult,
+  clearResult
 })(QuizAnswerForm)
