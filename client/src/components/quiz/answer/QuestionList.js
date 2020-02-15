@@ -20,7 +20,7 @@ const QuestionList = ({ error, questions, onChange }) => {
           text={question.text}
           answers={question.answers}
           onChange={onChange}
-          highlightMissing={error && error.status === 400}
+          highlightMissing={!!error && error.status === 400}
         />
       ))}
     </>
