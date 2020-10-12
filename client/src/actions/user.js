@@ -1,6 +1,6 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
-import { loadDashboard } from './dashboard'
+import { loadDashboard } from '../store/dashboard/thunks'
 import { createAlert } from '../store/alerts/thunks'
 
 /**

@@ -8,7 +8,7 @@ import { user } from './user'
 import { quiz } from './quiz'
 import { result } from './result'
 import { quizResults } from './quizresults'
-import { dashboard } from './dashboard'
+import { dashboardReducer as dashboard } from '../store/dashboard/reducers'
 import { editor } from './editor'
 
 const rootPersistConfig = {
