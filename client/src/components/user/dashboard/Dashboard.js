@@ -19,32 +19,32 @@ import { loadDashboard, clearDashboard } from '../../../actions/dashboard'
  * @param {function} props.clearDashboard Action creator to clear dashboard data
  */
 const Dashboard = ({ auth, userLoading, loadDashboard, clearDashboard }) => {
-  if (!auth.isAuthenticated) {
-    return <Redirect to='/login' />
-  }
-
   useEffect(() => {
     loadDashboard()
     return clearDashboard
   }, [])
 
+  if (!auth.isAuthenticated) {
+    return <Redirect to="/login" />
+  }
+
   return userLoading ? (
     <Spinner />
   ) : (
-    <div className='content'>
-      <div className='dashboard container-fluid'>
-        <div className='row pt-1 mt-1'>
-          <section className='dashboard__block col-sm-8 mx-auto'>
+    <div className="content">
+      <div className="dashboard container-fluid">
+        <div className="row pt-1 mt-1">
+          <section className="dashboard__block col-sm-8 mx-auto">
             <UserInfo />
           </section>
         </div>
-        <div className='row pt-1 mt-1'>
-          <section className='dashboard__block col-sm-8 mx-auto'>
+        <div className="row pt-1 mt-1">
+          <section className="dashboard__block col-sm-8 mx-auto">
             <QuizList />
           </section>
         </div>
-        <div className='row pt-1 mt-1'>
-          <section className='dashboard__block col-sm-8 mx-auto'>
+        <div className="row pt-1 mt-1">
+          <section className="dashboard__block col-sm-8 mx-auto">
             <ResultList />
           </section>
         </div>

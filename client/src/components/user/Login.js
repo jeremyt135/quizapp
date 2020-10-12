@@ -7,9 +7,9 @@ import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
 
 const Login = ({ isAuthenticated, login }) => {
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to='/dashboard' />
+  // }
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -46,46 +46,50 @@ const Login = ({ isAuthenticated, login }) => {
     login(username, password, handleFailure)
   }
 
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />
+  }
+
   return (
-    <div className='login container-fluid'>
-      <div className='col-sm-8 mx-auto'>
-        <div className='login__form'>
-          <h2 className='text-center mb-4'>Sign in:</h2>
-          <form className='mb-3' onSubmit={onSubmit}>
-            <fieldset className='form-group'>
+    <div className="login container-fluid">
+      <div className="col-sm-8 mx-auto">
+        <div className="login__form">
+          <h2 className="text-center mb-4">Sign in:</h2>
+          <form className="mb-3" onSubmit={onSubmit}>
+            <fieldset className="form-group">
               <input
-                type='text'
+                type="text"
                 className={
                   'form-control my-2' + (usernameError ? ' is-invalid' : '')
                 }
-                name='username'
+                name="username"
                 value={username}
                 onChange={handleUsernameChange}
-                placeholder='Username'
+                placeholder="Username"
                 required
               />
               {usernameError ? (
-                <div className='invalid-feedback'>{usernameError}</div>
+                <div className="invalid-feedback">{usernameError}</div>
               ) : null}
               <input
-                type='password'
+                type="password"
                 className={
                   'form-control my-2' + (passwordError ? ' is-invalid' : '')
                 }
-                name='password'
+                name="password"
                 value={password}
                 onChange={handlePasswordChange}
-                placeholder='Password'
+                placeholder="Password"
                 required
               />
               {passwordError ? (
-                <div className='invalid-feedback'>{passwordError}</div>
+                <div className="invalid-feedback">{passwordError}</div>
               ) : null}
             </fieldset>
-            <input className='btn btn-primary' type='submit' value='Login' />
+            <input className="btn btn-primary" type="submit" value="Login" />
           </form>
           <p>
-            Don't have an account? <Link to='register'>Register</Link>
+            Don't have an account? <Link to="register">Register</Link>
           </p>
         </div>
       </div>

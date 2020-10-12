@@ -9,10 +9,6 @@ import { register } from '../../actions/auth'
  * Handles user registration through a form.
  */
 const Register = ({ isAuthenticated, register }) => {
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />
-  }
-
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [passwordInput, setPasswordInput] = useState({
@@ -64,87 +60,91 @@ const Register = ({ isAuthenticated, register }) => {
     }
   }
 
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />
+  }
+
   return (
-    <div className='register container-fluid'>
-      <div className='col-sm-8 mx-auto'>
-        <div className='register__form'>
-          <h2 className='text-center mb-4'>Register an account:</h2>
-          <form className='mb-3' onSubmit={submitForm}>
-            <fieldset className='form-group'>
+    <div className="register container-fluid">
+      <div className="col-sm-8 mx-auto">
+        <div className="register__form">
+          <h2 className="text-center mb-4">Register an account:</h2>
+          <form className="mb-3" onSubmit={submitForm}>
+            <fieldset className="form-group">
               <input
-                type='text'
+                type="text"
                 className={
                   'form-control mb-2' +
                   (formError && formError.username ? ' is-invalid' : '')
                 }
-                name='username'
+                name="username"
                 value={username}
                 onChange={handleUsernameChange}
-                placeholder='Username'
+                placeholder="Username"
                 minLength={5}
                 maxLength={12}
                 required
               />
               {formError && formError.username ? (
-                <div className='invalid-feedback'>
+                <div className="invalid-feedback">
                   {formError && formError.username}
                 </div>
               ) : null}
               <input
-                type='text'
+                type="text"
                 className={
                   'form-control mb-2' +
                   (formError && formError.email ? ' is-invalid' : '')
                 }
-                name='email'
+                name="email"
                 value={email}
                 onChange={handleEmailChange}
-                placeholder='Email'
+                placeholder="Email"
                 required
               />
               {formError && formError.email ? (
-                <div className='invalid-feedback'>
+                <div className="invalid-feedback">
                   {formError && formError.email}
                 </div>
               ) : null}
               <input
-                type='password'
+                type="password"
                 className={
                   'form-control mb-2' +
                   (formError && formError.password ? ' is-invalid' : '')
                 }
-                name='password'
+                name="password"
                 value={password}
                 onChange={handlePasswordChange}
-                placeholder='Password'
+                placeholder="Password"
                 minLength={8}
                 maxLength={20}
                 required
               />
               <input
-                type='password'
+                type="password"
                 className={
                   'form-control' +
                   (formError && formError.password ? ' is-invalid' : '')
                 }
-                name='passwordConfirm'
+                name="passwordConfirm"
                 value={passwordConfirm}
                 onChange={handlePasswordChange}
-                placeholder='Confirm Password'
+                placeholder="Confirm Password"
                 minLength={8}
                 maxLength={20}
                 required
               />
               {formError && formError.password ? (
-                <div className='invalid-feedback'>
+                <div className="invalid-feedback">
                   {formError && formError.password}
                 </div>
               ) : null}
             </fieldset>
-            <input className='btn btn-primary' type='submit' value='Register' />
+            <input className="btn btn-primary" type="submit" value="Register" />
           </form>
           <p>
-            Already have an account? <Link to='/login'>Sign in</Link>
+            Already have an account? <Link to="/login">Sign in</Link>
           </p>
         </div>
       </div>
