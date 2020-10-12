@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import PropTypes from 'prop-types'
 
 import Spinner from '../common/Spinner'
-import { clearAuth } from '../../actions/auth'
+import { clearAuth } from '../../store/auth/thunks'
 
 const tokenIsExpired = token => {
   const decoded = jwt.decode(token)
@@ -33,7 +33,7 @@ const PrivateRoute = ({
   }
   const render = props => {
     if (!isAuthenticated) {
-      return <Redirect to='/login' />
+      return <Redirect to="/login" />
     } else if (user.loading) {
       return <Spinner />
     } else {

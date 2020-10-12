@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { register } from '../../actions/auth'
+import { register } from '../../store/auth/thunks'
 
 /**
  * Handles user registration through a form.
@@ -52,7 +52,7 @@ const Register = ({ isAuthenticated, register }) => {
     e.preventDefault()
     if (password === passwordConfirm) {
       setFormError({ password: undefined })
-      register(username, email, password, handleFailure)
+      register({ username, email, password }, handleFailure)
     } else {
       setFormError({
         password: 'Passwords do not match.'

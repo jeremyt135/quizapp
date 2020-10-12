@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import { alertReducer as alerts } from '../store/alerts/reducers'
-import { auth } from './auth'
+import { authReducer as auth } from '../store/auth/reducers'
 import { user } from './user'
 import { quiz } from './quiz'
 import { result } from './result'

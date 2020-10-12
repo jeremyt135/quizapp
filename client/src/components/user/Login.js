@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import PropTypes from 'prop-types'
 
-import { login } from '../../actions/auth'
+import { login } from '../../store/auth/thunks'
 
 const Login = ({ isAuthenticated, login }) => {
   // if (isAuthenticated) {
@@ -43,7 +43,7 @@ const Login = ({ isAuthenticated, login }) => {
     e.preventDefault()
     setUsernameError(null)
     setPasswordError(null)
-    login(username, password, handleFailure)
+    login({ username, password }, handleFailure)
   }
 
   if (isAuthenticated) {
