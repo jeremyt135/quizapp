@@ -10,7 +10,7 @@ import Footer from '../common/Footer'
 import Spinner from '../../common/Spinner'
 import ErrorPage from '../../errors/ErrorPage'
 
-import { getQuiz, clearQuiz, postQuizAnswers } from '../../../actions/quiz'
+import { getQuiz, clearQuiz, postQuizAnswers } from '../../../store/quiz/thunks'
 import { getResult, clearResult } from '../../../actions/result'
 
 import QuizTakenError from './QuizTakenError'
@@ -100,17 +100,17 @@ const QuizAnswerForm = ({
 
   return (
     <>
-      <div className='content'>
-        <div className='quiz-answer-form container-fluid'>
-          <div className='row'>
-            <div className='quiz-answer-form__block col-sm-8 mx-auto mt-3'>
-              <div className='row mb-4'>
-                <div className='col d-flex align-items-center'>
-                  <h1 className='mb-0'>{quiz.title}</h1>
+      <div className="content">
+        <div className="quiz-answer-form container-fluid">
+          <div className="row">
+            <div className="quiz-answer-form__block col-sm-8 mx-auto mt-3">
+              <div className="row mb-4">
+                <div className="col d-flex align-items-center">
+                  <h1 className="mb-0">{quiz.title}</h1>
                 </div>
               </div>
-              <div className='row mb-4'>
-                <div className='col d-flex align-items-center'>
+              <div className="row mb-4">
+                <div className="col d-flex align-items-center">
                   <h3>By {quiz.user}</h3>
                 </div>
               </div>
@@ -124,10 +124,10 @@ const QuizAnswerForm = ({
         </div>
       </div>
       <Footer>
-        <Button variant='secondary' className='ml-1' onClick={goToDashboard}>
+        <Button variant="secondary" className="ml-1" onClick={goToDashboard}>
           Cancel
         </Button>
-        <Button variant='success' className='ml-1' onClick={submitAnswers}>
+        <Button variant="success" className="ml-1" onClick={submitAnswers}>
           Submit
         </Button>
       </Footer>

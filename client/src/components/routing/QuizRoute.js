@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { getQuiz, clearQuiz } from '../../actions/quiz'
+import { getQuiz, clearQuiz } from '../../store/quiz/thunks'
 import QuizAnswerForm from '../quiz/answer/QuizAnswerForm'
 import QuizResultList from '../quiz/result/QuizResultList'
 import Spinner from '../common/Spinner'

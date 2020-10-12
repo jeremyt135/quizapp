@@ -9,7 +9,7 @@ import ErrorPage from '../../errors/ErrorPage'
 import ResultItem from './ResultItem'
 
 import { getQuizResults, clearQuizResults } from '../../../actions/quizresults'
-import { getQuiz, clearQuiz } from '../../../actions/quiz'
+import { getQuiz, clearQuiz } from '../../../store/quiz/thunks'
 
 /**
  * Displays a list of results belonging to a quiz. This would only be accessed by the owner of the quiz.
@@ -70,29 +70,29 @@ const QuizResultList = ({
 
   return (
     <>
-      <div className='content'>
-        <div className='quiz-results container-fluid'>
-          <div className='row'>
-            <div className='quiz-results__block col-sm-8 mx-auto'>
-              <div className='row mb-2 align-items-center'>
-                <h3 className='col mb-0'>
+      <div className="content">
+        <div className="quiz-results container-fluid">
+          <div className="row">
+            <div className="quiz-results__block col-sm-8 mx-auto">
+              <div className="row mb-2 align-items-center">
+                <h3 className="col mb-0">
                   Results for quiz "{quiz.quiz.title}":
                 </h3>
               </div>
 
-              <div className='row mb-2'>
-                <div className='col'>
+              <div className="row mb-2">
+                <div className="col">
                   {results.length === 0 ? (
-                    <div className='row mb-1 align-items-center'>
-                      <h6 className='col mb-0'>
+                    <div className="row mb-1 align-items-center">
+                      <h6 className="col mb-0">
                         Nobody has responded to this quiz!
                       </h6>
                     </div>
                   ) : (
-                    <ul className='list-group w-100'>
+                    <ul className="list-group w-100">
                       {results.map((result, index) => {
                         return (
-                          <li key={index} className='list-group-item'>
+                          <li key={index} className="list-group-item">
                             <ResultItem result={result} />
                           </li>
                         )
@@ -107,7 +107,7 @@ const QuizResultList = ({
       </div>
 
       <Footer>
-        <Button variant='success' className='ml-1' onClick={goToDashboard}>
+        <Button variant="success" className="ml-1" onClick={goToDashboard}>
           Back to dashboard
         </Button>
       </Footer>

@@ -9,7 +9,7 @@ import ScoredQuestionList from './ScoredQuestionList'
 import ErrorPage from '../../errors/ErrorPage'
 
 import { getResult, clearResult } from '../../../actions/result'
-import { getQuiz, clearQuiz } from '../../../actions/quiz'
+import { getQuiz, clearQuiz } from '../../../store/quiz/thunks'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
@@ -63,35 +63,35 @@ const QuizResult = ({
 
   return (
     <>
-      <div className='content'>
-        <div className='quiz-results container-fluid'>
-          <div className='row'>
-            <div className='quiz-results__block col-sm-8 mx-auto'>
-              <div className='row mb-4'>
-                <div className='col d-flex align-items-center'>
-                  <h2 className='mb-0'>
+      <div className="content">
+        <div className="quiz-results container-fluid">
+          <div className="row">
+            <div className="quiz-results__block col-sm-8 mx-auto">
+              <div className="row mb-4">
+                <div className="col d-flex align-items-center">
+                  <h2 className="mb-0">
                     {result.result.username}'s results for: <br />"
                     {quiz.quiz.title}"
                   </h2>
                 </div>
               </div>
-              <div className='row mb-4'>
-                <div className='col d-flex align-items-center'>
+              <div className="row mb-4">
+                <div className="col d-flex align-items-center">
                   <h4>By {quiz.quiz.user}</h4>
                 </div>
               </div>
               <hr />
-              <div className='row mb-4'>
-                <div className='col d-flex align-items-center'>
-                  <h3 className='mb-0'>
+              <div className="row mb-4">
+                <div className="col d-flex align-items-center">
+                  <h3 className="mb-0">
                     Overall score: {result.result.score * 100.0}%
                   </h3>
                 </div>
               </div>
               <hr />
-              <div className='row mb-4'>
-                <div className='col d-flex align-items-center'>
-                  <h3 className='mb-0'>Graded questions:</h3>
+              <div className="row mb-4">
+                <div className="col d-flex align-items-center">
+                  <h3 className="mb-0">Graded questions:</h3>
                 </div>
               </div>
               <ScoredQuestionList
@@ -105,8 +105,8 @@ const QuizResult = ({
 
       <Footer>
         <Button
-          variant='success'
-          className='ml-1'
+          variant="success"
+          className="ml-1"
           onClick={() => browserHistory.goBack()}>
           Go back
         </Button>
