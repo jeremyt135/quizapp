@@ -1,7 +1,7 @@
 import { Editor } from './types'
 import { loadUser } from './user'
 import { parseError } from './parse-error'
-import { setAlert } from './alerts'
+import { createAlert } from '../store/alerts/thunks'
 
 export const postQuiz = (quiz, onSuccess) => async dispatch => {
   try {
@@ -21,7 +21,7 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
           type: Editor.CREATE_QUIZ
         })
         dispatch(
-          setAlert({
+          createAlert({
             msg: 'Quiz created successfully',
             type: 'success'
           })
@@ -34,7 +34,7 @@ export const postQuiz = (quiz, onSuccess) => async dispatch => {
         data: error
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Failed to create quiz - are there invalid fields?',
           type: 'danger'
         })
@@ -63,7 +63,7 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
           type: Editor.POST_EDITED_QUIZ
         })
         dispatch(
-          setAlert({
+          createAlert({
             msg: 'Quiz edited successfully',
             type: 'success'
           })
@@ -76,7 +76,7 @@ export const postEditedQuiz = (quiz, onSuccess) => async dispatch => {
         data: error
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Failed to create quiz - are there invalid fields?',
           type: 'danger'
         })

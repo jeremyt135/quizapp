@@ -1,7 +1,7 @@
 import ActionTypes from './types'
 import { loadUser } from './user'
 import { parseError } from './parse-error'
-import { setAlert } from './alerts'
+import { createAlert } from '../store/alerts/thunks'
 
 /**
  * Registers a new User with the server. Dispatches an action of type REGISTER_USER on success
@@ -33,7 +33,7 @@ export const register = (
       })
       dispatch(loadUser())
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Welcome to QuizNow!',
           type: 'success'
         })
@@ -75,7 +75,7 @@ export const login = (username, password, callback) => async dispatch => {
       })
       dispatch(loadUser())
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Welcome back!',
           type: 'success'
         })

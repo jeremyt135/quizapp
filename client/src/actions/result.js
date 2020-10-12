@@ -1,6 +1,6 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
-import { setAlert } from './alerts'
+import { createAlert } from '../store/alerts/thunks'
 
 const fetchResult = async (quizId, userId) => {
   let result = null
@@ -51,7 +51,7 @@ export const getResult = (quizId, userId) => async dispatch => {
       data: userError
     })
     dispatch(
-      setAlert({
+      createAlert({
         msg: "We couldn't load your quiz results right now.",
         type: 'danger'
       })

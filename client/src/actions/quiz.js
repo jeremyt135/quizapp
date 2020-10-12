@@ -1,7 +1,7 @@
 import { Quiz } from './types'
 import { parseError } from './parse-error'
 import { loadUser } from './user'
-import { setAlert } from './alerts'
+import { createAlert } from '../store/alerts/thunks'
 
 export const getQuiz = quizId => async dispatch => {
   try {
@@ -24,7 +24,7 @@ export const getQuiz = quizId => async dispatch => {
         data: error
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: "We couldn't load the requested quiz.",
           type: 'danger'
         })
@@ -56,7 +56,7 @@ export const postQuizAnswers = (
       // load the updated user data
       dispatch(loadUser())
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Quiz answers submitted successfully',
           type: 'success'
         })
@@ -69,7 +69,7 @@ export const postQuizAnswers = (
         data: error
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg:
             'Failed to submit answers - are there invalid or missing answers?',
           type: 'danger'

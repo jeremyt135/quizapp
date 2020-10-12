@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { alerts } from './alerts'
+import { alertReducer as alerts } from '../store/alerts/reducers'
 import { auth } from './auth'
 import { user } from './user'
 import { quiz } from './quiz'

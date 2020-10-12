@@ -1,7 +1,7 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
 import { loadDashboard } from './dashboard'
-import { setAlert } from './alerts'
+import { createAlert } from '../store/alerts/thunks'
 
 /**
  * Loads data for the User represented by the current JWT.
@@ -30,7 +30,7 @@ export const loadUser = () => async dispatch => {
         data: error
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: "We couldn't load your account right now.",
           type: 'danger'
         })
@@ -62,7 +62,7 @@ export const changeUserEmail = (email, callback) => async dispatch => {
         type: ActionTypes.User.CHANGE_USER_INFO
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Your email was changed successfully',
           type: 'success'
         })
@@ -100,7 +100,7 @@ export const changeUserPassword = (password, callback) => async dispatch => {
       })
       dispatch(loadUser())
       dispatch(
-        setAlert({
+        createAlert({
           msg: 'Your pssword was changed successfully',
           type: 'success'
         })

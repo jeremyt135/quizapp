@@ -1,6 +1,6 @@
 import ActionTypes from './types'
 import { parseError } from './parse-error'
-import { setAlert } from './alerts'
+import { createAlert } from '../store/alerts/thunks'
 
 /**
  * Loads user's list of quizzes
@@ -54,7 +54,7 @@ export const loadDashboard = () => async dispatch => {
         data: quizError
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: "We couldn't load your quizzes right now.",
           type: 'danger'
         })
@@ -68,7 +68,7 @@ export const loadDashboard = () => async dispatch => {
         data: resultError
       })
       dispatch(
-        setAlert({
+        createAlert({
           msg: "We couldn't load your quiz results right now.",
           type: 'danger'
         })
