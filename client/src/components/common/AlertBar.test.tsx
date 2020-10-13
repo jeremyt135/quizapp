@@ -1,7 +1,5 @@
 import React from 'react'
 
-// .env file includes with NODE_PATH
-//@ts-ignore
 import '@testing-library/jest-dom'
 import { render, screen, within } from 'util/test-utils'
 import AlertBar from './AlertBar'
