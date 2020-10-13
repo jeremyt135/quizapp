@@ -7,7 +7,7 @@ import { authReducer as auth } from '../store/auth/reducers'
 import { user } from './user'
 import { quizReducer as quiz } from '../store/quiz/reducers'
 import { resultReducer as result } from '../store/result/reducers'
-import { quizResults } from './quizresults'
+import { quizResultsReducer as quizResults } from '../store/quizresults/reducers'
 import { dashboardReducer as dashboard } from '../store/dashboard/reducers'
 import { editor } from './editor'
 

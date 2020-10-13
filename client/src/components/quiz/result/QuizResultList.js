@@ -8,7 +8,10 @@ import Spinner from '../../common/Spinner'
 import ErrorPage from '../../errors/ErrorPage'
 import ResultItem from './ResultItem'
 
-import { getQuizResults, clearQuizResults } from '../../../actions/quizresults'
+import {
+  getQuizResults,
+  clearQuizResults
+} from '../../../store/quizresults/thunks'
 import { getQuiz, clearQuiz } from '../../../store/quiz/thunks'
 
 /**
