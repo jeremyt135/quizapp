@@ -8,7 +8,7 @@ import Spinner from '../../common/Spinner'
 import ScoredQuestionList from './ScoredQuestionList'
 import ErrorPage from '../../errors/ErrorPage'
 
-import { getResult, clearResult } from '../../../actions/result'
+import { getResult, clearResult } from '../../../store/result/thunks'
 import { getQuiz, clearQuiz } from '../../../store/quiz/thunks'
 
 function useQuery() {

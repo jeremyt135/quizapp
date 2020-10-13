@@ -11,7 +11,7 @@ import Spinner from '../../common/Spinner'
 import ErrorPage from '../../errors/ErrorPage'
 
 import { getQuiz, clearQuiz, postQuizAnswers } from '../../../store/quiz/thunks'
-import { getResult, clearResult } from '../../../actions/result'
+import { getResult, clearResult } from '../../../store/result/thunks'
 
 import QuizTakenError from './QuizTakenError'
 import QuizExpiredError from './QuizExpiredError'
