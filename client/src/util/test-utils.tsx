@@ -6,23 +6,32 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import { RootState } from '../store/store'
-import { persistStore } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter, BrowserRouterProps } from 'react-router-dom'
 
-const mockStore = configureStore<RootState>([thunk])()
-const persistor = persistStore(mockStore)
+const mockStore = configureStore<RootState | {}>([thunk])
+const defaultMockStore = mockStore({})
+type MockStore = ReturnType<typeof mockStore>
 
-const ProviderWrapper: React.FunctionComponent<{}> = ({ children }) => {
+interface AllContextsProps extends BrowserRouterProps {
+  children: React.ReactNode
+  store?: MockStore
+}
+
+const AllContextsWrapper = ({
+  children,
+  store,
+  ...props
+}: AllContextsProps) => {
   return (
-    <Provider store={mockStore}>
-      <PersistGate loading={null} persistor={persistor}>
+    <BrowserRouter {...props}>
+      <Provider store={store != null ? mockStore(store) : defaultMockStore}>
         {children}
-      </PersistGate>
-    </Provider>
+      </Provider>
+    </BrowserRouter>
   )
 }
 
-const renderWithProviders = (
+const renderWithAllContexts = (
   ui: React.ReactElement<
     any,
     | string
@@ -34,16 +43,24 @@ const renderWithProviders = (
       > | null)
     | (new (props: any) => React.Component<any, any, any>)
   >,
-  options:
-    | Pick<
-        RenderOptions<typeof import('@testing-library/dom/types/queries')>,
-        'container' | 'baseElement' | 'hydrate' | 'wrapper'
-      >
-    | undefined
+  mockStore?: MockStore,
+  browserRouterProps?: BrowserRouterProps,
+  options?: Pick<
+    RenderOptions<typeof import('@testing-library/dom/types/queries')>,
+    'container' | 'baseElement' | 'hydrate' | 'wrapper'
+  >
 ) => {
-  render(ui, { wrapper: ProviderWrapper, ...options })
+  const Wrapper: React.FC<{}> = ({ children }) => (
+    <AllContextsWrapper store={mockStore} {...browserRouterProps}>
+      {children}
+    </AllContextsWrapper>
+  )
+  render(ui, {
+    wrapper: Wrapper,
+    ...options
+  })
 }
 
 export * from '@testing-library/react'
 
-export { renderWithProviders as render }
+export { renderWithAllContexts as render, mockStore }
