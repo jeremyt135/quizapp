@@ -4,7 +4,7 @@ import { persistStore } from 'redux-persist'
 import thunk, { ThunkAction } from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
-import rootReducer from '../reducers/index'
+import rootReducer from './reducer'
 
 export default () => {
   let store = createStore(

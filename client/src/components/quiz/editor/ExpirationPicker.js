@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import DateTimePicker from '../../common/DateTimePicker'
-import { changeExpiration } from '../../../actions/editor'
+import { changeExpiration } from '../../../store/editor/thunks'
 
 import moment from 'moment'
 
@@ -29,13 +29,13 @@ const ExpirationPicker = React.memo(
 
     return (
       <>
-        <div className='row'>
-          <div className='col'>
-            <label htmlFor='expirationPicker'>Expires on:</label>
+        <div className="row">
+          <div className="col">
+            <label htmlFor="expirationPicker">Expires on:</label>
           </div>
         </div>
-        <div className='row mb-4'>
-          <div className='col'>
+        <div className="row mb-4">
+          <div className="col">
             <DateTimePicker
               label={'Expires on:'}
               id={'expirationPicker'}
@@ -45,7 +45,7 @@ const ExpirationPicker = React.memo(
               validate={isDateValid}
               errorStr={'Expiration date must be in the future.'}
             />
-            <small className='text-muted'>Click to change date and time</small>
+            <small className="text-muted">Click to change date and time</small>
           </div>
         </div>
       </>

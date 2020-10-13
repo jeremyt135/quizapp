@@ -14,7 +14,7 @@ import {
   removeAnswer,
   changeQuestion,
   removeQuestion
-} from '../../../actions/editor'
+} from '../../../store/editor/thunks'
 
 /**
  * Displays a question from a quiz with related answers.
@@ -58,19 +58,19 @@ const Question = memo(
 
     return (
       <>
-        <div className='row mb-2'>
-          <div className='col'>
-            <div className='row'>
-              <div className='col'>
-                <div className='row'>
+        <div className="row mb-2">
+          <div className="col">
+            <div className="row">
+              <div className="col">
+                <div className="row">
                   <label
-                    className='col d-flex align-items-center'
+                    className="col d-flex align-items-center"
                     htmlFor={questionName}>
                     Question {index + 1}
                     {error && error.status === 400 && answers.length < 2 ? (
-                      <span className='px-3 d-inline-flex align-items-center text-danger'>
+                      <span className="px-3 d-inline-flex align-items-center text-danger">
                         Please add at least two answers.
-                        <Icon path={mdiAlertCircle} size={0.8} color='red' />
+                        <Icon path={mdiAlertCircle} size={0.8} color="red" />
                       </span>
                     ) : null}
                   </label>
@@ -101,16 +101,16 @@ const Question = memo(
               />
             ))}
 
-            <div className='row mt-2'>
-              <div className='col d-flex align-items-center justify-content-start'>
+            <div className="row mt-2">
+              <div className="col d-flex align-items-center justify-content-start">
                 <button
-                  className='btn btn-secondary btn-sm mr-2'
+                  className="btn btn-secondary btn-sm mr-2"
                   onClick={() => addAnswer(index)}
                   disabled={editing}>
                   Add Answer
                 </button>
                 <button
-                  className='btn btn-danger btn-sm mr-2'
+                  className="btn btn-danger btn-sm mr-2"
                   onClick={() => removeQuestion(index)}
                   disabled={editing}>
                   Delete Question

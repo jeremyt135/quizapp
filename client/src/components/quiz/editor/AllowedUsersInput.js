@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { changeAllowedUsers } from '../../../actions/editor'
-
+import { changeAllowedUsers } from '../../../store/editor/thunks'
+import {} from '../../../store/editor/thunks'
 const isValidUsername = str => /^[a-zA-Z0-9]{5,}$/.test(str)
 
 const parseInvalidUsers = str => {
@@ -43,27 +43,27 @@ const AllowedUsersInput = ({ defaultValue, changeAllowedUsers }) => {
   }
 
   return (
-    <div className='row mb-4'>
-      <div className='col'>
-        <div className='row'>
-          <div className='col'>
-            <label htmlFor='allowedUsersInput'>Allowed users:</label>
+    <div className="row mb-4">
+      <div className="col">
+        <div className="row">
+          <div className="col">
+            <label htmlFor="allowedUsersInput">Allowed users:</label>
           </div>
         </div>
-        <div className='row'>
-          <div className='col'>
+        <div className="row">
+          <div className="col">
             <input
               className={'form-control' + (!isValid ? ' is-invalid' : '')}
-              type='text'
-              placeholder='User1, User2, ...'
-              name='value'
-              id='allowedUsersInput'
+              type="text"
+              placeholder="User1, User2, ..."
+              name="value"
+              id="allowedUsersInput"
               value={users}
               onChange={onChange}
               onBlur={onBlur}
             />
             {!isValid ? (
-              <div className='invalid-feedback'>
+              <div className="invalid-feedback">
                 The following usernames are not valid:
                 {' ' + parseInvalidUsers(users).join(', ')}
               </div>

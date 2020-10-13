@@ -5,7 +5,7 @@ import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
 
 import Question from './Question'
-import { addQuestion, removeQuestion } from '../../../actions/editor'
+import { addQuestion, removeQuestion } from '../../../store/editor/thunks'
 
 /**
  * Presentational component that displays a list of Question components
@@ -19,22 +19,22 @@ const QuestionList = ({ editing, error, questionCount, addQuestion }) => {
   return (
     <>
       {error && error.status === 400 && questionCount === 0 ? (
-        <div className='row mb-2'>
-          <div className='col d-flex align-items-center '>
-            <h5 className='text-danger mb-0'>
+        <div className="row mb-2">
+          <div className="col d-flex align-items-center ">
+            <h5 className="text-danger mb-0">
               Please add at least one question.
             </h5>
-            <Icon path={mdiAlertCircle} size={1} color='red' />
+            <Icon path={mdiAlertCircle} size={1} color="red" />
           </div>
         </div>
       ) : null}
       {Array.from({ length: questionCount }, (_, index) => (
         <Question key={index} index={index} />
       ))}
-      <div className='row mt-4'>
-        <div className='col d-flex align-items-center justify-content-start'>
+      <div className="row mt-4">
+        <div className="col d-flex align-items-center justify-content-start">
           <button
-            className='btn btn-primary btn-sm'
+            className="btn btn-primary btn-sm"
             onClick={addQuestion}
             disabled={editing}>
             Add Question

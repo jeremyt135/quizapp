@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { changeIsPublic } from '../../../actions/editor'
+import { changeIsPublic } from '../../../store/editor/thunks'
 
 const PublicCheckbox = ({ defaultValue, changeIsPublic }) => {
   const [checked, setChecked] = useState(defaultValue)
@@ -12,17 +12,17 @@ const PublicCheckbox = ({ defaultValue, changeIsPublic }) => {
     changeIsPublic(value)
   }
   return (
-    <div className='row mb-4'>
-      <div className='col d-flex align-items-center'>
-        <div className='custom-control custom-switch'>
+    <div className="row mb-4">
+      <div className="col d-flex align-items-center">
+        <div className="custom-control custom-switch">
           <input
-            type='checkbox'
-            className='custom-control-input'
-            id='publicCheckbox'
+            type="checkbox"
+            className="custom-control-input"
+            id="publicCheckbox"
             checked={checked}
             onChange={onChange}
           />
-          <label className='custom-control-label' htmlFor='publicCheckbox'>
+          <label className="custom-control-label" htmlFor="publicCheckbox">
             Public
           </label>
         </div>

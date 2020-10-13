@@ -13,7 +13,11 @@ import ExpirationPicker from './ExpirationPicker'
 import QuestionList from './QuestionList'
 import ErrorPage from '../../errors/ErrorPage'
 import Spinner from '../../common/Spinner'
-import { postQuiz, postEditedQuiz, clearEditor } from '../../../actions/editor'
+import {
+  postQuiz,
+  postEditedQuiz,
+  clearEditor
+} from '../../../store/editor/thunks'
 
 /**
  * Displays subforms for editing a quiz and directly handles submission of the quiz.
@@ -79,10 +83,10 @@ const QuizEditor = ({
 
   return (
     <>
-      <div className='content'>
-        <div className='quiz-editor container-fluid'>
-          <div className='row'>
-            <div className='quiz-editor__block col-sm-8 mx-auto'>
+      <div className="content">
+        <div className="quiz-editor container-fluid">
+          <div className="row">
+            <div className="quiz-editor__block col-sm-8 mx-auto">
               <Title />
               <PublicCheckbox />
               {!quiz.isPublic ? <AllowedUsersInput /> : null}
@@ -94,14 +98,14 @@ const QuizEditor = ({
       </div>
       <Footer>
         <Button
-          variant='secondary'
-          className='ml-1'
+          variant="secondary"
+          className="ml-1"
           onClick={goBackToDashboard}>
           Cancel
         </Button>
         <Button
-          variant='success'
-          className='ml-1'
+          variant="success"
+          className="ml-1"
           onClick={editing ? submitEditedQuiz : submitNewQuiz}>
           {editing ? 'Confirm edits' : 'Submit'}
         </Button>

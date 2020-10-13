@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { changeTitle } from '../../../actions/editor'
+import { changeTitle } from '../../../store/editor/thunks'
 
 const Title = ({ defaultValue, changeTitle, error }) => {
   const [text, setText] = useState(defaultValue)
@@ -16,20 +16,20 @@ const Title = ({ defaultValue, changeTitle, error }) => {
   }
   return (
     <>
-      <div className='row'>
-        <div className='col'>
-          <label htmlFor='quizTitle'>Quiz Title:</label>
+      <div className="row">
+        <div className="col">
+          <label htmlFor="quizTitle">Quiz Title:</label>
         </div>
       </div>
-      <div className='row mb-4'>
-        <div className='col'>
+      <div className="row mb-4">
+        <div className="col">
           <input
-            type='text'
+            type="text"
             className={
               'form-control form-control-lg mb-0 ' +
               (shouldDisplayWarning ? ' is-invalid' : '')
             }
-            id='quizTitle'
+            id="quizTitle"
             value={text}
             placeholder={'My Quiz Title...'}
             onChange={onChange}
@@ -37,7 +37,7 @@ const Title = ({ defaultValue, changeTitle, error }) => {
             minLength={1}
           />
           {shouldDisplayWarning ? (
-            <div className='invalid-feedback'>
+            <div className="invalid-feedback">
               Please enter at least one character.
             </div>
           ) : null}
