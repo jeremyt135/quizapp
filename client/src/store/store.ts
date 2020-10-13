@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, Action } from 'redux'
-import { persistStore } from 'redux-persist'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import thunk, { ThunkAction } from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
@@ -7,8 +8,14 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 import rootReducer from './reducer'
 
 export default () => {
+  const rootPersistConfig = {
+    key: 'root',
+    storage,
+    blacklist: ['alerts', 'quiz', 'result', 'quizResults', 'dashboard']
+  }
+
   let store = createStore(
-    rootReducer,
+    persistReducer(rootPersistConfig, rootReducer),
     {},
     composeWithDevTools(applyMiddleware(thunk))
   )
