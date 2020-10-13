@@ -20,7 +20,7 @@ import { QuizId } from '../quiz/types'
  * Dispatches an action of type LOAD_USER on success and
  * LOAD_USER_ERROR otherwise.
  */
-export function loadUser(): Thunk {
+export function loadUser(): Thunk<Promise<void>> {
   return async dispatch => {
     try {
       const response = await fetch('/api/users/me', {
