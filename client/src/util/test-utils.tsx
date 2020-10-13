@@ -8,9 +8,9 @@ import thunk from 'redux-thunk'
 import { RootState } from '../store/store'
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom'
 
-const mockStore = configureStore<RootState | {}>([thunk])
+type MockStore = Partial<RootState>
+const mockStore = configureStore<MockStore>([thunk])
 const defaultMockStore = mockStore({})
-type MockStore = ReturnType<typeof mockStore>
 
 interface AllContextsProps extends BrowserRouterProps {
   children: React.ReactNode
@@ -55,7 +55,7 @@ const renderWithAllContexts = (
       {children}
     </AllContextsWrapper>
   )
-  render(ui, {
+  return render(ui, {
     wrapper: Wrapper,
     ...options
   })
