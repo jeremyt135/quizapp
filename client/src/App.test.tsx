@@ -2,7 +2,7 @@ import React from 'react'
 
 // .env file includes with NODE_PATH
 //@ts-ignore
-import { render, screen } from 'test-utils'
+import { render, screen } from 'util/test-utils'
 import '@testing-library/jest-dom'
 
 import App from './App'
