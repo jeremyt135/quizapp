@@ -1,5 +1,5 @@
 import { Thunk } from '../store'
-import { parseError } from '../../actions/parse-error'
+import { parseError } from '../../util/parse-error'
 import { createAlert } from '../alerts/thunks'
 import {
   loadDashboard as loadDashboardAction,

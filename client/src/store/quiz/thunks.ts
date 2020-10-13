@@ -1,4 +1,4 @@
-import { parseError } from '../../actions/parse-error'
+import { parseError } from '../../util/parse-error'
 import { loadUser } from '../user/thunks'
 import { createAlert } from '../alerts/thunks'
 import { Thunk } from '../store'

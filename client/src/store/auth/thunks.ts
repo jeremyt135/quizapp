@@ -1,5 +1,5 @@
 import { loadUser } from '../user/thunks'
-import { parseError } from '../../actions/parse-error'
+import { parseError } from '../../util/parse-error'
 import { createAlert } from '../alerts/thunks'
 import { setAuthUser, clearAuthUser } from './actions'
 import { Token, UserLogin, UserRegistration } from './types'
