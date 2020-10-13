@@ -40,7 +40,7 @@ interface LoadQuizAction {
 
 interface LoadQuizErrorAction {
   type: typeof LOAD_QUIZ_ERROR
-  payload: Error
+  payload: QuizError
 }
 
 interface PostAnswersAction {
