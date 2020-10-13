@@ -1,5 +1,5 @@
 import { parseError } from '../../actions/parse-error'
-import { loadUser } from '../../actions/user'
+import { loadUser } from '../user/thunks'
 import { createAlert } from '../alerts/thunks'
 import { Thunk } from '../store'
 import {

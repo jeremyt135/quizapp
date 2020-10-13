@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage'
 
 import { alertReducer as alerts } from '../store/alerts/reducers'
 import { authReducer as auth } from '../store/auth/reducers'
-import { user } from './user'
+import { userReducer as user } from '../store/user/reducers'
 import { quizReducer as quiz } from '../store/quiz/reducers'
 import { resultReducer as result } from '../store/result/reducers'
 import { quizResultsReducer as quizResults } from '../store/quizresults/reducers'

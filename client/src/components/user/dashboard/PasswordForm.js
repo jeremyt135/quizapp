@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ConfirmModal from '../../common/ConfirmModal'
-import { changeUserPassword } from '../../../actions/user'
+import { changeUserPassword } from '../../../store/user/thunks'
 
 /**
  * Displays and controls a form for the user to change their password.
@@ -72,26 +72,26 @@ const PasswordForm = ({ changeUserPassword }) => {
   return (
     <>
       {!isOpen ? (
-        <div className='row my-2'>
-          <div className='col'>
-            <button className='btn btn-info btn-sm' onClick={openForm}>
+        <div className="row my-2">
+          <div className="col">
+            <button className="btn btn-info btn-sm" onClick={openForm}>
               Change Password
             </button>
           </div>
         </div>
       ) : (
         <form onSubmit={showModal}>
-          <div className='row'>
-            <div className='col'>
-              <div className='row my-2'>
-                <div className='col'>
+          <div className="row">
+            <div className="col">
+              <div className="row my-2">
+                <div className="col">
                   <input
                     className={
                       'form-control' + (formError ? ' is-invalid' : '')
                     }
-                    type='password'
-                    placeholder='New password'
-                    name='password'
+                    type="password"
+                    placeholder="New password"
+                    name="password"
                     value={password}
                     onChange={handleChange}
                     minLength={8}
@@ -99,41 +99,41 @@ const PasswordForm = ({ changeUserPassword }) => {
                   />
                 </div>
               </div>
-              <div className='row my-2'>
-                <div className='col'>
+              <div className="row my-2">
+                <div className="col">
                   <input
                     className={
                       'form-control' + (formError ? ' is-invalid' : '')
                     }
-                    type='password'
-                    placeholder='Confirm new password'
-                    name='confirmPassword'
+                    type="password"
+                    placeholder="Confirm new password"
+                    name="confirmPassword"
                     value={confirmPassword}
                     onChange={handleChange}
                     minLength={8}
                     maxLength={20}
                   />
                   {formError ? (
-                    <div className='invalid-feedback'>{formError}</div>
+                    <div className="invalid-feedback">{formError}</div>
                   ) : null}
                 </div>
               </div>
-              <div className='row my-2'>
-                <div className='col'>
+              <div className="row my-2">
+                <div className="col">
                   <button
-                    type='button'
-                    className='btn btn-secondary btn-sm'
+                    type="button"
+                    className="btn btn-secondary btn-sm"
                     onClick={closeForm}>
                     Cancel
                   </button>
                 </div>
               </div>
-              <div className='row my-2'>
-                <div className='col'>
+              <div className="row my-2">
+                <div className="col">
                   <input
-                    type='submit'
-                    className='btn btn-primary btn-sm'
-                    value='Change'
+                    type="submit"
+                    className="btn btn-primary btn-sm"
+                    value="Change"
                   />
                 </div>
               </div>
@@ -146,8 +146,8 @@ const PasswordForm = ({ changeUserPassword }) => {
         show={modalIsOpen}
         onCancel={handleClose}
         onConfirm={handleSubmit}
-        header='Confirm Changes'
-        body='Are you sure you want to change password?'
+        header="Confirm Changes"
+        body="Are you sure you want to change password?"
       />
     </>
   )

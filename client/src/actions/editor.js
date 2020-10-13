@@ -1,5 +1,5 @@
 import { Editor } from './types'
-import { loadUser } from './user'
+import { loadUser } from '../store/user/thunks'
 import { parseError } from './parse-error'
 import { createAlert } from '../store/alerts/thunks'
 

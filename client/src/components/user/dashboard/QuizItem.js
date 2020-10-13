@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { deleteQuiz } from '../../../actions/user'
+import { deleteQuiz } from '../../../store/user/thunks'
 import { goToQuizEditor } from '../../../actions/editor'
 import DeleteQuizButton from './DeleteQuizButton'
 import moment from 'moment'
@@ -76,49 +76,49 @@ const QuizItem = ({
   }, [])
   return (
     <>
-      <div className='row mb-1 align-items-center'>
-        <div className='col d-flex align-items-center justify-content-start'>
-          <h4 className='mb-0'>{title}</h4>
+      <div className="row mb-1 align-items-center">
+        <div className="col d-flex align-items-center justify-content-start">
+          <h4 className="mb-0">{title}</h4>
         </div>
-        <div className='col d-flex align-items-center justify-content-end'>
-          <DeleteQuizButton text='Delete' onClick={() => deleteQuiz(id)} />
+        <div className="col d-flex align-items-center justify-content-end">
+          <DeleteQuizButton text="Delete" onClick={() => deleteQuiz(id)} />
           <button
-            className='btn btn-info btn-sm ml-1'
-            type='button'
+            className="btn btn-info btn-sm ml-1"
+            type="button"
             onClick={() => goToQuizEditor(id, browserHistory)}>
             Edit
           </button>
           <button
-            className='btn btn-primary btn-sm ml-1'
-            type='button'
+            className="btn btn-primary btn-sm ml-1"
+            type="button"
             onClick={() => browserHistory.push(`/quizzes/${id}`)}>
             Results
           </button>
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <p className='mb-1'>
+      <div className="row">
+        <div className="col">
+          <p className="mb-1">
             {questionCount} {questionCount === 1 ? 'Question' : 'Questions'}
           </p>
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <p className='mb-1'>
+      <div className="row">
+        <div className="col">
+          <p className="mb-1">
             {resultsCount} {resultsCount === 1 ? 'Response' : 'Responses'}
           </p>
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <p className='mb-1'>Link: quizzes/{id}</p>
+      <div className="row">
+        <div className="col">
+          <p className="mb-1">Link: quizzes/{id}</p>
         </div>
       </div>
-      <div className='row'>
-        <small className='col text-muted text-left'>Created {timestamp}</small>
+      <div className="row">
+        <small className="col text-muted text-left">Created {timestamp}</small>
         {isExpired ? (
-          <small className='col text-danger text-right'>Expired</small>
+          <small className="col text-danger text-right">Expired</small>
         ) : null}
       </div>
     </>

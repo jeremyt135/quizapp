@@ -1,4 +1,4 @@
-import { loadUser } from '../../actions/user'
+import { loadUser } from '../user/thunks'
 import { parseError } from '../../actions/parse-error'
 import { createAlert } from '../alerts/thunks'
 import { setAuthUser, clearAuthUser } from './actions'
