@@ -2,13 +2,15 @@ import React from 'react'
 
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from 'util/test-utils'
+import { mocked } from 'ts-jest/utils'
+
 import Navbar from './Navbar'
 
 import { logout } from 'store/user/thunks'
 jest.mock('store/user/thunks')
 
 describe('Navbar', () => {
-  const logoutMock = logout as jest.Mock<typeof logout>
+  const logoutMock = mocked(logout)
 
   it('renders without crashing', () => {
     const mockStore = {
@@ -73,9 +75,7 @@ describe('Navbar', () => {
     //@ts-ignore
     render(<Navbar />, mockStore)
 
-    logoutMock.mockReturnValueOnce(() => {
-      return dispatch => {}
-    })
+    logoutMock.mockReturnValueOnce(dispatch => {})
 
     const logoutBtn = screen.getByText('Logout')
     fireEvent.click(logoutBtn)
