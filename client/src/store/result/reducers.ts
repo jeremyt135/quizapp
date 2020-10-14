@@ -2,11 +2,12 @@ import {
   CLEAR_RESULT,
   LOAD_RESULT,
   LOAD_RESULT_ERROR,
-  ResultActionTypes
+  ResultActionTypes,
+  ResultState
 } from './types'
 
 export function resultReducer(
-  state = { result: null, error: null, loading: true },
+  state: ResultState = { result: null, error: null, loading: true },
   action: ResultActionTypes
 ) {
   switch (action.type) {
