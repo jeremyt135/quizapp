@@ -6,28 +6,24 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import { RootState } from '../store/store'
-import { BrowserRouter, BrowserRouterProps } from 'react-router-dom'
+import { Router } from 'react-router'
+import { createMemoryHistory, MemoryHistory, History } from 'history'
 
 type MockStore = Partial<RootState>
 const mockStore = configureStore<MockStore>([thunk])
 const defaultMockStore = mockStore({})
 
-interface AllContextsProps extends BrowserRouterProps {
+interface AllContextsProps {
   children: React.ReactNode
+  history: History | MemoryHistory
   store?: MockStore
 }
 
-const AllContextsWrapper = ({
-  children,
-  store,
-  ...props
-}: AllContextsProps) => {
+const AllContextsWrapper = ({ children, store, history }: AllContextsProps) => {
   return (
-    <BrowserRouter {...props}>
-      <Provider store={store != null ? mockStore(store) : defaultMockStore}>
-        {children}
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store != null ? mockStore(store) : defaultMockStore}>
+      <Router history={history}>{children}</Router>
+    </Provider>
   )
 }
 
@@ -44,14 +40,15 @@ const renderWithAllContexts = (
     | (new (props: any) => React.Component<any, any, any>)
   >,
   mockStore?: MockStore,
-  browserRouterProps?: BrowserRouterProps,
+  history?: History,
   options?: Pick<
     RenderOptions<typeof import('@testing-library/dom/types/queries')>,
     'container' | 'baseElement' | 'hydrate' | 'wrapper'
   >
 ) => {
+  const routerHistory = history ?? createMemoryHistory()
   const Wrapper: React.FC<{}> = ({ children }) => (
-    <AllContextsWrapper store={mockStore} {...browserRouterProps}>
+    <AllContextsWrapper store={mockStore} history={routerHistory}>
       {children}
     </AllContextsWrapper>
   )
