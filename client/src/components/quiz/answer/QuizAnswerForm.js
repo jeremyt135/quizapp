@@ -100,7 +100,7 @@ const QuizAnswerForm = ({
 
   return (
     <>
-      <div className="content">
+      <div data-testid="quiz-answer-form" className="content">
         <div className="quiz-answer-form container-fluid">
           <div className="row">
             <div className="quiz-answer-form__block col-sm-8 mx-auto mt-3">
