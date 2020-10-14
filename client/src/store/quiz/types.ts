@@ -17,6 +17,7 @@ export interface Quiz {
   user: string
   title: string
   expiration: string
+  questions: QuizQuestion[]
 }
 
 export interface QuizState {
