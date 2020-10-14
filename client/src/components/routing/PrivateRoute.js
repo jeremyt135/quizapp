@@ -1,22 +1,13 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import jwt from 'jsonwebtoken'
 
 import PropTypes from 'prop-types'
 
 import Spinner from '../common/Spinner'
 import { clearAuth } from '../../store/auth/thunks'
 
-const tokenIsExpired = token => {
-  const decoded = jwt.decode(token)
-  if (!decoded) {
-    return true
-  }
-  const { exp: expiration } = decoded
-  const now = Math.floor(new Date().getTime() / 1000)
-  return expiration < now
-}
+import { tokenIsExpired } from 'util/jwt'
 
 const PrivateRoute = ({
   auth,
@@ -31,6 +22,7 @@ const PrivateRoute = ({
     clearAuth()
     isAuthenticated = false
   }
+
   const render = props => {
     if (!isAuthenticated) {
       return <Redirect to="/login" />
