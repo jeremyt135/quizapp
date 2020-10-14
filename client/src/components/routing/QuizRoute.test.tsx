@@ -138,9 +138,4 @@ describe('QuizRoute', () => {
     history.push(`/quizzes/${quizId}`)
     expect(screen.getByTestId('quiz-answer-form')).not.toBeNull()
   })
-  it('checks equality', () => {
-    console.log(stateMocks)
-
-    expect(stateMocks.quiz.quiz!.user).toEqual(stateMocks.user.user!.username)
-  })
 })
