@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * @param {function} props.onCancel Function to call when user cancels action
  * @param {function} props.onConfirm Function to call when user confirms action
  * @param {string} props.cancelText Text of cancel button
- * @param {string} props.confimrText Text of confirm button
+ * @param {string} props.confirmText Text of confirm button
  */
 const ConfirmModal = ({
   header,
@@ -25,17 +25,17 @@ const ConfirmModal = ({
     onCancel()
   }
   return (
-    <div>
+    <div data-testid="confirm-modal">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{header}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{body}</Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             {cancelText || 'Cancel'}
           </Button>
-          <Button variant='danger' onClick={onConfirm}>
+          <Button variant="danger" onClick={onConfirm}>
             {confirmText || 'Confirm Changes'}
           </Button>
         </Modal.Footer>
