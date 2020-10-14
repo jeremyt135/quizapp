@@ -4,12 +4,13 @@ import '@testing-library/jest-dom'
 import { render, screen } from 'util/test-utils'
 import { mocked } from 'ts-jest/utils'
 import { createMemoryHistory } from 'history'
+import clone from 'clone'
 
 jest.mock('store/quiz/thunks')
 import { getQuiz, clearQuiz } from 'store/quiz/thunks'
 const clearQuizActual = jest.requireActual('store/quiz/thunks').clearQuiz
 
-import * as stateMocks from 'mocks/state'
+import * as state from 'mocks/state'
 
 import QuizRoute from './QuizRoute'
 import { Switch } from 'react-router-dom'
@@ -19,10 +20,12 @@ const withSwitch = (el: React.ReactElement) => <Switch>{el}</Switch>
 describe('QuizRoute', () => {
   const getQuizMock = mocked(getQuiz).mockReturnValue(dispatch => {})
   const clearQuizMock = mocked(clearQuiz).mockImplementation(clearQuizActual)
+  let stateMocks: typeof state
 
   beforeEach(() => {
     getQuizMock.mockClear()
     clearQuizMock.mockClear()
+    stateMocks = clone(state)
   })
 
   it('calls clearQuiz when navigating away', () => {
@@ -134,5 +137,10 @@ describe('QuizRoute', () => {
     )
     history.push(`/quizzes/${quizId}`)
     expect(screen.getByTestId('quiz-answer-form')).not.toBeNull()
+  })
+  it('checks equality', () => {
+    console.log(stateMocks)
+
+    expect(stateMocks.quiz.quiz!.user).toEqual(stateMocks.user.user!.username)
   })
 })
