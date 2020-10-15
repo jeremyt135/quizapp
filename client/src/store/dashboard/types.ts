@@ -1,10 +1,20 @@
+import { QuizId } from 'store/quiz/types'
+import { ResultListing } from 'store/quizresults/types'
+
 export type DashboardError = { status: number; errors: any[] }
-export type Quiz = any
-export type Result = any
+
+export interface QuizListing {
+  _id: QuizId
+  title: string
+  expiration: string
+  questionCount: number
+  resultsCount: number
+}
+
 export interface DashboardState {
   loading: boolean
-  quizzes: Quiz[] | null
-  results: Result[] | null
+  quizzes: QuizListing[] | null
+  results: ResultListing[] | null
   error: DashboardError | null
 }
 
