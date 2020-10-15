@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom'
  * Displays the brief info for a result
  * @param {object} props Component props
  * @param {object} props.result Result object
- * @param {string} props.result.title Title of the quiz
+ * @param {string} props.result.quizTitle Title of the quiz
  * @param {number} props.result.score User's score on quiz
- * @param {string} props.result.createdBy User who created quiz
+ * @param {string} props.result.ownerUsername User who created quiz
  */
 const ResultItem = ({
   result: {
