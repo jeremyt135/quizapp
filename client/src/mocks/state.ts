@@ -24,7 +24,7 @@ export const user: UserState = {
   error: null,
   user: {
     _id: userid(0),
-    date: 'date',
+    date: now,
     username: username(0),
     email: 'email@email.com',
     quizzes: [],
