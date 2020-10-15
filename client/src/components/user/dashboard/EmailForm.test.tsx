@@ -25,12 +25,10 @@ describe('EmailForm', () => {
     return screen.queryByText('Confirm') as Element
   }
   it('renders without crashing', () => {
-    //@ts-ignore
     render(<EmailForm initialEmail={initialEmail} />)
   })
 
   it('opens the form when the change button is clicked', () => {
-    //@ts-ignore
     render(<EmailForm initialEmail={initialEmail} />)
 
     expect(getEmailInput()).toBeNull()
@@ -39,7 +37,6 @@ describe('EmailForm', () => {
   })
 
   it('closes the form when the cancel button is clicked', () => {
-    //@ts-ignore
     render(<EmailForm initialEmail={initialEmail} />)
     openForm()
     const cancelBtn = screen.getByText('Cancel')
@@ -48,7 +45,6 @@ describe('EmailForm', () => {
   })
 
   it('shows an error if submitting current email', () => {
-    //@ts-ignore
     render(<EmailForm initialEmail={initialEmail} />)
     openForm()
     const emailInput = getEmailInput()
@@ -60,7 +56,6 @@ describe('EmailForm', () => {
   })
 
   it('opens the confirmation modal if new email submitted', () => {
-    //@ts-ignore
     render(<EmailForm initialEmail={initialEmail} />)
     openForm()
     const emailInput = getEmailInput()
@@ -70,7 +65,6 @@ describe('EmailForm', () => {
   })
 
   it('calls changeUserEmail when modal is confirmed', () => {
-    //@ts-ignore
     render(<EmailForm initialEmail={initialEmail} />)
     openForm()
     const emailInput = getEmailInput()

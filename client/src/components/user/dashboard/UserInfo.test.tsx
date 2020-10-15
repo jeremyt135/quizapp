@@ -25,30 +25,25 @@ describe('UserInfo', () => {
   })
 
   it('renders without crashing', () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
   })
 
   it('renders the email form', () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
     expect(screen.queryByText(/change email/i)).not.toBeNull()
   })
 
   it('renders the password form', () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
     expect(screen.queryByText(/change password/i)).not.toBeNull()
   })
 
   it('renders the delete account button', () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
     expect(screen.queryByText(/delete account/i)).not.toBeNull()
   })
 
   it("renders the user's username", () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
     expect(
       screen.queryByText(RegExp(`${mockState.user.user?.username}`))
@@ -56,7 +51,6 @@ describe('UserInfo', () => {
   })
 
   it("renders the user's email", () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
     expect(
       screen.queryByText(RegExp(`${mockState.user.user?.email}`))
@@ -64,7 +58,6 @@ describe('UserInfo', () => {
   })
 
   it("renders the user's registration date", () => {
-    //@ts-ignore
     render(<UserInfo />, mockState)
     const date = dateToLongLocaleString(mockState.user.user!.date)
     expect(screen.getByText(date)).not.toBeNull()

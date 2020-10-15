@@ -20,7 +20,7 @@ describe('Navbar', () => {
         isAuthenticated: false
       }
     }
-    //@ts-ignore
+
     render(<Navbar />, mockStore)
   })
   it('contains a link to home', () => {
@@ -31,7 +31,7 @@ describe('Navbar', () => {
         isAuthenticated: false
       }
     }
-    //@ts-ignore
+
     render(<Navbar />, mockStore)
     expect(screen.queryByText('QuizNow')).not.toBeNull()
   })
@@ -43,7 +43,7 @@ describe('Navbar', () => {
         isAuthenticated: false
       }
     }
-    //@ts-ignore
+
     render(<Navbar />, mockStore)
     expect(screen.queryByText('Create')).toBeNull()
     expect(screen.queryByText('Dashboard')).toBeNull()
@@ -57,7 +57,7 @@ describe('Navbar', () => {
         isAuthenticated: true
       }
     }
-    //@ts-ignore
+
     render(<Navbar />, mockStore)
     expect(screen.queryByText('Create')).not.toBeNull()
     expect(screen.queryByText('Dashboard')).not.toBeNull()
@@ -72,7 +72,6 @@ describe('Navbar', () => {
       }
     }
 
-    //@ts-ignore
     render(<Navbar />, mockStore)
 
     logoutMock.mockReturnValueOnce(dispatch => {})

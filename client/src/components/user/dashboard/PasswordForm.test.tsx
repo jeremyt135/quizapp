@@ -11,12 +11,10 @@ import PasswordForm from './PasswordForm'
 
 describe('EmailForm', () => {
   it('renders without crashing', () => {
-    //@ts-ignore
     render(<PasswordForm />)
   })
 
   it('opens the form when the change button is clicked', () => {
-    //@ts-ignore
     render(<PasswordForm />)
 
     expect(getPasswordInput()).toBeNull()
@@ -25,7 +23,6 @@ describe('EmailForm', () => {
   })
 
   it('closes the form when the cancel button is clicked', () => {
-    //@ts-ignore
     render(<PasswordForm />)
     openForm()
     const cancelBtn = screen.getByText('Cancel')
@@ -34,7 +31,6 @@ describe('EmailForm', () => {
   })
 
   it('shows an error if passwords do not match', () => {
-    //@ts-ignore
     render(<PasswordForm />)
     openForm()
     fillOutForm(newPassword, newPassword + 'foo')
@@ -43,7 +39,6 @@ describe('EmailForm', () => {
   })
 
   it('shows an error if first password input is empty', () => {
-    //@ts-ignore
     render(<PasswordForm />)
     openForm()
     fillOutForm('', newPassword)
@@ -52,7 +47,6 @@ describe('EmailForm', () => {
   })
 
   it('shows an error if confirmation input is empty', () => {
-    //@ts-ignore
     render(<PasswordForm />)
     openForm()
     fillOutForm(newPassword, '')
@@ -61,7 +55,6 @@ describe('EmailForm', () => {
   })
 
   it('opens the confirmation modal if passwords match', () => {
-    //@ts-ignore
     render(<PasswordForm />)
     openForm()
     fillOutForm(newPassword, newPassword)
@@ -70,7 +63,6 @@ describe('EmailForm', () => {
   })
 
   it('calls changeUserPassword when modal is confirmed', () => {
-    //@ts-ignore
     render(<PasswordForm />)
     openForm()
     fillOutForm(newPassword, newPassword)
