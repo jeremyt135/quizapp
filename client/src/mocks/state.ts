@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { AuthState } from 'store/auth/types'
+import { DashboardState } from 'store/dashboard/types'
 import { QuizState } from 'store/quiz/types'
 import { ResultListingsState } from 'store/quizresults/types'
 import { ResultState } from 'store/result/types'
@@ -74,4 +75,29 @@ export const result: ResultState = {
     ownerUsername: username(0),
     username: username(1)
   }
+}
+
+export const dashboard: DashboardState = {
+  loading: false,
+  quizzes: [
+    {
+      _id: quizid(0),
+      title: 'quiz0',
+      expiration: expiration,
+      questionCount: 1,
+      resultsCount: 1
+    }
+  ],
+  results: [
+    {
+      _id: resultid(0),
+      date: now,
+      user: userid(1),
+      quiz: quizid(0),
+      quizOwner: username(0),
+      score: 0,
+      username: username(1)
+    }
+  ],
+  error: null
 }
