@@ -7,17 +7,15 @@ import EmailForm from './EmailForm'
 import DeleteAccountButton from './DeleteAccountButton'
 import { deleteUser } from '../../../store/user/thunks'
 
+import { dateToLongLocaleString } from 'util/date'
+
 /**
  * Displays the User's info to a dashboard block. Allows editing of password and email
  * through child components.
  */
 const UserInfo = ({ user, deleteUser }) => {
   const { username, email, date } = user.user
-  const dateString = new Date(date).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
+  const dateString = dateToLongLocaleString(date)
 
   return (
     <>
