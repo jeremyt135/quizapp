@@ -26,12 +26,18 @@ describe('QuizList', () => {
     expect(screen.queryByRole('status')).not.toBeNull()
   })
 
-  it('redirects when clicking the create quiz button ', () => {
+  it('redirects when clicking the create quiz button', () => {
     const history = createMemoryHistory()
     render(<QuizList />, { dashboard: mockState }, history)
     const createBtn = screen.getByText(/create a quiz/i)
     fireEvent.click(createBtn)
     expect(history.location.pathname).toEqual('/quizzes/create')
+  })
+
+  it('should display a message if no quizzes are made', () => {
+    mockState.quizzes = []
+    render(<QuizList />, { dashboard: mockState })
+    expect(screen.queryByText(/you haven't made any quizzes/i)).not.toBeNull()
   })
 
   it('should render whatever quizzes are availble', () => {
