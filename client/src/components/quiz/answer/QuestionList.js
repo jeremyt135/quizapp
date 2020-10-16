@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
  */
 const QuestionList = ({ error, questions, onChange }) => {
   return (
-    <>
+    <div data-testid='questionlist'>
       {questions.map((question, index) => (
         <Question
           key={index}
@@ -23,7 +23,7 @@ const QuestionList = ({ error, questions, onChange }) => {
           highlightMissing={!!error && error.status === 400}
         />
       ))}
-    </>
+    </div>
   )
 }
 
