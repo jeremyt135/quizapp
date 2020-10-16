@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
  * @param {object} props
  * @param {number} props.index Index of question in quiz
  * @param {string} props.text Question text
- * @param {[{text: string}]} props.answers Question answer choices
+ * @param {Array<{text: string}>} props.answers Question answer choices
  * @param {boolean} props.highlightMissing True if missing choices should be highlighted
  * @param {function} props.onChange Function to call when user has changed their choice
  */
