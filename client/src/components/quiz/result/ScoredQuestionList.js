@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 /**
  * Displays a list of scored questions
  * @param {object} props
- * @param {[{ text: string, answers: { text: string } }]} props.questions List of questions
- * @param {[{ choice: number, correctAnswer: boolean, isCorrect: boolean}]} props.results List of results
+ * @param {Array<{ text: string, answers: Array<{ text: string }> }>} props.questions List of questions
+ * @param {Array<{ choice: number, correctAnswer?: number, isCorrect: boolean}>} props.results List of results
  */
 const ScoredQuestionList = ({ questions, results }) => {
   return (
