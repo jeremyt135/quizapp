@@ -17,6 +17,7 @@ const Answer = ({ questionIndex, index, text, selected, onChecked }) => {
     <div className='row mb-2 px-3'>
       <div className='col'>
         <div
+          data-testid={`answer-choice-${index}`}
           className={
             'form-check mb-0 pt-1 answer' +
             (selected ? ' answer--selected' : '')
