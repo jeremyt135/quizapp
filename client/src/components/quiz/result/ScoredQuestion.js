@@ -7,8 +7,8 @@ import PropTypes from 'prop-types'
  * @param {object} props
  * @param {number} props.index Index of question
  * @param {string} props.text Question text
- * @param {[{ text: string }]} props.answers Answers to question
- * @param {{ correctAnswer: number, isCorrect: boolean }} props.result Result data
+ * @param {Array<{ text: string }>} props.answers Answers to question
+ * @param {{ correctAnswer?: number, isCorrect: boolean }} props.result Result data
  */
 const ScoredQuestion = ({ index: questionIndex, text, answers, result }) => {
   return (
