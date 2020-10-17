@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 
 export const tokenIsExpired = (token: string) => {
-  console.log('REAL tokenIsExpired')
   const decoded = jwt.decode(token) as { exp: number }
   if (!decoded) {
     return true
