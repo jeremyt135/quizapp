@@ -1,16 +1,17 @@
+import { ResultListing } from 'store/quizresults/types'
+
 import {
   CLEAR_DASHBOARD,
   DashboardActionTypes,
   DashboardError,
   LOAD_DASHBOARD,
   LOAD_DASHBOARD_ERROR,
-  Quiz,
-  Result
+  QuizListing
 } from './types'
 
 export function loadDashboard(
-  quizzes: Quiz[],
-  results: Result[]
+  quizzes: QuizListing[],
+  results: ResultListing[]
 ): DashboardActionTypes {
   return {
     type: LOAD_DASHBOARD,
