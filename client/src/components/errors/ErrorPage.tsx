@@ -2,11 +2,14 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
+interface Props {
+  status: number
+}
+
 /**
  * Displays an error page/splash
- * @param {number} status Error status code
  */
-const ErrorPage = ({ status }) => {
+const ErrorPage = ({ status }: Props) => {
   let message = ''
   switch (status) {
     case 404:
@@ -23,15 +26,15 @@ const ErrorPage = ({ status }) => {
       message = ''
   }
   return (
-    <div className='container error-container'>
-      <div className='error-widget col'>
-        <div className='row'>
-          <div className='col'>
+    <div className="container error-container">
+      <div className="error-widget col">
+        <div className="row">
+          <div className="col">
             <h1>{status}</h1>
           </div>
         </div>
-        <div className='row'>
-          <div className='col'>
+        <div className="row">
+          <div className="col">
             <p>{message}</p>
           </div>
         </div>
