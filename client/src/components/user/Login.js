@@ -99,13 +99,11 @@ const Login = ({ isAuthenticated, login }) => {
 
 Login.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-  loginError: PropTypes.object
+  login: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  loginError: state.auth.error
+  isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps, { login })(Login)
