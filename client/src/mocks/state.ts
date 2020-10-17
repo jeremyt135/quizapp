@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { AuthState } from 'store/auth/types'
 import { DashboardState } from 'store/dashboard/types'
+import { EditorState } from 'store/editor/types'
 import { QuizState } from 'store/quiz/types'
 import { ResultListingsState } from 'store/quizresults/types'
 import { ResultState } from 'store/result/types'
@@ -100,4 +101,22 @@ export const dashboard: DashboardState = {
     }
   ],
   error: null
+}
+
+export const editor: EditorState = {
+  loading: true,
+  editing: false,
+  error: null,
+  quiz: {
+    title: '',
+    isPublic: true,
+    allowedUsers: [],
+    expiration: moment()
+      .add(1, 'd')
+      .hours(23)
+      .minutes(59)
+      .seconds(0)
+      .toISOString(),
+    questions: []
+  }
 }
