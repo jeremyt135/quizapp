@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import flatpickr from 'flatpickr'
-import PropTypes from 'prop-types'
 
 import moment from 'moment'
 
@@ -10,23 +9,27 @@ const flatpickrFormat = 'm-d-Y h:i K'
 // Moment format string that is analogous to the flatpickr format
 const momentFormat = 'MM-DD-YYYY h:mm A'
 
+type Props = {
+  id: string
+  defaultValue: string
+  minValue: string
+  onChange: (date: string) => void
+  validate: (date: string) => boolean
+  errorStr: string
+}
+
 /**
  * Displays an input for the user to select a date and time.
- * @param {object} props
- * @param {string} props.id String to use as HTML id value
- * @param {string} props.defaultValue Default date to display
- * @param {string} props.minValue Minimum allowed date
- * @param {function} props.onChange Function to call with updated date
  */
 const DateTimePicker = React.memo(
-  ({ id, defaultValue, minValue, onChange, validate, errorStr }) => {
+  ({ id, defaultValue, minValue, onChange, validate, errorStr }: Props) => {
     const [dateTime, setDateTime] = useState(
       moment(defaultValue).format(momentFormat)
     )
 
-    const inputRef = useRef(null)
+    const inputRef = useRef<HTMLInputElement>(null)
     useEffect(() => {
-      const datePicker = flatpickr(inputRef.current, {
+      const datePicker = flatpickr(inputRef.current!, {
         dateFormat: flatpickrFormat,
         defaultDate: dateTime,
         minDate: moment(minValue).format(momentFormat),
@@ -45,17 +48,17 @@ const DateTimePicker = React.memo(
     return (
       <>
         <input
-          type='text'
+          type="text"
           className={
             'form-control date-time-picker' + (!isValid ? ' is-invalid' : '')
           }
           id={id}
-          placeholder='Select date and time'
+          placeholder="Select date and time"
           ref={inputRef}
           readOnly={true}
         />
         {!isValid ? (
-          <div className='invalid-feedback'>
+          <div className="invalid-feedback">
             {errorStr || 'Date is invalid.'}
           </div>
         ) : null}
@@ -63,14 +66,5 @@ const DateTimePicker = React.memo(
     )
   }
 )
-
-DateTimePicker.propTypes = {
-  id: PropTypes.string,
-  defaultValue: PropTypes.string.isRequired,
-  minValue: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  validate: PropTypes.func.isRequired,
-  errorStr: PropTypes.string
-}
 
 export default DateTimePicker
