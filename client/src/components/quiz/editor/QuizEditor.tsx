@@ -15,7 +15,7 @@ import QuestionList from './QuestionList'
 import ErrorPage from '../../errors/ErrorPage'
 import Spinner from '../../common/Spinner'
 
-import Api, { ApiError } from 'api'
+import Api, { ApiError, ApiResponse } from 'api'
 import { useQuiz, useBeforeUnload } from 'hooks'
 import { createAlert } from 'store/alerts/thunks'
 import { connect, ConnectedProps } from 'react-redux'
@@ -68,22 +68,34 @@ const QuizEditor = ({ createAlert }: Props) => {
     history.push('/dashboard')
   }
 
+  const handleSubmitRes = (
+    res: ApiResponse,
+    successMsg: string,
+    errorMsg: string
+  ) => {
+    if (res.error) {
+      setSubmitError(res.error)
+      createAlert({
+        msg: errorMsg,
+        type: 'danger'
+      })
+    } else {
+      createAlert({
+        msg: successMsg,
+        type: 'success'
+      })
+      goToDashboard()
+    }
+  }
+
   const submitEdits = () => {
     if (edits) {
       Api.quiz.put(edits).then(res => {
-        if (res.error) {
-          setSubmitError(res.error)
-          createAlert({
-            msg: 'Failed to create quiz - are there invalid fields?',
-            type: 'danger'
-          })
-        } else {
-          createAlert({
-            msg: 'Quiz edited successfully',
-            type: 'success'
-          })
-          goToDashboard()
-        }
+        handleSubmitRes(
+          res,
+          'Quiz edited successfully',
+          'Failed to create quiz - are there invalid fields?'
+        )
       })
     }
   }
@@ -91,19 +103,11 @@ const QuizEditor = ({ createAlert }: Props) => {
   const submitNewQuiz = () => {
     if (edits) {
       Api.quiz.post(edits).then(res => {
-        if (res.error) {
-          setSubmitError(res.error)
-          createAlert({
-            msg: 'Failed to create quiz - are there invalid fields?',
-            type: 'danger'
-          })
-        } else {
-          createAlert({
-            msg: 'Quiz created successfully',
-            type: 'success'
-          })
-          goToDashboard()
-        }
+        handleSubmitRes(
+          res,
+          'Quiz created successfully',
+          'Failed to create quiz - are there invalid fields?'
+        )
       })
     }
   }
