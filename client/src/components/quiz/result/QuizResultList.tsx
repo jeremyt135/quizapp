@@ -22,7 +22,7 @@ type Props = ConnectedProps<typeof connector>
 /**
  * Displays a list of results belonging to a quiz. This would only be accessed by the owner of the quiz.
  */
-const QuizResultList = ({}: Props) => {
+const QuizResultList = ({ createAlert }: Props) => {
   const browserHistory = useHistory()
   const { id } = useParams<{ id: string }>()
 
