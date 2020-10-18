@@ -17,8 +17,8 @@ export const getAll = async <T extends ResultFormat>(
     return { error }
   }
 
-  const result = await response.json()
-  return { data: result as ResultListType<T> }
+  const result = (await response.json()) as { results: ResultListType<T> }
+  return { data: result.results as ResultListType<T> }
 }
 
 export const getOne = async <T extends ResultFormat>(
