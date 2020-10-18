@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const dateToLongLocaleString = (date: Date | string) => {
   let dateToFormat: Date
   if (typeof date === 'string') {
@@ -12,3 +14,6 @@ export const dateToLongLocaleString = (date: Date | string) => {
     day: 'numeric'
   })
 }
+
+export const isDateInFuture = (date: Date | string) =>
+  moment(date).diff(moment()) >= 0
