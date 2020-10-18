@@ -13,7 +13,7 @@ const clearQuizActual = jest.requireActual('store/quiz/thunks').clearQuiz
 jest.mock('hooks/usequiz')
 import { useQuiz } from 'hooks/usequiz'
 jest.mock('hooks/useresult')
-import { useResultList } from 'hooks/useresult'
+import { useResultList, useSingleResult } from 'hooks/useresult'
 
 import * as state from 'mocks/state'
 
@@ -28,10 +28,12 @@ describe('QuizRoute', () => {
 
   const mockUseQuiz = mocked(useQuiz)
   const mockUseResultList = mocked(useResultList)
+  const mockUseSingleResult = mocked(useSingleResult)
 
   let stateMocks: typeof state
 
   beforeEach(() => {
+    mockUseQuiz.mockReset()
     getQuizMock.mockClear()
     clearQuizMock.mockClear()
     stateMocks = clone(state)
@@ -103,8 +105,8 @@ describe('QuizRoute', () => {
   })
 
   it('renders a QuizResultList if the current user owns the quiz', () => {
-    mockUseQuiz.mockReturnValueOnce([stateMocks.quiz.quiz!, undefined, false])
-    mockUseResultList.mockReturnValueOnce([[], undefined, false])
+    mockUseQuiz.mockReturnValue([stateMocks.quiz.quiz!, undefined, false])
+    mockUseResultList.mockReturnValue([[], undefined, false])
     const mockStore = {
       user: stateMocks.user,
       quiz: stateMocks.quiz,
@@ -137,10 +139,11 @@ describe('QuizRoute', () => {
         result: null
       }
     }
-    mockStore.quiz.quiz!.user = 'foo'
+    mockStore.user.user!.quizzes = []
     const quizId = mockStore.quiz.quiz!._id
     const history = createMemoryHistory()
-
+    mockUseQuiz.mockReturnValueOnce([mockStore.quiz.quiz!, undefined, false])
+    mockUseSingleResult.mockReturnValue([undefined, undefined, false])
     render(
       withSwitch(<QuizRoute exact path="/quizzes/:id" />),
       mockStore,

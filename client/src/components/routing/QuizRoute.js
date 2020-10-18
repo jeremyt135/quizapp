@@ -42,7 +42,7 @@ const QuizRoute = ({
       return <ErrorPage status={error.status} />
     }
 
-    if (user && quiz.user === user.username) {
+    if (user && user.quizzes.some(id => id === quizId)) {
       return <QuizResultList />
     } else {
       return <QuizAnswerForm />
