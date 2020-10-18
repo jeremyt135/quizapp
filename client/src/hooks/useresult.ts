@@ -4,7 +4,8 @@ import Api, {
   SingleResultType,
   ResultListType
 } from 'api'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useMountedEffect } from './usemountedeffect'
 
 export const useResultList = <T extends ResultFormat>(
   quizId: string,
@@ -15,16 +16,21 @@ export const useResultList = <T extends ResultFormat>(
 
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    Api.results.getAll(quizId, format).then(res => {
-      if (res.data) {
-        setResults(res.data)
-      } else if (res.error) {
-        setError(res.error)
-      }
-      setLoading(false)
-    })
-  }, [quizId])
+  useMountedEffect(
+    status => {
+      Api.results.getAll(quizId, format).then(res => {
+        if (status.mounted) {
+          if (res.data) {
+            setResults(res.data)
+          } else if (res.error) {
+            setError(res.error)
+          }
+          setLoading(false)
+        }
+      })
+    },
+    [quizId]
+  )
 
   return [results, error, loading]
 }
@@ -39,16 +45,21 @@ export const useSingleResult = <T extends ResultFormat>(
 
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    Api.results.getOne(quizId, userId, format).then(res => {
-      if (res.data) {
-        setResult(res.data)
-      } else if (res.error) {
-        setError(res.error)
-      }
-      setLoading(false)
-    })
-  }, [quizId, userId])
+  useMountedEffect(
+    status => {
+      Api.results.getOne(quizId, userId, format).then(res => {
+        if (status.mounted) {
+          if (res.data) {
+            setResult(res.data)
+          } else if (res.error) {
+            setError(res.error)
+          }
+          setLoading(false)
+        }
+      })
+    },
+    [quizId, userId]
+  )
 
   return [result, error, loading]
 }

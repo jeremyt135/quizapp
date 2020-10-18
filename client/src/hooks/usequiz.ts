@@ -1,5 +1,6 @@
 import Api, { ApiError, QuizFormat, QuizType } from 'api'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useMountedEffect } from './usemountedeffect'
 
 export const useQuiz = <T extends QuizFormat>(
   id: string,
@@ -10,16 +11,21 @@ export const useQuiz = <T extends QuizFormat>(
 
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    Api.quiz.get(id, format).then(res => {
-      if (res.data) {
-        setQuiz(res.data)
-      } else if (res.error) {
-        setError(res.error)
-      }
-      setLoading(false)
-    })
-  }, [id])
+  useMountedEffect(
+    status => {
+      Api.quiz.get(id, format).then(res => {
+        if (status.mounted) {
+          if (res.data) {
+            setQuiz(res.data)
+          } else if (res.error) {
+            setError(res.error)
+          }
+          setLoading(false)
+        }
+      })
+    },
+    [id]
+  )
 
   return [quiz as QuizType<T>, error, loading]
 }
