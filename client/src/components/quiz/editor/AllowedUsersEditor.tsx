@@ -1,47 +1,45 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { changeAllowedUsers } from '../../../store/editor/thunks'
-import {} from '../../../store/editor/thunks'
-const isValidUsername = str => /^[a-zA-Z0-9]{5,}$/.test(str)
 
-const parseInvalidUsers = str => {
+const isValidUsername = (str: string) => /^[a-zA-Z0-9]{5,}$/.test(str)
+
+const parseInvalidUsers = (str: string) => {
   return str.split(/\s*,+\s*,*/).filter(s => !isValidUsername(s))
 }
 
 /**
  * Parses allowed users from a comma-separated string.
- * @param {string} str Comma-separated string of valid usernames
  */
-const parseAllowedUsers = str => {
+const parseAllowedUsers = (str: string) => {
   const users = str.split(/\s*,+\s*,*/).filter(s => s)
   if (users.length > 0 && users.every(user => isValidUsername(user))) {
     return users
   }
-  return null
+  return []
+}
+
+type Props = {
+  defaultValue: string[]
+  onChange: (users: string[]) => void
 }
 
 /**
  * Displays a text input for the user to input a list of allowed users
  */
-const AllowedUsersInput = ({ defaultValue, changeAllowedUsers }) => {
-  const [users, setUsers] = useState(defaultValue.join(','))
+const AllowedUsersEditor = (props: Props) => {
+  const [users, setUsers] = useState(props.defaultValue.join(','))
   const [isValid, setValid] = useState(true)
 
-  const onChange = e => {
-    setUsers(e.target.value)
-    setValid(true)
-  }
-
-  const onBlur = () => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const users = e.target.value
+    setUsers(users)
     const allowedUsers = parseAllowedUsers(users)
-    if (allowedUsers) {
-      changeAllowedUsers(allowedUsers)
-    } else {
-      setValid(!users && !allowedUsers)
+    if (allowedUsers.length > 0) {
+      props.onChange(allowedUsers)
+      setValid(true)
+    } else if (users.length > 0) {
+      setValid(false)
     }
   }
-
   return (
     <div className="row mb-4">
       <div className="col">
@@ -60,7 +58,6 @@ const AllowedUsersInput = ({ defaultValue, changeAllowedUsers }) => {
               id="allowedUsersInput"
               value={users}
               onChange={onChange}
-              onBlur={onBlur}
             />
             {!isValid ? (
               <div className="invalid-feedback">
@@ -75,15 +72,4 @@ const AllowedUsersInput = ({ defaultValue, changeAllowedUsers }) => {
   )
 }
 
-AllowedUsersInput.propTypes = {
-  defaultValue: PropTypes.array.isRequired,
-  changeAllowedUsers: PropTypes.func.isRequired
-}
-
-const mapStateToProps = state => ({
-  defaultValue: state.editor.quiz.allowedUsers
-})
-
-export default connect(mapStateToProps, { changeAllowedUsers })(
-  AllowedUsersInput
-)
+export default AllowedUsersEditor
