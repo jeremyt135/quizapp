@@ -3,6 +3,11 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { changeInput, fireEvent, render, screen } from 'util/test-utils'
 
+jest.mock('hooks/usequiz')
+import { useQuiz } from 'hooks/usequiz'
+
+import { mocked } from 'ts-jest/utils'
+
 import QuizEditor from './QuizEditor'
 
 const addQuestion = () => {
@@ -23,10 +28,22 @@ const changeAndBlurIput = (input: HTMLElement, value: string) => {
 }
 
 describe('QuizEditor', () => {
+  const mockUseQuiz = mocked(useQuiz).mockReturnValue([
+    undefined,
+    undefined,
+    false
+  ])
+
+  beforeEach(() => {
+    mockUseQuiz.mockClear()
+  })
+
   it('renders without crashing', () => {
     render(<QuizEditor />)
   })
+
   it('does not reset quiz title after input and blur', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     const title = 'My Quiz'
     const titleInput = screen.getByPlaceholderText(/quiz title.../i)
@@ -37,19 +54,25 @@ describe('QuizEditor', () => {
     fireEvent.blur(titleInput)
     expect(screen.queryByDisplayValue(title)).not.toBeNull()
   })
+
   it('"Public" checkbox is checked by default', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     const checkbox = screen.getByLabelText(/public/i) as HTMLInputElement
     expect(checkbox.checked).toBe(true)
   })
+
   it('displays the allowed users list after unchecking "Public"', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     const checkbox = screen.getByLabelText(/public/i) as HTMLInputElement
     fireEvent.click(checkbox)
     expect(checkbox.checked).toBe(false)
     expect(screen.queryByText(/allowed users/i)).not.toBeNull()
   })
+
   it('keeps the values of allowed users between toggling "Public"', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     const checkbox = screen.getByLabelText(/public/i) as HTMLInputElement
     // uncheck the box
@@ -70,10 +93,12 @@ describe('QuizEditor', () => {
   })
 
   it('adds a question when clicking "Add Question"', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     addQuestion()
     expect(screen.queryByText(/question \d:/i)).not.toBeNull()
   })
+
   it('deletes the question when clicking "Delete Question"', () => {
     render(<QuizEditor />)
     addQuestion()
@@ -83,6 +108,7 @@ describe('QuizEditor', () => {
   })
 
   it('adds an answer to a question when clicking "Add Answer"', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     addQuestion()
     addAnswerToQuestion(0)
@@ -90,6 +116,7 @@ describe('QuizEditor', () => {
   })
 
   it('deletes an answer from a question when clicking "Delete"', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     addQuestion()
     addAnswerToQuestion(0)
@@ -99,6 +126,7 @@ describe('QuizEditor', () => {
   })
 
   it('retains question text after input and blur', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     addQuestion()
 
@@ -113,6 +141,7 @@ describe('QuizEditor', () => {
   })
 
   it('keeps question text in correct order after deleting other questions', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
 
     const questions = [
@@ -150,6 +179,7 @@ describe('QuizEditor', () => {
   })
 
   it('keeps answer text in correct order after deleting other answers', () => {
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, false])
     render(<QuizEditor />)
     const answers = [
       'first answer',

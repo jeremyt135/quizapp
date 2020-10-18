@@ -54,10 +54,19 @@ const QuizEditor = ({ createAlert }: Props) => {
   const { id } = useParams<{ id?: string }>()
   const editing = id != null
 
-  const { quiz: existingQuiz, error: quizError, loading } = useQuiz(id)
+  const [quiz, quizError, loading] = useQuiz(id ?? '', 'full')
   const [submitError, setSubmitError] = useState<ApiError>()
 
-  const [edits, setEdits] = useEdits(existingQuiz, loading)
+  const [edits, setEdits] = useEdits(
+    quiz ?? {
+      title: '',
+      isPublic: true,
+      allowedUsers: [],
+      expiration: moment().add(1, 'd').toISOString(),
+      questions: []
+    },
+    loading
+  )
 
   useBeforeUnload(e => {
     e.returnValue =
