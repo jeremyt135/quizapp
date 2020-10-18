@@ -102,21 +102,3 @@ export const dashboard: DashboardState = {
   ],
   error: null
 }
-
-export const editor: EditorState = {
-  loading: true,
-  editing: false,
-  error: null,
-  quiz: {
-    title: '',
-    isPublic: true,
-    allowedUsers: [],
-    expiration: moment()
-      .add(1, 'd')
-      .hours(23)
-      .minutes(59)
-      .seconds(0)
-      .toISOString(),
-    questions: []
-  }
-}

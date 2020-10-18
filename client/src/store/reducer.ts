@@ -7,7 +7,6 @@ import { quizReducer as quiz } from './quiz/reducers'
 import { resultReducer as result } from './result/reducers'
 import { quizResultsReducer as quizResults } from './quizresults/reducers'
 import { dashboardReducer as dashboard } from './dashboard/reducers'
-import { editorReducer as editor } from './editor/reducers'
 
 const rootReducer = combineReducers({
   alerts,
@@ -16,8 +15,7 @@ const rootReducer = combineReducers({
   quiz,
   result,
   quizResults,
-  dashboard,
-  editor
+  dashboard
 })
 
 export default rootReducer
