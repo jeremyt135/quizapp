@@ -6,97 +6,96 @@ import { render, screen } from 'util/test-utils'
 import clone from 'clone'
 import { mocked } from 'ts-jest/utils'
 
-jest.mock('store/quiz/thunks')
-import { getQuiz, clearQuiz } from 'store/quiz/thunks'
+import { quiz, result } from 'mocks/state'
 
-jest.mock('store/result/thunks')
-import { getResult, clearResult } from 'store/result/thunks'
+jest.mock('hooks/usequiz')
+import { useQuiz } from 'hooks/usequiz'
 
-import * as state from 'mocks/state'
-import { RootState } from 'store/store'
+jest.mock('hooks/useresult')
+import { useSingleResult } from 'hooks/useresult'
 
 import QuizResult from './QuizResult'
 
 describe('QuizResult', () => {
-  let mockState: Partial<RootState>
-  const getQuizMock = mocked(getQuiz).mockReturnValue(dispatch => {})
-  const clearQuizMock = mocked(clearQuiz).mockReturnValue(dispatch => {})
-  const getResultMock = mocked(getResult).mockReturnValue(dispatch => {})
-  const clearResultMock = mocked(clearResult).mockReturnValue(dispatch => {})
+  const mockUseQuiz = mocked(useQuiz)
+  const mockUseSingleResult = mocked(useSingleResult)
+  const mockQuiz = quiz.quiz!
+  const mockResult = result.result!
+  const mockError404 = { status: 404, errors: [] }
+  const mockError400 = { status: 400, errors: [] }
 
   beforeEach(() => {
-    mockState = clone(state)
-    getQuizMock.mockClear()
-    clearQuizMock.mockClear()
-    getResultMock.mockClear()
-    clearResultMock.mockClear()
+    mockUseQuiz.mockReset()
+    mockUseSingleResult.mockReset()
   })
 
   it('renders without crashing', () => {
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValueOnce([mockResult, undefined, false])
+    render(<QuizResult />)
   })
 
   it('renders a spinner if quiz is loading', () => {
-    mockState.quiz!.loading = true
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValueOnce([undefined, undefined, true])
+    mockUseSingleResult.mockReturnValueOnce([mockResult, undefined, false])
+    render(<QuizResult />)
     expect(screen.queryByRole('status')).not.toBeNull()
   })
 
   it('renders a spinner if result is loading', () => {
-    mockState.result!.loading = true
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValueOnce([undefined, undefined, true])
+    render(<QuizResult />)
     expect(screen.queryByRole('status')).not.toBeNull()
   })
 
   it('displays an error page if quiz has an error', () => {
-    mockState.quiz!.error = { status: 404, errors: [] }
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValue([undefined, mockError404, false])
+    mockUseSingleResult.mockReturnValue([mockResult, undefined, false])
+    render(<QuizResult />)
     expect(screen.queryByText(/404/)).not.toBeNull()
   })
 
   it('displays an error page if result has an error', () => {
-    mockState.result!.error = { status: 400, errors: [] }
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValue([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValue([undefined, mockError400, false])
+    render(<QuizResult />)
     expect(screen.queryByText(/400/)).not.toBeNull()
   })
 
   it('renders the headline text describing the results', () => {
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValueOnce([mockResult, undefined, false])
+    render(<QuizResult />)
     expect(
       screen.queryByText(
-        `${mockState.result!.result!.username}'s results for: "${
-          mockState.quiz!.quiz!.title
-        }"`
+        `${mockResult.username}'s results for: "${mockQuiz.title}"`
       )
     ).not.toBeNull()
   })
 
   it("renders the quiz creator's username", () => {
-    render(<QuizResult />, mockState)
-    expect(
-      screen.queryByText(`By ${mockState.quiz!.quiz!.user}`)
-    ).not.toBeNull()
+    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValueOnce([mockResult, undefined, false])
+    render(<QuizResult />)
+    expect(screen.queryByText(`By ${mockQuiz.user}`)).not.toBeNull()
   })
 
   it('renders the overall score as a percentage', () => {
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValueOnce([mockResult, undefined, false])
+    render(<QuizResult />)
     expect(
-      screen.queryByText(
-        `Overall score: ${mockState.result!.result!.score * 100.0}%`
-      )
+      screen.queryByText(`Overall score: ${mockResult.score * 100.0}%`)
     ).not.toBeNull()
   })
 
   it('should render the ScoredQuestionList and its ScoredQuestions', () => {
-    mockState.quiz!.quiz!.questions.push(
-      clone(mockState.quiz!.quiz!.questions[0])
-    )
-    mockState.result!.result!.answers.push(
-      clone(mockState.result!.result!.answers[0])
-    )
-    render(<QuizResult />, mockState)
+    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
+    mockUseSingleResult.mockReturnValueOnce([mockResult, undefined, false])
+    render(<QuizResult />)
     expect(screen.queryAllByText(/Correct answer/)).toHaveLength(
-      mockState.quiz!.quiz!.questions.length
+      mockQuiz.questions.length
     )
   })
 })
