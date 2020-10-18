@@ -3,14 +3,11 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from 'util/test-utils'
 import { mocked } from 'ts-jest/utils'
-
+import { createMemoryHistory } from 'history'
 import clone from 'clone'
 
 jest.mock('store/user/thunks')
 import { deleteQuiz } from 'store/user/thunks'
-
-jest.mock('store/editor/thunks')
-import { goToQuizEditor } from 'store/editor/thunks'
 
 import { QuizListing } from 'store/dashboard/types'
 
@@ -20,14 +17,10 @@ import moment from 'moment'
 
 describe('QuizItem', () => {
   const deleteQuizMock = mocked(deleteQuiz).mockReturnValue(dispatch => {})
-  const goToQuizEditorMock = mocked(
-    goToQuizEditor
-  ).mockReturnValue(dispatch => {})
   let mockState: QuizListing[]
 
   beforeEach(() => {
     deleteQuizMock.mockClear()
-    goToQuizEditorMock.mockClear()
     mockState = clone(state.dashboard.quizzes!)
   })
 
@@ -63,12 +56,15 @@ describe('QuizItem', () => {
     expect(screen.queryByText(/expired/i)).not.toBeNull()
   })
 
-  it('calls goToQuizEditor when the edit button is clicked', () => {
-    render(<QuizItem quiz={mockState[0]} />)
+  it('redirects to the quiz editor when the edit button is clicked', () => {
+    const history = createMemoryHistory()
+    render(<QuizItem quiz={mockState[0]} />, {}, history)
     // activate the modal
     const editBtn = screen.getByText('Edit')
     fireEvent.click(editBtn)
 
-    expect(goToQuizEditorMock).toHaveBeenCalled()
+    expect(history.location.pathname + history.location.search).toEqual(
+      `/quizzes/${mockState[0]._id}/edit`
+    )
   })
 })

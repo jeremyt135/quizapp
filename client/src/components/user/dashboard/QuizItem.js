@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { deleteQuiz } from '../../../store/user/thunks'
-import { goToQuizEditor } from '../../../store/editor/thunks'
 import DeleteQuizButton from './DeleteQuizButton'
 import moment from 'moment'
 import PropTypes from 'prop-types'
@@ -56,16 +55,16 @@ const createTimestamp = ({ days, months, years }) => {
  * @param {string} props.quiz.expiration Expiration date of quiz
  * @param {number} props.quiz.resultsCount Number of results
  * @param {number} props.quiz.questionCount Number of questions
- * @param {function} props.goToQuizEditor Action creator function to edit quiz
  * @param {function} props.deleteQuiz Action creator function to delete quiz
  */
 const QuizItem = ({
   quiz: { _id: id, title, expiration, questionCount, resultsCount },
-  deleteQuiz,
-  goToQuizEditor
+  deleteQuiz
 }) => {
   const browserHistory = useHistory()
-
+  const goToQuizEditor = () => {
+    browserHistory.push(`/quizzes/${id}/edit`)
+  }
   const [isExpired, setIsExpired] = useState(false)
   const [timestamp, setTimestamp] = useState('')
   useEffect(() => {
@@ -127,8 +126,7 @@ const QuizItem = ({
 
 QuizItem.propTypes = {
   quiz: PropTypes.object.isRequired,
-  deleteQuiz: PropTypes.func.isRequired,
-  goToQuizEditor: PropTypes.func.isRequired
+  deleteQuiz: PropTypes.func.isRequired
 }
 
-export default connect(null, { deleteQuiz, goToQuizEditor })(QuizItem)
+export default connect(null, { deleteQuiz })(QuizItem)
