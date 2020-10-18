@@ -29,7 +29,7 @@ export const user: UserState = {
     date: now,
     username: username(0),
     email: 'email@email.com',
-    quizzes: [],
+    quizzes: [quizid(0)],
     results: []
   }
 }
