@@ -1,6 +1,11 @@
 import { parseError } from 'util/parse-error'
 import { ApiResponse } from './response'
-import { ResultFormat, SingleResultType, ResultListType } from './types'
+import {
+  ResultFormat,
+  SingleResultType,
+  ResultListType,
+  FormResponse
+} from './types'
 
 export const getAll = async <T extends ResultFormat>(
   quizId: string,
@@ -42,4 +47,21 @@ export const getOne = async <T extends ResultFormat>(
 
   const result = await response.json()
   return { data: result as SingleResultType<T> }
+}
+
+export const post = async (quizId: string, answers: FormResponse[]) => {
+  const response = await fetch(`/api/results?quiz=${quizId}`, {
+    method: 'POST',
+    headers: {
+      'x-auth-token': localStorage.getItem('token') ?? '',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ answers })
+  })
+  if (!response.ok) {
+    const error = await parseError(response)
+    return { error }
+  }
+
+  return {}
 }

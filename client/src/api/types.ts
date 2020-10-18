@@ -21,9 +21,15 @@ export interface Quiz {
   questions: Question[]
 }
 
+export interface FormResponse {
+  choice?: number
+}
+
+export type FormAnswer = Answer
+
 export interface FormQuestion {
   text: string
-  answers: Answer[]
+  answers: FormAnswer[]
 }
 
 export interface QuizForm {
