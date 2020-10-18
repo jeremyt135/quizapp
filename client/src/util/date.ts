@@ -17,3 +17,6 @@ export const dateToLongLocaleString = (date: Date | string) => {
 
 export const isDateInFuture = (date: Date | string) =>
   moment(date).diff(moment()) >= 0
+
+export const isDateInPast = (date: Date | string) =>
+  moment(date).diff(moment()) < 0
