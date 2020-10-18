@@ -1,8 +1,11 @@
-import { Quiz } from 'store/editor/types'
+import { Quiz, QuizFormat, QuizType } from './types'
 import { parseError } from 'util/parse-error'
 import { ApiResponse } from './response'
 
-export const get = async (id: string): Promise<ApiResponse<Quiz>> => {
+export const get = async <T extends QuizFormat>(
+  id: string,
+  format: T
+): Promise<ApiResponse<QuizType<T>>> => {
   const response = await fetch(`/api/quizzes/${id}`, {
     method: 'GET',
     headers: {
@@ -15,7 +18,7 @@ export const get = async (id: string): Promise<ApiResponse<Quiz>> => {
   }
 
   const quiz = await response.json()
-  return { data: quiz }
+  return { data: quiz as QuizType<T> }
 }
 
 export const post = async (quiz: Quiz): Promise<ApiResponse> => {
