@@ -10,6 +10,11 @@ jest.mock('store/quiz/thunks')
 import { getQuiz, clearQuiz } from 'store/quiz/thunks'
 const clearQuizActual = jest.requireActual('store/quiz/thunks').clearQuiz
 
+jest.mock('hooks/usequiz')
+import { useQuiz } from 'hooks/usequiz'
+jest.mock('hooks/useresult')
+import { useResultList } from 'hooks/useresult'
+
 import * as state from 'mocks/state'
 
 import QuizRoute from './QuizRoute'
@@ -20,6 +25,10 @@ const withSwitch = (el: React.ReactElement) => <Switch>{el}</Switch>
 describe('QuizRoute', () => {
   const getQuizMock = mocked(getQuiz).mockReturnValue(dispatch => {})
   const clearQuizMock = mocked(clearQuiz).mockImplementation(clearQuizActual)
+
+  const mockUseQuiz = mocked(useQuiz)
+  const mockUseResultList = mocked(useResultList)
+
   let stateMocks: typeof state
 
   beforeEach(() => {
@@ -94,6 +103,8 @@ describe('QuizRoute', () => {
   })
 
   it('renders a QuizResultList if the current user owns the quiz', () => {
+    mockUseQuiz.mockReturnValueOnce([stateMocks.quiz.quiz!, undefined, false])
+    mockUseResultList.mockReturnValueOnce([[], undefined, false])
     const mockStore = {
       user: stateMocks.user,
       quiz: stateMocks.quiz,
