@@ -6,12 +6,15 @@ export const get = async <T extends QuizFormat>(
   id: string,
   format: T
 ): Promise<ApiResponse<QuizType<T>>> => {
-  const response = await fetch(`/api/quizzes/${id}`, {
-    method: 'GET',
-    headers: {
-      'x-auth-token': localStorage.getItem('token') ?? ''
+  const response = await fetch(
+    `/api/quizzes/${id}${format === 'full' ? '' : '/form'}`,
+    {
+      method: 'GET',
+      headers: {
+        'x-auth-token': localStorage.getItem('token') ?? ''
+      }
     }
-  })
+  )
   if (!response.ok) {
     const error = await parseError(response)
     return { error }
