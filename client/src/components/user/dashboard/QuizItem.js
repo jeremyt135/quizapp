@@ -53,12 +53,13 @@ const createTimestamp = ({ days, months, years }) => {
  * @param {string} props.quiz.id Id of the quiz
  * @param {string} props.quiz.title Title of the quiz
  * @param {string} props.quiz.expiration Expiration date of quiz
+ * @param {string} props.quiz.date Creatiion date date of quiz
  * @param {number} props.quiz.resultsCount Number of results
  * @param {number} props.quiz.questionCount Number of questions
  * @param {function} props.deleteQuiz Action creator function to delete quiz
  */
 const QuizItem = ({
-  quiz: { _id: id, title, expiration, questionCount, resultsCount },
+  quiz: { _id: id, title, expiration, date, questionCount, resultsCount },
   deleteQuiz
 }) => {
   const browserHistory = useHistory()
@@ -70,7 +71,7 @@ const QuizItem = ({
   useEffect(() => {
     // calculate if expired
     const now = moment()
-    setTimestamp(createTimestamp(calculateTimeDifference(now, expiration)))
+    setTimestamp(createTimestamp(calculateTimeDifference(now, date)))
     setIsExpired(checkIfQuizExpired(expiration))
   }, [])
   return (

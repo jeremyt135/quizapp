@@ -48,11 +48,17 @@ describe('QuizItem', () => {
     expect(screen.queryByText(/created today/i)).not.toBeNull()
   })
 
-  it('renders the timestamp and expiration text for an expired quiz', () => {
+  it('renders the timestamp correctly for old quizzes', () => {
+    const quiz = mockState[0]
+    quiz.date = moment().subtract(2, 'y').toISOString()
+    render(<QuizItem quiz={quiz} />)
+    expect(screen.queryByText(/created 2 years ago/i)).not.toBeNull()
+  })
+
+  it('renders the expiration text for an expired quiz', () => {
     const quiz = mockState[0]
     quiz.expiration = moment().subtract(2, 'y').toISOString()
     render(<QuizItem quiz={quiz} />)
-    expect(screen.queryByText(/created 2 years ago/i)).not.toBeNull()
     expect(screen.queryByText(/expired/i)).not.toBeNull()
   })
 
