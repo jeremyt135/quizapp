@@ -6,6 +6,7 @@ export type DashboardError = { status: number; errors: any[] }
 export interface QuizListing {
   _id: QuizId
   title: string
+  date: string
   expiration: string
   questionCount: number
   resultsCount: number

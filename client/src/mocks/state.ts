@@ -84,6 +84,7 @@ export const dashboard: DashboardState = {
     {
       _id: quizid(0),
       title: 'quiz0',
+      date: now,
       expiration: expiration,
       questionCount: 1,
       resultsCount: 1
