@@ -2,15 +2,39 @@ import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
+type Props = {
+  /**
+   * Text content of the header of the modal
+   */
+  header: string
+  /**
+   * Text content of the body of the modal
+   */
+  body: string
+  /**
+   * Function to call when user cancels action
+   */
+  onCancel: () => void
+  /**
+   * Function to call when user confirms action
+   */
+  onConfirm: () => void
+  /**
+   * Text of cancel button
+   */
+  cancelText?: string
+  /**
+   * Text of confirm button
+   */
+  confirmText?: string
+  /**
+   * True if modal should appear on screen
+   */
+  show: boolean
+}
+
 /**
  * Displays a modal for the user to confirm or cancel an action
- * @param {object} props
- * @param {string} props.header Text content of the header of the modal
- * @param {string} props.body Text content of the body of the modal
- * @param {function} props.onCancel Function to call when user cancels action
- * @param {function} props.onConfirm Function to call when user confirms action
- * @param {string} props.cancelText Text of cancel button
- * @param {string} props.confirmText Text of confirm button
  */
 const ConfirmModal = ({
   header,
@@ -20,7 +44,7 @@ const ConfirmModal = ({
   onConfirm,
   cancelText,
   confirmText
-}) => {
+}: Props) => {
   const handleClose = () => {
     onCancel()
   }

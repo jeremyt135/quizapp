@@ -1,13 +1,21 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Alert } from 'react-bootstrap'
+import { RootState } from 'store/store'
+
+const mapState = (state: RootState) => ({
+  alerts: state.alerts
+})
+
+const connector = connect(mapState)
+
+type Props = ConnectedProps<typeof connector>
 
 /**
  * Contains and renders Alert components
- * @param {[{id: string, type: string, msg: string}]} alerts Array of alert objects
  */
-const AlertBar = ({ alerts }) => {
+const AlertBar = ({ alerts }: Props) => {
   return (
     <div data-testid="alertbar" className="container-fluid alertbar">
       {alerts.map(alert => (
@@ -21,12 +29,4 @@ const AlertBar = ({ alerts }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  alerts: state.alerts
-})
-
-AlertBar.propTypes = {
-  alerts: PropTypes.array.isRequired
-}
-
-export default connect(mapStateToProps)(AlertBar)
+export default connector(AlertBar)
