@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route, RouteProps } from 'react-router-dom'
+import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
 import Spinner from '../common/Spinner'
@@ -32,6 +32,7 @@ const PrivateRoute = function ({
   component: Component,
   ...rest
 }: Props) {
+  const location = useLocation()
   let isAuthenticated = auth.isAuthenticated
 
   if (auth.token == null || tokenIsExpired(auth.token)) {
@@ -41,7 +42,11 @@ const PrivateRoute = function ({
 
   const render = (props: any) => {
     if (!isAuthenticated) {
-      return <Redirect to="/login" />
+      return (
+        <Redirect
+          to={{ pathname: '/login', state: { referrer: location.pathname } }}
+        />
+      )
     } else if (user.loading) {
       return <Spinner />
     } else {
