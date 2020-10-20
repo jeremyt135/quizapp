@@ -12,15 +12,12 @@ import { createMemoryHistory } from 'history'
 import moment from 'moment'
 import clone from 'clone'
 
-jest.mock('hooks/usequiz')
-import { useQuiz } from 'hooks/usequiz'
-
 jest.mock('store/alerts/thunks')
 import { createAlert } from 'store/alerts/thunks'
 
 import { Quiz } from 'api'
 
-import QuizEditor from './QuizEditor'
+import QuizCreator from './QuizCreator'
 
 const quiz: Quiz = {
   _id: 'quizid',
@@ -31,43 +28,29 @@ const quiz: Quiz = {
   questions: []
 }
 
-describe('QuizEditor', () => {
+describe('QuizCreator', () => {
   let mockQuiz: Quiz
-  const mockUseQuiz = mocked(useQuiz).mockReturnValue([
-    undefined,
-    undefined,
-    false
-  ])
   const mockCreateAlert = mocked(createAlert).mockReturnValue(() => {})
 
   beforeEach(() => {
-    mockUseQuiz.mockClear()
     mockCreateAlert.mockClear()
     mockQuiz = clone(quiz)
     fetchMock.mockClear()
   })
 
   it('renders without crashing', () => {
-    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
-    render(<QuizEditor />)
-  })
-
-  it('renders a Spinner if quiz is loading', () => {
-    mockUseQuiz.mockReturnValueOnce([undefined, undefined, true])
-    render(<QuizEditor />)
-    expect(screen.queryByRole('status')).not.toBeNull()
+    render(<QuizCreator />)
   })
 
   it('redirects to /dashboard and creates an alert after successful submit', async () => {
     const history = createMemoryHistory()
-    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
 
-    render(<QuizEditor />, { alerts: [] }, history)
+    render(<QuizCreator />, { alerts: [] }, history)
     fetchMock.mockResponseOnce(JSON.stringify({}), {
       status: 200
     })
 
-    const submitBtn = screen.getByText('Confirm Edits')
+    const submitBtn = screen.getByText('Submit')
     fireEvent.click(submitBtn)
 
     await waitFor(() => {
@@ -78,14 +61,13 @@ describe('QuizEditor', () => {
 
   it('shows validation errors if the submission failed', async () => {
     const history = createMemoryHistory()
-    mockUseQuiz.mockReturnValueOnce([mockQuiz, undefined, false])
 
-    render(<QuizEditor />, {}, history)
+    render(<QuizCreator />, {}, history)
     fetchMock.mockResponseOnce(JSON.stringify({ errors: [] }), {
       status: 400
     })
 
-    const submitBtn = screen.getByText('Confirm Edits')
+    const submitBtn = screen.getByText('Submit')
     fireEvent.click(submitBtn)
 
     await waitFor(() => {

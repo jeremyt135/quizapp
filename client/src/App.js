@@ -15,6 +15,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 
 import ErrorPage from './components/errors/ErrorPage'
 import AlertBar from './components/common/AlertBar'
+import QuizCreator from 'components/quiz/editor/QuizCreator'
 
 const App = () => {
   return (
@@ -26,9 +27,9 @@ const App = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <PrivateRoute exact path="/quizzes/create" component={QuizEditor} />
-        <QuizRoute exact path="/quizzes/:id" />
+        <PrivateRoute exact path="/quizzes/create" component={QuizCreator} />
         <PrivateRoute exact path="/quizzes/:id/edit" component={QuizEditor} />
+        <QuizRoute exact path="/quizzes/:id" />
         <PrivateRoute path="/results" component={QuizResult} />
         <Route render={() => <ErrorPage status={404} />} />
       </Switch>

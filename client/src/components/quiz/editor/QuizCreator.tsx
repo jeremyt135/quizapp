@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 
-import { useHistory, useParams } from 'react-router-dom'
-
-import ErrorPage from '../../errors/ErrorPage'
-import Spinner from '../../common/Spinner'
+import { useHistory } from 'react-router-dom'
+import moment from 'moment'
 
 import Api, { ApiError } from 'api'
-import { useQuiz, useBeforeUnload } from 'hooks'
+import { useBeforeUnload } from 'hooks'
 import { createAlert } from 'store/alerts/thunks'
 import { connect, ConnectedProps } from 'react-redux'
 
@@ -24,11 +22,16 @@ type Props = ConnectedProps<typeof connector>
 /**
  * Displays forms for editing a quiz and directly handles submission of the quiz.
  */
-const QuizEditor = ({ createAlert }: Props) => {
+const QuizCreator = ({ createAlert }: Props) => {
   const history = useHistory()
-  const { id } = useParams<{ id: string }>()
 
-  const [userQuiz, quizError, loading] = useQuiz(id ?? '', 'full')
+  const defaultQuiz = {
+    title: '',
+    isPublic: true,
+    allowedUsers: [],
+    expiration: moment().add(1, 'd').toISOString(),
+    questions: []
+  }
   const [submitError, setSubmitError] = useState<ApiError>()
 
   useBeforeUnload(e => {
@@ -41,7 +44,7 @@ const QuizEditor = ({ createAlert }: Props) => {
   }
 
   const submitQuiz = (quiz: Quiz) => {
-    Api.quiz.put(quiz).then(res => {
+    Api.quiz.post(quiz).then(res => {
       if (res.error) {
         setSubmitError(res.error)
         createAlert({
@@ -50,7 +53,7 @@ const QuizEditor = ({ createAlert }: Props) => {
         })
       } else {
         createAlert({
-          msg: 'Quiz edited successfully',
+          msg: 'Quiz created successfully',
           type: 'success'
         })
         goToDashboard()
@@ -59,20 +62,15 @@ const QuizEditor = ({ createAlert }: Props) => {
   }
 
   const validate = submitError?.status === 400
-  if (loading) {
-    return <Spinner />
-  } else if (quizError) {
-    return <ErrorPage status={quizError.status} />
-  }
 
   return (
     <QuizEditorForm
-      defaultValue={userQuiz!}
+      defaultValue={defaultQuiz}
       cancelSubmit={goToDashboard}
       onSubmit={submitQuiz}
       validate={validate}
-      editing={true}
+      editing={false}
     />
   )
 }
-export default connector(QuizEditor)
+export default connector(QuizCreator)
