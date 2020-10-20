@@ -1,8 +1,7 @@
 import React from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import PropTypes from 'prop-types'
 
-type Props = {
+export type ConfirmModalProps = {
   /**
    * Text content of the header of the modal
    */
@@ -44,7 +43,7 @@ const ConfirmModal = ({
   onConfirm,
   cancelText,
   confirmText
-}: Props) => {
+}: ConfirmModalProps) => {
   const handleClose = () => {
     onCancel()
   }
@@ -66,16 +65,6 @@ const ConfirmModal = ({
       </Modal>
     </div>
   )
-}
-
-ConfirmModal.propTypes = {
-  header: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  show: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  cancelText: PropTypes.string,
-  confirmText: PropTypes.string
 }
 
 export default ConfirmModal

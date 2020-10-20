@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 
-import { useConfirmModal, ModalConfig } from 'hooks/useconfirmmodal'
+import { useConfirmModal, ConfirmModalProps } from 'hooks/useconfirmmodal'
 
 type Props = {
   text: string
   onClick: () => void
   confirm?: boolean
-  modalConfig?: ModalConfig
+  modalConfig?: Partial<ConfirmModalProps>
 }
 
 /**
@@ -17,9 +17,6 @@ type Props = {
 const DeleteButton = ({ text, onClick, confirm, modalConfig }: Props) => {
   const [Modal, , showModal] = useConfirmModal(
     modalConfig ?? {
-      header: 'Confirm Action',
-      body: 'Are you sure you want to perform this action?',
-      confirmText: 'Yes',
       onConfirm: onClick
     }
   )
