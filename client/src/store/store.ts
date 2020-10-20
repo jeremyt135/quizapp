@@ -11,7 +11,7 @@ export default () => {
   const rootPersistConfig = {
     key: 'root',
     storage,
-    blacklist: ['alerts', 'quiz', 'result', 'quizResults', 'dashboard']
+    blacklist: ['alerts', 'dashboard']
   }
 
   let store = createStore(

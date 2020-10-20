@@ -19,8 +19,8 @@ import QuizResult from './QuizResult'
 describe('QuizResult', () => {
   const mockUseQuiz = mocked(useQuiz)
   const mockUseSingleResult = mocked(useSingleResult)
-  const mockQuiz = quiz.quiz!
-  const mockResult = result.result!
+  const mockQuiz = quiz
+  const mockResult = result
   const mockError404 = { status: 404, errors: [] }
   const mockError400 = { status: 400, errors: [] }
 

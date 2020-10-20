@@ -6,8 +6,7 @@ import { render, screen } from 'util/test-utils'
 import clone from 'clone'
 import { quiz, result } from 'mocks/state'
 
-import { QuizQuestion } from 'store/quiz/types'
-import { ResultAnswer } from 'store/result/types'
+import { FormQuestion as QuizQuestion, ResultAnswer } from 'api'
 
 import ScoredQuestionList from './ScoredQuestionList'
 
@@ -15,8 +14,8 @@ describe('ScoredQuestionList', () => {
   let mockQuestions: QuizQuestion[]
   let mockResults: ResultAnswer[]
   beforeEach(() => {
-    mockQuestions = clone(quiz.quiz!.questions)
-    mockResults = clone(result.result!.answers)
+    mockQuestions = clone(quiz.questions)
+    mockResults = clone(result.answers)
   })
 
   it('renders a ScoredQuestion for each given questions and results', () => {

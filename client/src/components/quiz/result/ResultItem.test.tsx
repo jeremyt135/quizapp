@@ -9,12 +9,12 @@ import clone from 'clone'
 import { result } from 'mocks/state'
 
 import ResultItem from './ResultItem'
-import { Result } from 'store/result/types'
+import { Result } from 'api'
 
 describe('ResultItem', () => {
   let mockResult: Result
   beforeEach(() => {
-    mockResult = clone(result!.result!)
+    mockResult = clone(result)
   })
   it('renders the result headline with the username', () => {
     render(<ResultItem result={{ ...mockResult }} />)

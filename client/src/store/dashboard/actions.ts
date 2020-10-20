@@ -1,4 +1,4 @@
-import { ResultListing } from 'store/quizresults/types'
+import { ResultListing } from 'api'
 
 import {
   CLEAR_DASHBOARD,

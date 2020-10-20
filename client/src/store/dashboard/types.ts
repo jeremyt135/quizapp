@@ -1,10 +1,9 @@
-import { QuizId } from 'store/quiz/types'
-import { ResultListing } from 'store/quizresults/types'
+import { ID, ResultListing } from 'api'
 
 export type DashboardError = { status: number; errors: any[] }
 
 export interface QuizListing {
-  _id: QuizId
+  _id: ID
   title: string
   date: string
   expiration: string

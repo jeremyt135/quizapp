@@ -1,24 +1,27 @@
-export type QuizId = string
+export type ID = string
 
 export interface Answer {
-  _id?: string
+  _id?: ID
   text: string
 }
 
 export interface Question {
-  _id?: string
+  _id?: ID
   text: string
   correctAnswer: number
   answers: Answer[]
 }
 
 export interface Quiz {
-  _id?: QuizId
+  _id?: ID
+  date: string
   title: string
-  isPublic: boolean
+  user?: string
   allowedUsers: string[]
-  expiration: string
   questions: Question[]
+  results?: Result[]
+  isPublic: boolean
+  expiration: string
 }
 
 export interface FormResponse {
@@ -33,7 +36,7 @@ export interface FormQuestion {
 }
 
 export interface QuizForm {
-  _id: QuizId
+  _id: ID
   date: string
   user: string
   title: string
@@ -49,7 +52,7 @@ export type QuizType<FormatType> = FormatType extends 'full'
   : never
 
 export interface ResultListing {
-  _id: string
+  _id: ID
   date: string
   user: string
   quiz: string
@@ -61,11 +64,11 @@ export interface ResultListing {
 export interface ResultAnswer {
   choice: number
   isCorrect: boolean
-  correctAnswer: number
+  correctAnswer?: number
 }
 
 export interface Result {
-  _id: string
+  _id: ID
   date: string
   user: string
   quiz: string

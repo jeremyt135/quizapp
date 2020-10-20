@@ -1,5 +1,5 @@
 import React from 'react'
-import { QuizAnswer } from 'store/quiz/types'
+import { Answer as QuizAnswer } from 'api'
 
 import AnswerText from './AnswerText'
 

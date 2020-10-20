@@ -29,6 +29,7 @@ const QuizCreator = ({ createAlert }: Props) => {
     title: '',
     isPublic: true,
     allowedUsers: [],
+    date: moment().toISOString(),
     expiration: moment().add(1, 'd').toISOString(),
     questions: []
   }

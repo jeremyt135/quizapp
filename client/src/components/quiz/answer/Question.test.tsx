@@ -8,7 +8,6 @@ import clone from 'clone'
 
 import Question from './Question'
 
-
 describe('Question', () => {
   let mockState: typeof quiz
   beforeEach(() => {
@@ -17,7 +16,7 @@ describe('Question', () => {
 
   it('renders without crashing', () => {
     const questionIndex = 0
-    const question = mockState.quiz!.questions[questionIndex]
+    const question = mockState.questions[questionIndex]
     const answers = question.answers
     render(
       <Question
@@ -32,7 +31,7 @@ describe('Question', () => {
 
   it('displays the question number and text', () => {
     const questionIndex = 0
-    const question = mockState.quiz!.questions[questionIndex]
+    const question = mockState.questions[questionIndex]
     const answers = question.answers
     render(
       <Question
@@ -50,7 +49,7 @@ describe('Question', () => {
 
   it('renders whatever answers are given', () => {
     const questionIndex = 0
-    const question = mockState.quiz!.questions[questionIndex]
+    const question = mockState.questions[questionIndex]
     const answers = question.answers
     render(
       <Question
@@ -68,7 +67,7 @@ describe('Question', () => {
 
   it('does not display an error if an answer is selected', () => {
     const questionIndex = 0
-    const question = mockState.quiz!.questions[questionIndex]
+    const question = mockState.questions[questionIndex]
     const answers = question.answers
     render(
       <Question
@@ -86,7 +85,7 @@ describe('Question', () => {
 
   it('displays an error message if no answer is selected', () => {
     const questionIndex = 0
-    const question = mockState.quiz!.questions[questionIndex]
+    const question = mockState.questions[questionIndex]
     const answers = question.answers
     render(
       <Question

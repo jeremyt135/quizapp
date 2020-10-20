@@ -4,19 +4,18 @@ import '@testing-library/jest-dom'
 import { render, screen } from 'util/test-utils'
 
 import clone from 'clone'
-import { quiz, result } from 'mocks/state'
+import { scoredQuiz, result } from 'mocks/state'
 
-import { QuizQuestion } from 'store/quiz/types'
-import { ResultAnswer } from 'store/result/types'
+import { Question, ResultAnswer } from 'api'
 
 import ScoredQuestion from './ScoredQuestion'
 
 describe('ScoredQuestion', () => {
-  let mockQuestion: QuizQuestion
+  let mockQuestion: Question
   let mockResult: ResultAnswer
   beforeEach(() => {
-    mockQuestion = clone(quiz.quiz!.questions[0])
-    mockResult = clone(result.result!.answers[0])
+    mockQuestion = clone(scoredQuiz.questions[0])
+    mockResult = clone(result.answers[0])
   })
   it('renders the question text', () => {
     render(<ScoredQuestion index={0} {...mockQuestion} result={mockResult} />)
@@ -25,7 +24,7 @@ describe('ScoredQuestion', () => {
   it('renders the correct answer when given', () => {
     render(<ScoredQuestion index={0} {...mockQuestion} result={mockResult} />)
     expect(
-      screen.getByText(`Correct answer: ${mockResult.correctAnswer + 1}`)
+      screen.getByText(`Correct answer: ${mockResult.correctAnswer! + 1}`)
     ).not.toBeNull()
   })
   it('does not render the correct answer text if it is not given', () => {

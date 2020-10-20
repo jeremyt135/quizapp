@@ -15,7 +15,7 @@ describe('Answer', () => {
   })
   it('renders without crashing', () => {
     const questionIndex = 0
-    const answers = mockState.quiz!.questions[questionIndex].answers
+    const answers = mockState.questions[questionIndex].answers
     const answerIndex = 0
     render(
       <Answer
@@ -29,7 +29,7 @@ describe('Answer', () => {
   })
   it('renders the question index and answer text', () => {
     const questionIndex = 0
-    const answers = mockState.quiz!.questions[questionIndex].answers
+    const answers = mockState.questions[questionIndex].answers
     const answerIndex = 1
     const text = answers[answerIndex].text
     render(
@@ -45,7 +45,7 @@ describe('Answer', () => {
   })
   it('highlights the answer with answer--selected if selected', () => {
     const questionIndex = 0
-    const answers = mockState.quiz!.questions[questionIndex].answers
+    const answers = mockState.questions[questionIndex].answers
     const answerIndex = 0
     render(
       <Answer

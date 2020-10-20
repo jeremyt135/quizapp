@@ -33,19 +33,24 @@ const ScoredQuestion = ({
             </div>
           </div>
         ) : null}
-        {answers.map((answer, index) => (
-          <Answer
-            key={index}
-            index={index}
-            text={answer.text}
-            selected={index === result.choice}
-            correct={
-              result.correctAnswer !== undefined
-                ? result.correctAnswer === index
-                : result.isCorrect
-            }
-          />
-        ))}
+        {answers.map((answer, index) => {
+          let isCorrect: boolean
+          const selected = result.choice === index
+          if (result.correctAnswer !== undefined) {
+            isCorrect = result.correctAnswer === index
+          } else {
+            isCorrect = result.isCorrect && selected
+          }
+          return (
+            <Answer
+              key={index}
+              index={index}
+              text={answer.text}
+              correct={isCorrect}
+              selected={selected}
+            />
+          )
+        })}
       </div>
     </div>
   )

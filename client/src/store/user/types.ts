@@ -1,5 +1,4 @@
-import { QuizId } from '../quiz/types'
-import { ResultId } from '../result/types'
+import { ID } from 'api'
 
 export type UserError = { status: number; errors: any[] }
 
@@ -8,8 +7,8 @@ export interface User {
   date: string
   username: string
   email: string
-  quizzes: QuizId[]
-  results: ResultId[]
+  quizzes: ID[]
+  results: ID[]
 }
 
 export interface UserState {

@@ -14,7 +14,7 @@ import {
   deleteQuizError
 } from './actions'
 import { clearAuth } from '../auth/thunks'
-import { QuizId } from '../quiz/types'
+import { ID } from 'api'
 /**
  * Loads data for the User represented by the current JWT.
  * Dispatches an action of type LOAD_USER on success and
@@ -164,7 +164,7 @@ export function logout(): Thunk {
 /**
  * Deletes a user's quiz
  */
-export function deleteQuiz(quizId: QuizId): Thunk {
+export function deleteQuiz(quizId: ID): Thunk {
   return async dispatch => {
     try {
       const response = await fetch(`/api/quizzes/${quizId}`, {

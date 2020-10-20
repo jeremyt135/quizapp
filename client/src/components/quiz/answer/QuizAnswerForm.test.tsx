@@ -25,8 +25,8 @@ import QuizAnswerForm from './QuizAnswerForm'
 describe('QuizAnswerForm', () => {
   const mockUseQuiz = mocked(useQuiz)
   const mockUseSingleResult = mocked(useSingleResult)
-  const mockQuiz = quiz.quiz!
-  const mockResult = result.result!
+  const mockQuiz = quiz
+  const mockResult = result
   const mockError404 = { status: 404, errors: [] }
   const mockError400 = { status: 400, errors: [] }
   const mockError403 = { status: 403, errors: [] }

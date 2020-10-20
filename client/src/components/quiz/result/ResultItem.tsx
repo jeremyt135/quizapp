@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { ResultListing } from 'store/quizresults/types'
+import { ResultListing } from 'api'
 
 type Props = {
   result: ResultListing

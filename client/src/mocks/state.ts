@@ -1,10 +1,7 @@
+import { Quiz, QuizForm, Result, ResultListing } from 'api'
 import moment from 'moment'
 import { AuthState } from 'store/auth/types'
 import { DashboardState } from 'store/dashboard/types'
-import { EditorState } from 'store/editor/types'
-import { QuizState } from 'store/quiz/types'
-import { ResultListingsState } from 'store/quizresults/types'
-import { ResultState } from 'store/result/types'
 import { UserState } from 'store/user/types'
 
 const now = moment().toISOString()
@@ -33,49 +30,49 @@ export const user: UserState = {
     results: []
   }
 }
-export const quiz: QuizState = {
-  loading: false,
-  error: null,
-  quiz: {
-    _id: quizid(0),
-    date: now,
-    user: username(0),
-    title: 'quiz0',
-    expiration: expiration,
-    questions: [{ text: 'Q1', answers: [{ text: 'A1' }, { text: 'A2' }] }]
-  }
+export const quiz: QuizForm = {
+  _id: quizid(0),
+  date: now,
+  user: username(0),
+  title: 'quiz0',
+  expiration: expiration,
+  questions: [{ text: 'Q1', answers: [{ text: 'A1' }, { text: 'A2' }] }]
 }
-
-export const quizResults: ResultListingsState = {
-  loading: false,
-  error: null,
-  results: [
-    {
-      _id: resultid(0),
-      date: now,
-      user: userid(1),
-      quiz: quizid(0),
-      quizOwner: username(0),
-      score: 0,
-      username: username(1)
-    }
+export const scoredQuiz: Quiz = {
+  _id: quizid(0),
+  date: now,
+  user: username(0),
+  title: 'quiz0',
+  expiration: expiration,
+  allowedUsers: [],
+  isPublic: true,
+  questions: [
+    { text: 'Q1', correctAnswer: 0, answers: [{ text: 'A1' }, { text: 'A2' }] }
   ]
 }
-export const result: ResultState = {
-  loading: false,
-  error: null,
-  result: {
+export const quizResults: ResultListing[] = [
+  {
     _id: resultid(0),
     date: now,
     user: userid(1),
     quiz: quizid(0),
-    quizOwner: userid(0),
-    answers: [{ choice: 0, isCorrect: false, correctAnswer: 1 }],
+    quizOwner: username(0),
     score: 0,
-    quizTitle: 'quiz0',
-    ownerUsername: username(0),
     username: username(1)
   }
+]
+
+export const result: Result = {
+  _id: resultid(0),
+  date: now,
+  user: userid(1),
+  quiz: quizid(0),
+  quizOwner: userid(0),
+  answers: [{ choice: 0, isCorrect: false, correctAnswer: 1 }],
+  score: 0,
+  quizTitle: 'quiz0',
+  ownerUsername: username(0),
+  username: username(1)
 }
 
 export const dashboard: DashboardState = {
