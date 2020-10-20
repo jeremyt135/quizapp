@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect, Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import PropTypes from 'prop-types'
@@ -7,9 +7,7 @@ import PropTypes from 'prop-types'
 import { login } from '../../store/auth/thunks'
 
 const Login = ({ isAuthenticated, login }) => {
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard' />
-  // }
+  const history = useHistory()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -47,6 +45,10 @@ const Login = ({ isAuthenticated, login }) => {
   }
 
   if (isAuthenticated) {
+    const { location } = history
+    if (location.state && location.state.referrer) {
+      return <Redirect to={location.state.referrer} />
+    }
     return <Redirect to="/dashboard" />
   }
 

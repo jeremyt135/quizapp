@@ -37,6 +37,15 @@ describe('Login', () => {
     expect(history.location.pathname).toEqual('/dashboard')
   })
 
+  it('redirects to referrer location if user is authenticated and referrer exists', () => {
+    mockState.auth!.isAuthenticated = true
+    const history = createMemoryHistory()
+    const referrer = '/myroute'
+    history.push('/login', { referrer })
+    render(<Login />, mockState, history)
+    expect(history.location.pathname).toEqual(referrer)
+  })
+
   it('displays any errors from login callback when submitting', () => {
     mockState.auth!.isAuthenticated = false
 
