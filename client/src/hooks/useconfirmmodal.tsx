@@ -28,7 +28,7 @@ export const useConfirmModal = ({
       onConfirm={() => {
         hideModal()
         if (onConfirm) {
-          confirm()
+          onConfirm()
         }
       }}
       header={header ?? 'Confirm Action'}
