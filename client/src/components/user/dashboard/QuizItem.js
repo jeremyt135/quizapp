@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { deleteQuiz } from '../../../store/user/thunks'
-import DeleteQuizButton from './DeleteQuizButton'
+import DeleteButton from './DeleteButton'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
@@ -81,7 +81,17 @@ const QuizItem = ({
           <h4 className="mb-0">{title}</h4>
         </div>
         <div className="col d-flex align-items-center justify-content-end">
-          <DeleteQuizButton text="Delete" onClick={() => deleteQuiz(id)} />
+          <DeleteButton
+            text="Delete"
+            onClick={() => deleteQuiz(id)}
+            confirm={true}
+            modalConfig={{
+              header: 'Confirm Quiz Deletion',
+              body:
+                'Are you sure you want to delete this quiz? This action is irreversible!',
+              confirm: 'Yes, delete this quiz.'
+            }}
+          />
           <button
             className="btn btn-info btn-sm ml-1"
             type="button"

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 
 import PasswordForm from './PasswordForm'
 import EmailForm from './EmailForm'
-import DeleteAccountButton from './DeleteAccountButton'
-import { deleteUser } from '../../../store/user/thunks'
+import DeleteButton from './DeleteButton'
 
+import { deleteUser } from 'store/user/thunks'
 import { dateToLongLocaleString } from 'util/date'
 
 /**
@@ -39,7 +39,17 @@ const UserInfo = ({ user, deleteUser }) => {
       <PasswordForm />
       <div className="row my-2">
         <div className="col">
-          <DeleteAccountButton text="Delete Account" onClick={deleteUser} />
+          <DeleteButton
+            text="Delete Account"
+            onClick={deleteUser}
+            confirm={true}
+            modalConfig={{
+              header: 'Confirm Account Deletion',
+              body:
+                'Are you sure you want to delete your account? This action is irreversible!',
+              confirm: 'Yes, delete my account.'
+            }}
+          />
         </div>
       </div>
     </>
