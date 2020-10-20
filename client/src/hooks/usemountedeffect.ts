@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export const useMountedEffect = (
   effect: (state: { mounted: boolean }) => void | (() => void),
   deps?: React.DependencyList
 ) => {
-  const state = { mounted: true }
+  const state = useRef({ mounted: true })
   useEffect(() => {
-    const cleanup = effect(state)
+    const cleanup = effect(state.current)
     return () => {
-      state.mounted = false
+      state.current.mounted = false
       if (cleanup) {
         cleanup()
       }
