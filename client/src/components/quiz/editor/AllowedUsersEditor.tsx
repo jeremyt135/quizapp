@@ -33,7 +33,7 @@ const AllowedUsersEditor = (props: Props) => {
     const users = e.target.value
     setUsers(users)
     const allowedUsers = parseAllowedUsers(users)
-    if (allowedUsers.length > 0) {
+    if (allowedUsers.length > 0 || users.length === 0) {
       props.onChange(allowedUsers)
       setValid(true)
     } else if (users.length > 0) {
