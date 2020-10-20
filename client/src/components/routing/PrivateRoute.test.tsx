@@ -11,7 +11,7 @@ import PrivateRoute from './PrivateRoute'
 import { AuthState } from 'store/auth/types'
 import { UserState } from 'store/user/types'
 
-describe('Navbar', () => {
+describe('PrivateRoute', () => {
   const tokenIsExpiredMock = mocked(tokenIsExpired)
   const FakeComponent = jest.fn(() => <p>FakeComponent</p>)
   const mockAuth: AuthState = {
