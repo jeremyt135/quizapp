@@ -56,8 +56,9 @@ export interface ResultListing {
   date: string
   user: string
   quiz: string
-  quizOwner: string
+  quizTitle: string
   score: number
+  ownerUsername: string
   username: string
 }
 
@@ -72,10 +73,9 @@ export interface Result {
   date: string
   user: string
   quiz: string
-  quizOwner: string
+  quizTitle: string
   answers: ResultAnswer[]
   score: number
-  quizTitle: string
   ownerUsername: string
   username: string
 }

@@ -4,6 +4,7 @@ import '@testing-library/jest-dom'
 import { render, screen } from 'util/test-utils'
 
 import { mocked } from 'ts-jest/utils'
+import moment from 'moment'
 
 jest.mock('hooks/usequiz')
 import { useQuiz } from 'hooks/usequiz'
@@ -14,7 +15,6 @@ import { useResultList } from 'hooks/useresult'
 import { Quiz, ResultListing } from 'api'
 
 import QuizResultList from './QuizResultList'
-import moment from 'moment'
 
 describe('QuizResultList', () => {
   const mockUseQuiz = mocked(useQuiz)
@@ -22,6 +22,7 @@ describe('QuizResultList', () => {
   const mockQuiz: Quiz = {
     _id: 'quizid0',
     title: 'My Quiz',
+    date: moment().toISOString(),
     isPublic: true,
     allowedUsers: [],
     expiration: moment().add(1, 'd').toISOString(),
@@ -33,7 +34,8 @@ describe('QuizResultList', () => {
       date: moment().toISOString(),
       user: 'userid1',
       quiz: 'quizid0',
-      quizOwner: 'userid0',
+      quizTitle: 'quiz0',
+      ownerUsername: 'username0',
       score: 0,
       username: 'foobar'
     }

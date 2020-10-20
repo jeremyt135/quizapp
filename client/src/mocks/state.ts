@@ -56,7 +56,8 @@ export const quizResults: ResultListing[] = [
     date: now,
     user: userid(1),
     quiz: quizid(0),
-    quizOwner: username(0),
+    quizTitle: 'quiz0',
+    ownerUsername: username(0),
     score: 0,
     username: username(1)
   }
@@ -67,7 +68,6 @@ export const result: Result = {
   date: now,
   user: userid(1),
   quiz: quizid(0),
-  quizOwner: userid(0),
   answers: [{ choice: 0, isCorrect: false, correctAnswer: 1 }],
   score: 0,
   quizTitle: 'quiz0',
@@ -93,7 +93,8 @@ export const dashboard: DashboardState = {
       date: now,
       user: userid(1),
       quiz: quizid(0),
-      quizOwner: username(0),
+      quizTitle: 'quiz1',
+      ownerUsername: username(0),
       score: 0,
       username: username(1)
     }
