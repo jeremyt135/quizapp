@@ -2,154 +2,112 @@ import React from 'react'
 
 import '@testing-library/jest-dom'
 import { render, screen } from 'util/test-utils'
-import { mocked } from 'ts-jest/utils'
 import { createMemoryHistory } from 'history'
-import clone from 'clone'
 
-jest.mock('store/quiz/thunks')
-import { getQuiz, clearQuiz } from 'store/quiz/thunks'
-const clearQuizActual = jest.requireActual('store/quiz/thunks').clearQuiz
+import { user, auth } from 'mocks/state'
 
-jest.mock('hooks/usequiz')
-import { useQuiz } from 'hooks/usequiz'
-jest.mock('hooks/useresult')
-import { useResultList, useSingleResult } from 'hooks/useresult'
+jest.mock('components/quiz/answer/QuizAnswerForm', () => jest.fn())
+import QuizAnswerForm from 'components/quiz/answer/QuizAnswerForm'
 
-import * as state from 'mocks/state'
+jest.mock('components/quiz/result/QuizResultList', () => jest.fn())
+import QuizResultList from 'components/quiz/result/QuizResultList'
+
+jest.mock('util/jwt')
+import { tokenIsExpired } from 'util/jwt'
 
 import QuizRoute from './QuizRoute'
 import { Switch } from 'react-router-dom'
+import { mocked } from 'ts-jest/utils'
+import { UserState } from 'store/user/types'
+import { AuthState } from 'store/auth/types'
+import clone from 'clone'
 
 const withSwitch = (el: React.ReactElement) => <Switch>{el}</Switch>
 
 describe('QuizRoute', () => {
-  const getQuizMock = mocked(getQuiz).mockReturnValue(dispatch => {})
-  const clearQuizMock = mocked(clearQuiz).mockImplementation(clearQuizActual)
+  let mockUser: UserState
+  let mockAuth: AuthState
 
-  const mockUseQuiz = mocked(useQuiz)
-  const mockUseResultList = mocked(useResultList)
-  const mockUseSingleResult = mocked(useSingleResult)
-
-  let stateMocks: typeof state
+  const mockTokenIsExpired = mocked(tokenIsExpired).mockReturnValue(false)
+  const MockQuizAnswerForm = mocked(QuizAnswerForm).mockReturnValue(
+    <div>QuizAnswerForm</div>
+  )
+  const MockQuizResultList = mocked(QuizResultList).mockReturnValue(
+    <div>QuizResultList</div>
+  )
 
   beforeEach(() => {
-    mockUseQuiz.mockReset()
-    getQuizMock.mockClear()
-    clearQuizMock.mockClear()
-    stateMocks = clone(state)
+    mockTokenIsExpired.mockClear()
+    MockQuizAnswerForm.mockClear()
+    MockQuizResultList.mockClear()
+    mockUser = clone(user)
+    mockAuth = clone(auth)
   })
 
-  it('calls clearQuiz when navigating away', () => {
+  it('redirects to /login if current user is unauthenticated', () => {
     const mockStore = {
-      user: stateMocks.user,
-      quiz: {
-        ...stateMocks.quiz,
+      user,
+      auth
+    }
+    const quizId = mockStore.user.user!.quizzes[0]
+    const history = createMemoryHistory()
+    history.push(`/quizzes/${quizId}`)
+    render(<QuizRoute exact path="/quizzes/:id" />, mockStore, history)
+    expect(history.location.pathname).toEqual('/login')
+  })
+
+  it('renders spinner if authenticated but user is loading', () => {
+    const mockStore = {
+      auth: {
+        ...auth,
+        isAuthenticated: true
+      },
+      user: {
+        ...user,
         loading: true
       }
     }
-    const quizId = mockStore.quiz.quiz!._id
+    const quizId = mockStore.user.user!.quizzes[0]
     const history = createMemoryHistory()
-
-    render(
-      withSwitch(<QuizRoute exact path="/quizzes/:id" />),
-      mockStore,
-      history
-    )
     history.push(`/quizzes/${quizId}`)
-    history.push('/')
-    expect(clearQuizMock).toHaveBeenCalled()
-  })
-
-  it('renders a spinner if quiz is loading', () => {
-    const mockStore = {
-      user: stateMocks.user,
-      quiz: {
-        ...stateMocks.quiz,
-        loading: true
-      }
-    }
-    const quizId = mockStore.quiz.quiz!._id
-    const history = createMemoryHistory()
-
-    render(
-      withSwitch(<QuizRoute exact path="/quizzes/:id" />),
-      mockStore,
-      history
-    )
-    history.push(`/quizzes/${quizId}`)
+    render(<QuizRoute exact path="/quizzes/:id" />, mockStore, history)
     expect(screen.queryByRole('status')).not.toBeNull()
   })
 
-  it('renders an error page if quiz has error', () => {
-    const status = 404
+  it('renders a QuizResultList if the current user owns the quiz', () => {
     const mockStore = {
-      user: stateMocks.user,
-      quiz: {
-        ...stateMocks.quiz,
-        error: {
-          status,
-          errors: []
-        }
+      user,
+      auth: {
+        ...auth,
+        isAuthenticated: true
       }
     }
-    const quizId = mockStore.quiz.quiz!._id
+    const quizId = mockStore.user.user!.quizzes[0]
     const history = createMemoryHistory()
-
-    render(
-      withSwitch(<QuizRoute exact path="/quizzes/:id" />),
-      mockStore,
-      history
-    )
-    history.push(`/quizzes/${quizId + 'foo'}`)
-    expect(screen.queryByText(`${status}`)).not.toBeNull()
-  })
-
-  it('renders a QuizResultList if the current user owns the quiz', () => {
-    mockUseQuiz.mockReturnValue([stateMocks.quiz.quiz!, undefined, false])
-    mockUseResultList.mockReturnValue([[], undefined, false])
-    const mockStore = {
-      user: stateMocks.user,
-      quiz: stateMocks.quiz,
-      quizResults: stateMocks.quizResults
-    }
-    mockStore.quiz.quiz!.user = mockStore.user.user!.username
-    const quizId = mockStore.quiz.quiz!._id
-    const history = createMemoryHistory()
-
-    render(
-      withSwitch(<QuizRoute exact path="/quizzes/:id" />),
-      mockStore,
-      history
-    )
     history.push(`/quizzes/${quizId}`)
-    expect(
-      screen.queryByText(
-        RegExp(`results for quiz "${mockStore.quiz.quiz?.title}"`, 'i')
-      )
-    ).not.toBeNull()
+    render(<QuizRoute exact path="/quizzes/:id" />, mockStore, history)
+    expect(screen.queryByText('QuizResultList')).not.toBeNull()
   })
 
   it('renders a QuizAnswerForm when the current user does not own the quiz', () => {
     const mockStore = {
-      user: stateMocks.user,
-      quiz: stateMocks.quiz,
-      result: {
-        ...stateMocks.result,
-        loading: false,
-        result: null
+      user,
+      auth: {
+        ...auth,
+        isAuthenticated: true
       }
     }
+    const quizId = mockStore.user.user!.quizzes[0]
     mockStore.user.user!.quizzes = []
-    const quizId = mockStore.quiz.quiz!._id
+
     const history = createMemoryHistory()
-    mockUseQuiz.mockReturnValueOnce([mockStore.quiz.quiz!, undefined, false])
-    mockUseSingleResult.mockReturnValue([undefined, undefined, false])
+
     render(
       withSwitch(<QuizRoute exact path="/quizzes/:id" />),
       mockStore,
       history
     )
     history.push(`/quizzes/${quizId}`)
-    expect(screen.getByTestId('quiz-answer-form')).not.toBeNull()
+    expect(screen.queryByText('QuizAnswerForm')).not.toBeNull()
   })
 })
