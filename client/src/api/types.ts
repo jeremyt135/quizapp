@@ -24,6 +24,17 @@ export interface Quiz {
   expiration: string
 }
 
+export interface QuizListing {
+  _id?: ID
+  date: string
+  title: string
+  user?: string
+  isPublic: boolean
+  expiration: string
+  resultsCount: number
+  questionCount: number
+}
+
 export interface FormResponse {
   choice?: number
 }
@@ -49,6 +60,13 @@ export type QuizType<FormatType> = FormatType extends 'full'
   ? Quiz
   : FormatType extends 'form'
   ? QuizForm
+  : never
+
+export type QuizListFormat = 'full' | 'listing'
+export type QuizListType<FormatType> = FormatType extends 'full'
+  ? Quiz[]
+  : FormatType extends 'listing'
+  ? QuizListing[]
   : never
 
 export interface ResultListing {
