@@ -20,6 +20,13 @@ const connector = connect(mapState, mapDispatch)
 
 type Props = ConnectedProps<typeof connector>
 
+const colSize = {
+  sm: 8,
+  md: 6,
+  lg: 5,
+  xl: 4
+}
+
 const Login = ({ isAuthenticated, login }: Props) => {
   const history = useHistory<{ referrer: string }>()
 
@@ -68,7 +75,7 @@ const Login = ({ isAuthenticated, login }: Props) => {
 
   return (
     <Container fluid className="login">
-      <Col sm={8} className="mx-auto">
+      <Col {...colSize} className="mx-auto">
         <div className="login__form">
           <h2 className="text-center mb-4">Sign in:</h2>
           <Form className="mb-3" onSubmit={onSubmit}>

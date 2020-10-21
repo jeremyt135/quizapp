@@ -26,6 +26,12 @@ type FormError = {
   password?: string
 }
 
+const colSize = {
+  sm: 8,
+  md: 6,
+  lg: 5,
+  xl: 4
+}
 /**
  * Handles user registration through a form.
  */
@@ -90,7 +96,7 @@ const Register = ({ isAuthenticated, register }: Props) => {
 
   return (
     <Container fluid className="register">
-      <Col sm={8} className="mx-auto">
+      <Col {...colSize} className="mx-auto">
         <div className="register__form">
           <h2 className="text-center mb-4">Register an account:</h2>
           <Form className="mb-3" onSubmit={submitForm}>
