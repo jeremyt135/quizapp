@@ -3,16 +3,19 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from 'util/test-utils'
 import { createMemoryHistory } from 'history'
+import clone from 'clone'
+
+import { ResultListing } from 'api'
+import { quizResults } from 'mocks/state'
+
 import ResultItem from './ResultItem'
 
 describe('ResultItem', () => {
-  const result = {
-    quiz: 'quizid',
-    user: 'userid',
-    quizTitle: 'Quiz Title',
-    score: 0.5,
-    ownerUsername: 'quizcreator'
-  }
+  let result: ResultListing
+
+  beforeEach(() => {
+    result = clone(quizResults[0])
+  })
 
   it('renders without crashing', () => {
     render(<ResultItem result={result} />)

@@ -1,79 +1,50 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import { deleteQuiz } from '../../../store/user/thunks'
 import DeleteButton from './DeleteButton'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 
-/**
- * Calculates the difference in days, months, years of two times
- * @param {moment} now
- * @param {moment} then
- * @returns {{ days: number, months: number, years: number }}
- */
-const calculateTimeDifference = (now, then) => {
-  const diff = moment.duration(now.diff(moment(then)))
-  return { days: diff.days(), months: diff.months(), years: diff.years() }
-}
+import {
+  calculateTimeDifference,
+  createTimestamp,
+  isDateInPast
+} from 'util/date'
+import { QuizListing } from 'api'
 
-/**
- * Determines if quiz is expired based on expiration date
- * @param {moment} expiration
- * @returns {bool} true if the expiration is on a day or time before today
- */
-const checkIfQuizExpired = expiration => {
-  return moment(expiration).diff(moment()) < 0
-}
+const connector = connect(undefined, { deleteQuiz })
 
-/**
- * Returns a string timestamp
- * @param {object} time Time object
- * @param {number} time.days
- * @param {number} time.months
- * @param {number} time.years
- */
-const createTimestamp = ({ days, months, years }) => {
-  if (years > 0) {
-    return `${years} years ago`
-  }
-  if (months > 0) {
-    return `${months} months ago`
-  }
-  if (days > 0) {
-    return `${days} days ago`
-  }
-  return 'Today'
+type Props = ConnectedProps<typeof connector> & {
+  quiz: QuizListing
 }
 
 /**
  * Displays the short info listing for a Quiz
- * @param {object} props Component props
- * @param {object} props.quiz Quiz object
- * @param {string} props.quiz.id Id of the quiz
- * @param {string} props.quiz.title Title of the quiz
- * @param {string} props.quiz.expiration Expiration date of quiz
- * @param {string} props.quiz.date Creatiion date date of quiz
- * @param {number} props.quiz.resultsCount Number of results
- * @param {number} props.quiz.questionCount Number of questions
- * @param {function} props.deleteQuiz Action creator function to delete quiz
  */
 const QuizItem = ({
   quiz: { _id: id, title, expiration, date, questionCount, resultsCount },
   deleteQuiz
-}) => {
+}: Props) => {
   const browserHistory = useHistory()
+
   const goToQuizEditor = () => {
     browserHistory.push(`/quizzes/${id}/edit`)
   }
+
+  const goToQuiz = () => {
+    browserHistory.push(`/quizzes/${id}`)
+  }
+
   const [isExpired, setIsExpired] = useState(false)
   const [timestamp, setTimestamp] = useState('')
+
+  // calculate if expired
+  const now = moment()
   useEffect(() => {
-    // calculate if expired
-    const now = moment()
-    setTimestamp(createTimestamp(calculateTimeDifference(now, date)))
-    setIsExpired(checkIfQuizExpired(expiration))
-  }, [])
+    setTimestamp(createTimestamp(calculateTimeDifference(now, moment(date))))
+    setIsExpired(isDateInPast(expiration))
+  }, [expiration, date])
+
   return (
     <>
       <div className="row mb-1 align-items-center">
@@ -83,25 +54,25 @@ const QuizItem = ({
         <div className="col d-flex align-items-center justify-content-end">
           <DeleteButton
             text="Delete"
-            onClick={() => deleteQuiz(id)}
+            onClick={() => deleteQuiz(id!)}
             confirm={true}
             modalConfig={{
               header: 'Confirm Quiz Deletion',
               body:
                 'Are you sure you want to delete this quiz? This action is irreversible!',
-              confirm: 'Yes, delete this quiz.'
+              confirmText: 'Yes, delete this quiz.'
             }}
           />
           <button
             className="btn btn-info btn-sm ml-1"
             type="button"
-            onClick={() => goToQuizEditor(id, browserHistory)}>
+            onClick={() => goToQuizEditor()}>
             Edit
           </button>
           <button
             className="btn btn-primary btn-sm ml-1"
             type="button"
-            onClick={() => browserHistory.push(`/quizzes/${id}`)}>
+            onClick={() => goToQuiz()}>
             Results
           </button>
         </div>
@@ -135,9 +106,4 @@ const QuizItem = ({
   )
 }
 
-QuizItem.propTypes = {
-  quiz: PropTypes.object.isRequired,
-  deleteQuiz: PropTypes.func.isRequired
-}
-
-export default connect(null, { deleteQuiz })(QuizItem)
+export default connector(QuizItem)

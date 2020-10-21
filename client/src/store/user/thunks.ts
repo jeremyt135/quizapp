@@ -1,5 +1,4 @@
 import { parseError } from '../../util/parse-error'
-import { loadDashboard } from '../dashboard/thunks'
 import { createAlert } from '../alerts/thunks'
 import { Thunk } from '../store'
 import { User } from './types'
@@ -14,7 +13,7 @@ import {
   deleteQuizError
 } from './actions'
 import { clearAuth } from '../auth/thunks'
-import { ID } from 'api'
+import { ApiError, ID } from 'api'
 /**
  * Loads data for the User represented by the current JWT.
  * Dispatches an action of type LOAD_USER on success and
@@ -32,8 +31,6 @@ export function loadUser(): Thunk<Promise<void>> {
       if (response.ok) {
         const data: User = await response.json()
         dispatch(loadUserAction(data))
-
-        dispatch(loadDashboard())
       } else {
         const error = await parseError(response)
         dispatch(loadUserError(error))
@@ -56,9 +53,8 @@ export function loadUser(): Thunk<Promise<void>> {
  * @param {function(object)} callback Callback when action completed, potentially with error
  */
 export function changeUserEmail(
-  email: string,
-  callback: (error: {} | null) => void
-): Thunk {
+  email: string
+): Thunk<Promise<ApiError | undefined>> {
   return async dispatch => {
     try {
       const response = await fetch('/api/users/me/email', {
@@ -79,10 +75,10 @@ export function changeUserEmail(
           })
         )
         dispatch(loadUser())
-        callback(null)
+        return undefined
       } else {
         const error = await parseError(response)
-        callback(error)
+        return error
       }
     } catch (error) {
       console.error(error)
@@ -96,9 +92,8 @@ export function changeUserEmail(
  * @param {function(object)} callback Callback when action completed, possibly with error
  */
 export function changeUserPassword(
-  password: string,
-  callback: (error: {} | null) => void
-): Thunk {
+  password: string
+): Thunk<Promise<ApiError | undefined>> {
   return async dispatch => {
     try {
       const response = await fetch('/api/users/me/password', {
@@ -119,10 +114,10 @@ export function changeUserPassword(
             type: 'success'
           })
         )
-        callback(null)
+        return undefined
       } else {
         const error = await parseError(response)
-        callback(error)
+        return error
       }
     } catch (error) {
       console.error(error)

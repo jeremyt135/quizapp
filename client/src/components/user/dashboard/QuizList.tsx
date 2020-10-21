@@ -1,17 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
 import QuizItem from './QuizItem'
 import Spinner from '../../common/Spinner'
+
+import { QuizListing } from 'api'
+
+type Props = {
+  loading: boolean
+  quizzes: QuizListing[]
+}
+
 /**
- *
- * @param {object} props Component props
- * @param {boolean} props.loading True if quiz list is loading
- * @param {[object]} props.quizzes List of quizzes
+ * Displays a list of Quizzes created by the user with buttons to navigate
+ * to the QuizEditor or full Quiz.
  */
-const QuizList = ({ loading, quizzes }) => {
+const QuizList = ({ loading, quizzes }: Props) => {
   return (
     <>
       <div className="row mb-2 align-items-center">
@@ -57,14 +61,4 @@ const QuizList = ({ loading, quizzes }) => {
   )
 }
 
-QuizList.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  quizzes: PropTypes.array
-}
-
-const mapStateToProps = state => ({
-  loading: state.dashboard.loading,
-  quizzes: state.dashboard.quizzes
-})
-
-export default connect(mapStateToProps)(QuizList)
+export default QuizList

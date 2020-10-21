@@ -1,25 +1,23 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useCallback, useState } from 'react'
 
-import ConfirmModal from '../../common/ConfirmModal'
-import { changeUserEmail } from '../../../store/user/thunks'
+import { useConfirmModal } from 'hooks/useconfirmmodal'
+import { ApiError } from 'api'
+
+type Props = {
+  defaultValue: string
+  changeEmail: (email: string) => Promise<ApiError | undefined>
+}
+
 /**
  * Displays and controls a form for the user to change their email.
  */
-const EmailForm = ({ initialEmail, changeUserEmail }) => {
-  const [email, setEmail] = useState(initialEmail)
-
-  const [formError, setFormError] = useState(null)
+const EmailForm = ({ defaultValue, changeEmail }: Props) => {
+  const [email, setEmail] = useState(defaultValue)
   const [isOpen, setIsOpen] = useState(false)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  const handleChange = e => {
-    setFormError('')
-    setEmail(e.target.value)
-  }
+  const [formError, setFormError] = useState<string | null>(null)
 
   const closeForm = () => {
+    setEmail(defaultValue)
     setIsOpen(false)
     setFormError(null)
   }
@@ -27,37 +25,40 @@ const EmailForm = ({ initialEmail, changeUserEmail }) => {
   const openForm = () => {
     setFormError(null)
     setIsOpen(true)
-    setEmail(initialEmail)
   }
 
-  const showModal = e => {
+  const onConfirm = useCallback(() => {
+    changeEmail(email).then(apiError => {
+      if (apiError) {
+        if (apiError.status === 409) {
+          setFormError('Email already in use.')
+        } else {
+          setFormError('Cannot change email at this time.')
+        }
+      } else {
+        closeForm()
+      }
+    })
+  }, [email])
+
+  const [Modal, , showModal] = useConfirmModal({
+    header: 'Confirm Changes',
+    body: 'Are you sure you want to change email?',
+    onConfirm: onConfirm
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormError('')
+    setEmail(e.target.value)
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (email !== initialEmail) {
-      setModalIsOpen(true)
+    if (email !== defaultValue) {
+      showModal()
     } else {
       setFormError('You are already using this email.')
     }
-  }
-  const handleClose = () => {
-    setModalIsOpen(false)
-    closeForm()
-  }
-
-  const handleFailure = error => {
-    if (error) {
-      if (error.status === 409) {
-        setFormError('Email already in use.')
-      } else {
-        setFormError('Cannot change email at this time.')
-      }
-    } else {
-      closeForm()
-    }
-  }
-
-  const handleSubmit = () => {
-    changeUserEmail(email, handleFailure)
-    setModalIsOpen(false)
   }
 
   return (
@@ -71,7 +72,7 @@ const EmailForm = ({ initialEmail, changeUserEmail }) => {
           </div>
         </div>
       ) : (
-        <form onSubmit={showModal}>
+        <form onSubmit={handleSubmit}>
           <div className="row my-2">
             <div className="col">
               <input
@@ -103,27 +104,15 @@ const EmailForm = ({ initialEmail, changeUserEmail }) => {
               <input
                 type="submit"
                 className="btn btn-primary btn-sm"
-                value="Confirm"
+                value="Change"
               />
             </div>
           </div>
         </form>
       )}
-
-      <ConfirmModal
-        show={modalIsOpen}
-        onCancel={handleClose}
-        onConfirm={handleSubmit}
-        header="Confirm Changes"
-        body="Are you sure you want to change email?"
-      />
+      {Modal}
     </>
   )
 }
 
-EmailForm.propTypes = {
-  initialEmail: PropTypes.string.isRequired,
-  changeUserEmail: PropTypes.func.isRequired
-}
-
-export default connect(null, { changeUserEmail })(EmailForm)
+export default EmailForm

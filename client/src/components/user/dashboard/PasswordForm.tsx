@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React, { useCallback, useState } from 'react'
 
-import ConfirmModal from '../../common/ConfirmModal'
-import { changeUserPassword } from '../../../store/user/thunks'
+import { ApiError } from 'api'
+import { useConfirmModal } from 'hooks/useconfirmmodal'
+
+type Props = {
+  changePassword: (password: string) => Promise<ApiError | undefined>
+}
 
 /**
  * Displays and controls a form for the user to change their password.
  */
-const PasswordForm = ({ changeUserPassword }) => {
+const PasswordForm = ({ changePassword }: Props) => {
   const [passwordInput, setPasswordInput] = useState({
     password: '',
     confirmPassword: ''
@@ -16,22 +18,13 @@ const PasswordForm = ({ changeUserPassword }) => {
 
   const { password, confirmPassword } = passwordInput
 
-  const [formError, setFormError] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  const handleChange = e => {
-    setFormError('')
-    setPasswordInput({
-      ...passwordInput,
-      [e.target.name]: e.target.value
-    })
-  }
+  const [formError, setFormError] = useState<string | null>(null)
 
   const closeForm = () => {
+    setPasswordInput({ password: '', confirmPassword: '' })
     setIsOpen(false)
     setFormError(null)
-    setPasswordInput({ password: '', confirmPassword: '' })
   }
 
   const openForm = () => {
@@ -39,34 +32,41 @@ const PasswordForm = ({ changeUserPassword }) => {
     setIsOpen(true)
   }
 
-  const showModal = e => {
+  const onConfirm = useCallback(() => {
+    changePassword(password).then(apiError => {
+      if (apiError) {
+        setFormError('Cannot change password at this time.')
+      } else {
+        closeForm()
+      }
+    })
+  }, [password])
+
+  const [Modal, , showModal] = useConfirmModal({
+    header: 'Confirm Changes',
+    body: 'Are you sure you want to change email?',
+    onConfirm: onConfirm
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormError('')
+    setPasswordInput({
+      ...passwordInput,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (password && confirmPassword) {
       if (password === confirmPassword) {
-        setModalIsOpen(true)
+        showModal()
       } else {
         setFormError('Passwords do not match.')
       }
     } else {
       setFormError('Please enter a password.')
     }
-  }
-  const handleClose = () => {
-    setModalIsOpen(false)
-    closeForm()
-  }
-
-  const handleFailure = error => {
-    if (error) {
-      setFormError('Cannot change password at this time.')
-    } else {
-      closeForm()
-    }
-  }
-
-  const handleSubmit = () => {
-    changeUserPassword(password, handleFailure)
-    setModalIsOpen(false)
   }
 
   return (
@@ -80,7 +80,7 @@ const PasswordForm = ({ changeUserPassword }) => {
           </div>
         </div>
       ) : (
-        <form onSubmit={showModal}>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col">
               <div className="row my-2">
@@ -141,20 +141,9 @@ const PasswordForm = ({ changeUserPassword }) => {
           </div>
         </form>
       )}
-
-      <ConfirmModal
-        show={modalIsOpen}
-        onCancel={handleClose}
-        onConfirm={handleSubmit}
-        header="Confirm Changes"
-        body="Are you sure you want to change password?"
-      />
+      {Modal}
     </>
   )
 }
 
-PasswordForm.propTypes = {
-  changeUserPassword: PropTypes.func.isRequired
-}
-
-export default connect(null, { changeUserPassword })(PasswordForm)
+export default PasswordForm

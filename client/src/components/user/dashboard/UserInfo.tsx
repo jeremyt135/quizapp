@@ -1,22 +1,51 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
+import { connect, ConnectedProps, useDispatch } from 'react-redux'
 
 import PasswordForm from './PasswordForm'
 import EmailForm from './EmailForm'
 import DeleteButton from './DeleteButton'
 
-import { deleteUser } from 'store/user/thunks'
+import {
+  deleteUser,
+  changeUserEmail,
+  changeUserPassword
+} from 'store/user/thunks'
 import { dateToLongLocaleString } from 'util/date'
+import { RootState } from 'store/store'
+
+const mapState = (state: RootState) => ({
+  user: state.user.user
+})
+
+const mapDispatch = {
+  deleteUser,
+  changeUserEmail,
+  changeUserPassword
+}
+
+const connector = connect(mapState, mapDispatch)
+
+type Props = ConnectedProps<typeof connector>
 
 /**
  * Displays the User's info to a dashboard block. Allows editing of password and email
  * through child components.
  */
-const UserInfo = ({ user, deleteUser }) => {
-  const { username, email, date } = user.user
+const UserInfo = ({
+  user,
+  changeUserEmail,
+  changeUserPassword,
+  deleteUser
+}: Props) => {
+  const { username, email, date } = user!
   const dateString = dateToLongLocaleString(date)
-
+  const changeEmail = useCallback((email: string) => changeUserEmail(email), [
+    changeUserEmail
+  ])
+  const changePassword = useCallback(
+    (password: string) => changeUserPassword(password),
+    [changeUserPassword]
+  )
   return (
     <>
       <div className="row">
@@ -35,8 +64,8 @@ const UserInfo = ({ user, deleteUser }) => {
         </h4>
       </div>
 
-      <EmailForm initialEmail={email} />
-      <PasswordForm />
+      <EmailForm defaultValue={email} changeEmail={changeEmail} />
+      <PasswordForm changePassword={changePassword} />
       <div className="row my-2">
         <div className="col">
           <DeleteButton
@@ -47,7 +76,7 @@ const UserInfo = ({ user, deleteUser }) => {
               header: 'Confirm Account Deletion',
               body:
                 'Are you sure you want to delete your account? This action is irreversible!',
-              confirm: 'Yes, delete my account.'
+              confirmText: 'Yes, delete my account.'
             }}
           />
         </div>
@@ -56,12 +85,4 @@ const UserInfo = ({ user, deleteUser }) => {
   )
 }
 
-UserInfo.propTypes = {
-  user: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-  user: state.user
-})
-
-export default connect(mapStateToProps, { deleteUser })(UserInfo)
+export default connector(UserInfo)

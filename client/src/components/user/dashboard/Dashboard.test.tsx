@@ -2,7 +2,6 @@ import React from 'react'
 
 import '@testing-library/jest-dom'
 import { render, screen } from 'util/test-utils'
-import { createMemoryHistory } from 'history'
 
 import clone from 'clone'
 
@@ -25,12 +24,7 @@ describe('Dashboard', () => {
     render(<Dashboard />, mockState)
     expect(screen.queryByRole('status')).not.toBeNull()
   })
-  it('redirects to login page if user is unauthenticated', () => {
-    mockState.auth!.isAuthenticated = false
-    const history = createMemoryHistory()
-    render(<Dashboard />, mockState, history)
-    expect(history.location.pathname).toEqual('/login')
-  })
+
   it('renders user info', () => {
     mockState.auth!.isAuthenticated = true
     render(<Dashboard />, mockState)

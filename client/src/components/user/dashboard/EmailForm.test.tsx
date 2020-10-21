@@ -1,77 +1,94 @@
 import React from 'react'
 
 import '@testing-library/jest-dom'
-import { fireEvent, render, screen } from 'util/test-utils'
-import { mocked } from 'ts-jest/utils'
-
-jest.mock('store/user/thunks')
-import { changeUserEmail } from 'store/user/thunks'
+import {
+  changeInput,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within
+} from 'util/test-utils'
 
 import EmailForm from './EmailForm'
 
 describe('EmailForm', () => {
-  const changeUserEmailMock = mocked(
-    changeUserEmail
-  ).mockReturnValue(dispatch => {})
-  const initialEmail = 'user@email.com'
-  const openForm = () => {
-    const changeBtn = screen.getByText('Change Email')
-    fireEvent.click(changeBtn)
-  }
-  const getEmailInput = () => {
-    return screen.queryByPlaceholderText('New email') as Element
-  }
-  const getSubmitButton = () => {
-    return screen.queryByText('Confirm') as Element
+  const mockChangeUserEmail = jest.fn(async (email: string) => {
+    return undefined
+  })
+
+  const renderForm = () => {
+    render(
+      <EmailForm
+        defaultValue={initialEmail}
+        changeEmail={mockChangeUserEmail}
+      />
+    )
   }
   it('renders without crashing', () => {
-    render(<EmailForm initialEmail={initialEmail} />)
+    renderForm()
   })
 
   it('opens the form when the change button is clicked', () => {
-    render(<EmailForm initialEmail={initialEmail} />)
-
+    renderForm()
     expect(getEmailInput()).toBeNull()
     openForm()
     expect(getEmailInput()).not.toBeNull()
   })
 
   it('closes the form when the cancel button is clicked', () => {
-    render(<EmailForm initialEmail={initialEmail} />)
+    renderForm()
     openForm()
-    const cancelBtn = screen.getByText('Cancel')
-    fireEvent.click(cancelBtn)
+    cancel()
     expect(getEmailInput()).toBeNull()
   })
 
   it('shows an error if submitting current email', () => {
-    render(<EmailForm initialEmail={initialEmail} />)
+    renderForm()
     openForm()
-    const emailInput = getEmailInput()
-    fireEvent.change(emailInput, { target: { value: initialEmail } })
-    fireEvent.click(getSubmitButton())
+    changeEmailInput(initialEmail)
+    submit()
     expect(
       screen.queryByText(/You are already using this email/)
     ).toBeInTheDocument()
   })
 
   it('opens the confirmation modal if new email submitted', () => {
-    render(<EmailForm initialEmail={initialEmail} />)
+    renderForm()
     openForm()
-    const emailInput = getEmailInput()
-    fireEvent.change(emailInput, { target: { value: 'foo' + initialEmail } })
-    fireEvent.click(getSubmitButton())
+    changeEmailInput('foo' + initialEmail)
+    submit()
     expect(screen.queryByTestId('confirm-modal')).toBeInTheDocument()
   })
 
-  it('calls changeUserEmail when modal is confirmed', () => {
-    render(<EmailForm initialEmail={initialEmail} />)
+  it('calls changeUserEmail when modal is confirmed', async () => {
+    renderForm()
     openForm()
-    const emailInput = getEmailInput()
-    fireEvent.change(emailInput, { target: { value: 'foo' + initialEmail } })
-    fireEvent.click(getSubmitButton())
-    const confirmChangeBtn = screen.getAllByText('Confirm Changes')[1]
-    fireEvent.click(confirmChangeBtn)
-    expect(changeUserEmailMock).toHaveBeenCalled()
+    changeEmailInput('foo' + initialEmail)
+    submit()
+    confirm()
+    await waitFor(() => expect(mockChangeUserEmail).toHaveBeenCalled())
   })
 })
+
+const initialEmail = 'user@email.com'
+
+const openForm = () => {
+  fireEvent.click(screen.getByText('Change Email'))
+}
+const getEmailInput = () => {
+  return screen.queryByPlaceholderText('New email') as Element
+}
+const changeEmailInput = (email: string) => {
+  changeInput('New email', email)
+}
+const cancel = () => {
+  fireEvent.click(screen.getByText('Cancel'))
+}
+const submit = () => {
+  fireEvent.click(screen.getByText('Change'))
+}
+const confirm = () => {
+  const { getByText } = within(screen.getByRole('dialog'))
+  fireEvent.click(getByText('Confirm'))
+}

@@ -1,7 +1,6 @@
-import { Quiz, QuizForm, Result, ResultListing } from 'api'
+import { Quiz, QuizForm, QuizListing, Result, ResultListing } from 'api'
 import moment from 'moment'
 import { AuthState } from 'store/auth/types'
-import { DashboardState } from 'store/dashboard/types'
 import { UserState } from 'store/user/types'
 
 const now = moment().toISOString()
@@ -75,29 +74,14 @@ export const result: Result = {
   username: username(1)
 }
 
-export const dashboard: DashboardState = {
-  loading: false,
-  quizzes: [
-    {
-      _id: quizid(0),
-      title: 'quiz0',
-      date: now,
-      expiration: expiration,
-      questionCount: 1,
-      resultsCount: 1
-    }
-  ],
-  results: [
-    {
-      _id: resultid(0),
-      date: now,
-      user: userid(1),
-      quiz: quizid(0),
-      quizTitle: 'quiz1',
-      ownerUsername: username(0),
-      score: 0,
-      username: username(1)
-    }
-  ],
-  error: null
-}
+export const quizzes: QuizListing[] = [
+  {
+    _id: quizid(0),
+    title: 'quiz0',
+    date: now,
+    expiration: expiration,
+    questionCount: 1,
+    resultsCount: 1,
+    isPublic: true
+  }
+]

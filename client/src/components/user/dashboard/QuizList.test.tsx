@@ -2,33 +2,46 @@ import React from 'react'
 
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from 'util/test-utils'
-import { mocked } from 'ts-jest/utils'
 import { createMemoryHistory } from 'history'
 import clone from 'clone'
 
-import * as state from 'mocks/state'
-import { DashboardState } from 'store/dashboard/types'
+import { quizzes } from 'mocks/state'
+
 import QuizList from './QuizList'
+import { QuizListing } from 'api'
 
 describe('QuizList', () => {
-  let mockState: DashboardState
+  let mockState: { quizzes: QuizListing[]; loading: boolean }
   beforeEach(() => {
-    mockState = clone(state.dashboard)
+    mockState = { quizzes: clone(quizzes), loading: false }
   })
 
+  const renderList = () => {
+    render(
+      <QuizList loading={mockState.loading} quizzes={mockState.quizzes ?? []} />
+    )
+  }
+
   it('renders without crashing', () => {
-    render(<QuizList />, { dashboard: mockState })
+    renderList()
   })
 
   it('renders a spinner if state is loading', () => {
     mockState.loading = true
-    render(<QuizList />, { dashboard: mockState })
+    renderList()
     expect(screen.queryByRole('status')).not.toBeNull()
   })
 
   it('redirects when clicking the create quiz button', () => {
     const history = createMemoryHistory()
-    render(<QuizList />, { dashboard: mockState }, history)
+    render(
+      <QuizList
+        loading={mockState.loading}
+        quizzes={mockState.quizzes ?? []}
+      />,
+      {},
+      history
+    )
     const createBtn = screen.getByText(/create a quiz/i)
     fireEvent.click(createBtn)
     expect(history.location.pathname).toEqual('/quizzes/create')
@@ -36,7 +49,7 @@ describe('QuizList', () => {
 
   it('should display a message if no quizzes are made', () => {
     mockState.quizzes = []
-    render(<QuizList />, { dashboard: mockState })
+    renderList()
     expect(screen.queryByText(/you haven't made any quizzes/i)).not.toBeNull()
   })
 
@@ -44,7 +57,7 @@ describe('QuizList', () => {
     mockState.quizzes?.push({
       ...clone(mockState.quizzes[0])
     })
-    render(<QuizList />, { dashboard: mockState })
+    renderList()
     expect(screen.queryAllByText(/Link:/).length).toEqual(
       mockState.quizzes!.length
     )

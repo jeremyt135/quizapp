@@ -9,9 +9,9 @@ import clone from 'clone'
 jest.mock('store/user/thunks')
 import { deleteQuiz } from 'store/user/thunks'
 
-import { QuizListing } from 'store/dashboard/types'
+import { QuizListing } from 'api'
 
-import * as state from 'mocks/state'
+import { quizzes } from 'mocks/state'
 import QuizItem from './QuizItem'
 import moment from 'moment'
 
@@ -21,7 +21,7 @@ describe('QuizItem', () => {
 
   beforeEach(() => {
     deleteQuizMock.mockClear()
-    mockState = clone(state.dashboard.quizzes!)
+    mockState = clone(quizzes)
   })
 
   it('renders without crashing', () => {
