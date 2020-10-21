@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
+import { Button, Nav, Navbar as BsNavbar } from 'react-bootstrap'
 
 import { logout } from 'store/user/thunks'
 import { RootState } from 'store/store'
@@ -31,56 +32,42 @@ const Navbar = ({ isAuthenticated, logout }: Props) => {
     history.push('/')
   }
   return (
-    <nav className="navbar navbar-expand-md navbar-dark">
+    <BsNavbar expand="md" variant="dark">
       <Link className="navbar-brand" to="/">
         QuizNow
       </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navMenu">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navMenu">
-        <ul className="navbar-nav ml-auto">
+      <BsNavbar.Toggle aria-controls="navMenu" />
+      <BsNavbar.Collapse id="navMenu">
+        <Nav className="ml-auto">
           {isAuthenticated ? (
             <>
-              <li>
-                <Link className="nav-item nav-link" to="/quizzes/create">
-                  Create
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-item nav-link" to="/dashboard">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <button
-                  className="btn btn-link nav-item nav-link text-left"
-                  onClick={logoutToHome}>
-                  Logout
-                </button>
-              </li>
+              <Nav.Link as={Link} to="/quizzes/create">
+                Create
+              </Nav.Link>
+              <Nav.Link as={Link} to="/dashboard">
+                Dashboard
+              </Nav.Link>
+              <Nav.Link
+                as={Button}
+                variant="link"
+                className="text-left"
+                onClick={logoutToHome}>
+                Logout
+              </Nav.Link>
             </>
           ) : (
             <>
-              <li>
-                <Link className="nav-item nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-item nav-link" to="/register">
-                  Sign Up
-                </Link>
-              </li>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+              <Nav.Link as={Link} to="/register">
+                Sign Up
+              </Nav.Link>
             </>
           )}
-        </ul>
-      </div>
-    </nav>
+        </Nav>
+      </BsNavbar.Collapse>
+    </BsNavbar>
   )
 }
 

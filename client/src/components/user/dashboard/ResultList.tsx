@@ -1,4 +1,5 @@
 import React from 'react'
+import { Col, ListGroup, Row } from 'react-bootstrap'
 
 import ResultItem from './ResultItem'
 import Spinner from 'components/common/Spinner'
@@ -18,33 +19,37 @@ type Props = {
 const ResultList = ({ loading, results }: Props) => {
   return (
     <>
-      <div className="row mb-2 align-items-center">
-        <h3 className="col mb-0">Your Quiz Results:</h3>
-      </div>
+      <Row className="mb-2 align-items-center">
+        <Col>
+          <h3 className="mb-0">Your Quiz Results:</h3>
+        </Col>
+      </Row>
 
-      <div className="row mb-2">
-        <div className="col">
+      <Row className="mb-2">
+        <Col>
           {loading ? (
             <Spinner />
           ) : (
-            <ul className="list-group w-100">
+            <ListGroup className=" w-100">
               {results.length === 0 ? (
-                <div className="row mb-1 align-items-center">
-                  <h6 className="col mb-0">You haven't taken any quizzes!</h6>
-                </div>
+                <Row className="mb-1 align-items-center">
+                  <Col>
+                    <h6 className="mb-0">You haven't taken any quizzes!</h6>
+                  </Col>
+                </Row>
               ) : (
                 results.map((result, index) => {
                   return (
-                    <li key={index} className="list-group-item">
+                    <ListGroup.Item key={index}>
                       <ResultItem result={result} />
-                    </li>
+                    </ListGroup.Item>
                   )
                 })
               )}
-            </ul>
+            </ListGroup>
           )}
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   )
 }

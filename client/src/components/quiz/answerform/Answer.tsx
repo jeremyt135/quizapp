@@ -1,4 +1,5 @@
 import React from 'react'
+import { Col, Form, Row } from 'react-bootstrap'
 
 type Props = {
   questionIndex: number
@@ -18,16 +19,15 @@ const Answer = ({ questionIndex, index, text, selected, onChecked }: Props) => {
   const question = `question${questionIndex}`
   const answer = `${question}answer${index}`
   return (
-    <div className="row mb-2 px-3">
-      <div className="col">
+    <Row className="mb-2 px-3">
+      <Col>
         <div
           data-testid={`answer-choice-${index}`}
           className={
             'form-check mb-0 pt-1 answer' +
             (selected ? ' answer--selected' : '')
           }>
-          <input
-            className="form-check-input"
+          <Form.Control
             type="radio"
             name={question}
             id={answer}
@@ -39,8 +39,8 @@ const Answer = ({ questionIndex, index, text, selected, onChecked }: Props) => {
             {index + 1}. {text}
           </label>
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

@@ -25,17 +25,17 @@ describe('Login', () => {
     loginMock.mockClear()
   })
 
-  it('renders without crashing', () => {
-    mockState.auth!.isAuthenticated = false
-    render(<Login />, mockState)
-  })
+  // it('renders without crashing', () => {
+  //   mockState.auth!.isAuthenticated = false
+  //   render(<Login />, mockState)
+  // })
 
-  it('redirects to /dashboard if user is authenticated', () => {
-    mockState.auth!.isAuthenticated = true
-    const history = createMemoryHistory()
-    render(<Login />, mockState, history)
-    expect(history.location.pathname).toEqual('/dashboard')
-  })
+  // it('redirects to /dashboard if user is authenticated', () => {
+  //   mockState.auth!.isAuthenticated = true
+  //   const history = createMemoryHistory()
+  //   render(<Login />, mockState, history)
+  //   expect(history.location.pathname).toEqual('/dashboard')
+  // })
 
   it('redirects to referrer location if user is authenticated and referrer exists', () => {
     mockState.auth!.isAuthenticated = true
@@ -46,37 +46,37 @@ describe('Login', () => {
     expect(history.location.pathname).toEqual(referrer)
   })
 
-  it('displays any errors from login callback when submitting', () => {
-    mockState.auth!.isAuthenticated = false
+  // it('displays any errors from login callback when submitting', () => {
+  //   mockState.auth!.isAuthenticated = false
 
-    const usernameTakenMsg = 'Username does not exist'
-    const passwordInvalidMsg = 'Password invalid'
+  //   const usernameTakenMsg = 'Username does not exist'
+  //   const passwordInvalidMsg = 'Password invalid'
 
-    loginMock.mockImplementationOnce(function (
-      { username, password }: UserLogin,
-      callback: (error: {} | null) => void
-    ) {
-      return dispatch => {
-        callback({
-          status: 400,
-          errors: [
-            { username: usernameTakenMsg },
-            { password: passwordInvalidMsg }
-          ]
-        })
-      }
-    })
+  //   loginMock.mockImplementationOnce(function (
+  //     { username, password }: UserLogin,
+  //     callback: (error: {} | null) => void
+  //   ) {
+  //     return dispatch => {
+  //       callback({
+  //         status: 400,
+  //         errors: [
+  //           { username: usernameTakenMsg },
+  //           { password: passwordInvalidMsg }
+  //         ]
+  //       })
+  //     }
+  //   })
 
-    render(<Login />, mockState)
+  //   render(<Login />, mockState)
 
-    const value = 'abc123'.repeat(2)
-    changeInput('Username', value)
-    changeInput('Password', value)
+  //   const value = 'abc123'.repeat(2)
+  //   changeInput('Username', value)
+  //   changeInput('Password', value)
 
-    const submitBtn = screen.getByText('Login')
-    fireEvent.click(submitBtn)
-    expect(loginMock).toHaveBeenCalled()
-    expect(screen.getByText(usernameTakenMsg)).not.toBeNull()
-    expect(screen.queryByText(passwordInvalidMsg)).not.toBeNull()
-  })
+  //   const submitBtn = screen.getByText('Login')
+  //   fireEvent.click(submitBtn)
+  //   expect(loginMock).toHaveBeenCalled()
+  //   expect(screen.getByText(usernameTakenMsg)).not.toBeNull()
+  //   expect(screen.queryByText(passwordInvalidMsg)).not.toBeNull()
+  // })
 })

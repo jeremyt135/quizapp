@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Col, Form, Row } from 'react-bootstrap'
 
 type Props = {
   defaultValue: string
@@ -11,17 +12,16 @@ const AnswerText = ({ defaultValue, validate, onChange }: Props) => {
   const isInvalid = validate && text.length === 0
 
   return (
-    <div className="row mb-1">
-      <div className="col">
-        <input
+    <Row className="mb-1">
+      <Col>
+        <Form.Control
           type="text"
-          className={
-            'form-control form-control-sm' + (isInvalid ? ' is-invalid' : '')
-          }
+          size="sm"
+          className={isInvalid ? ' is-invalid' : ''}
           onChange={e => {
             setText(e.target.value)
           }}
-          onBlur={e => {
+          onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
             const text = e.target.value
             setText(text)
             onChange(text)
@@ -35,8 +35,8 @@ const AnswerText = ({ defaultValue, validate, onChange }: Props) => {
             Please enter at least one character.
           </div>
         ) : null}
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

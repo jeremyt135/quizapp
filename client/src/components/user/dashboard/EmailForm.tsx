@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import { useConfirmModal } from 'hooks/useconfirmmodal'
 import { ApiError } from 'api'
+import { Button, Col, Form, Row } from 'react-bootstrap'
 
 type Props = {
   defaultValue: string
@@ -64,19 +65,19 @@ const EmailForm = ({ defaultValue, changeEmail }: Props) => {
   return (
     <>
       {!isOpen ? (
-        <div className="row my-2">
-          <div className="col">
-            <button className="btn btn-info btn-sm" onClick={openForm}>
+        <Row className="my-2">
+          <Col>
+            <Button variant="info" size="sm" onClick={openForm}>
               Change Email
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Col>
+        </Row>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <div className="row my-2">
-            <div className="col">
-              <input
-                className={'form-control' + (formError ? ' is-invalid' : '')}
+        <Form onSubmit={handleSubmit}>
+          <Row className="my-2">
+            <Col>
+              <Form.Control
+                className={formError ? ' is-invalid' : ''}
                 type="email"
                 placeholder="New email"
                 name="email"
@@ -87,28 +88,27 @@ const EmailForm = ({ defaultValue, changeEmail }: Props) => {
               {formError ? (
                 <div className="invalid-feedback">{formError}</div>
               ) : null}
-            </div>
-          </div>
-          <div className="row my-2">
-            <div className="col">
-              <button
+            </Col>
+          </Row>
+          <Row className="my-2">
+            <Col>
+              <Button
                 type="button"
-                className="btn btn-secondary btn-sm"
+                variant="secondary"
+                size="sm"
                 onClick={closeForm}>
                 Cancel
-              </button>
-            </div>
-          </div>
-          <div className="row my-2">
-            <div className="col">
-              <input
-                type="submit"
-                className="btn btn-primary btn-sm"
-                value="Change"
-              />
-            </div>
-          </div>
-        </form>
+              </Button>
+            </Col>
+          </Row>
+          <Row className="my-2">
+            <Col>
+              <Button type="submit" variant="primary" size="sm">
+                Change
+              </Button>
+            </Col>
+          </Row>
+        </Form>
       )}
       {Modal}
     </>

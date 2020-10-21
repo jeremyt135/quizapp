@@ -1,6 +1,7 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
+import { Col, Container, Row } from 'react-bootstrap'
 
 interface Props {
   status: number
@@ -26,20 +27,20 @@ const ErrorPage = ({ status }: Props) => {
       message = ''
   }
   return (
-    <div className="container error-container">
-      <div className="error-widget col">
-        <div className="row">
-          <div className="col">
+    <Container className="error-container">
+      <Col className="error-widget">
+        <Row>
+          <Col>
             <h1>{status}</h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <p>{message}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Col>
+        </Row>
+      </Col>
+    </Container>
   )
 }
 

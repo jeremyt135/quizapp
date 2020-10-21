@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Row, Col, Form } from 'react-bootstrap'
 
 type Props = {
   defaultValue: string
@@ -12,19 +13,17 @@ const TitleEditor = ({ defaultValue, onChange, validate }: Props) => {
 
   return (
     <>
-      <div className="row">
-        <div className="col">
+      <Row>
+        <Col>
           <label htmlFor="quizTitle">Quiz Title:</label>
-        </div>
-      </div>
-      <div className="row mb-4">
-        <div className="col">
-          <input
+        </Col>
+      </Row>
+      <Row className="mb-4">
+        <Col>
+          <Form.Control
             type="text"
-            className={
-              'form-control form-control-lg mb-0 ' +
-              (isInvalid ? ' is-invalid' : '')
-            }
+            size="lg"
+            className={'mb-0 ' + (isInvalid ? ' is-invalid' : '')}
             id="quizTitle"
             value={text}
             placeholder={'Quiz Title...'}
@@ -40,8 +39,8 @@ const TitleEditor = ({ defaultValue, onChange, validate }: Props) => {
               Please enter at least one character.
             </div>
           ) : null}
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   )
 }

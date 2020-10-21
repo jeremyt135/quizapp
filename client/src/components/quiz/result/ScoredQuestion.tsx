@@ -1,6 +1,9 @@
 import React from 'react'
-import Answer from './Answer'
+import { Row, Col } from 'react-bootstrap'
+
 import { Answer as QuizAnswer, ResultAnswer } from 'api'
+
+import Answer from './Answer'
 
 type Props = {
   index: number
@@ -19,19 +22,19 @@ const ScoredQuestion = ({
   result
 }: Props) => {
   return (
-    <div className="row mb-4">
-      <div className="col">
+    <Row className="mb-4">
+      <Col>
         <h3 className="mb-2">
           {questionIndex + 1}. {text}
         </h3>
         {result.correctAnswer !== undefined ? (
-          <div className="row mb-4">
-            <div className="col d-flex align-items-center">
+          <Row className="mb-4">
+            <Col className="d-flex align-items-center">
               <h5 className="mb-0">
                 Correct answer: {result.correctAnswer + 1}
               </h5>
-            </div>
-          </div>
+            </Col>
+          </Row>
         ) : null}
         {answers.map((answer, index) => {
           let isCorrect: boolean
@@ -51,8 +54,8 @@ const ScoredQuestion = ({
             />
           )
         })}
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

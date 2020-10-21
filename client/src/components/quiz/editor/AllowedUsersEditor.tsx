@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Row, Col, Form } from 'react-bootstrap'
 
 const isValidUsername = (str: string) => /^[a-zA-Z0-9]{5,}$/.test(str)
 
@@ -41,17 +42,17 @@ const AllowedUsersEditor = (props: Props) => {
     }
   }
   return (
-    <div className="row mb-4">
-      <div className="col">
-        <div className="row">
-          <div className="col">
+    <Row className="mb-4">
+      <Col>
+        <Row>
+          <Col>
             <label htmlFor="allowedUsersInput">Allowed users:</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <input
-              className={'form-control' + (!isValid ? ' is-invalid' : '')}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Control
+              className={!isValid ? ' is-invalid' : ''}
               type="text"
               placeholder="User1, User2, ..."
               name="value"
@@ -65,10 +66,10 @@ const AllowedUsersEditor = (props: Props) => {
                 {' ' + parseInvalidUsers(users).join(', ')}
               </div>
             ) : null}
-          </div>
-        </div>
-      </div>
-    </div>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   )
 }
 

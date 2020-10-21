@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
+import { Button, Col, Container, ListGroup, Row } from 'react-bootstrap'
 
-import { Button } from 'react-bootstrap'
 import Footer from 'components/quiz/common/Footer'
 import Spinner from 'components/common/Spinner'
 import ErrorPage from 'components/errors/ErrorPage'
@@ -52,37 +52,41 @@ const QuizResultList = ({ createAlert }: Props) => {
   return (
     <>
       <div className="content">
-        <div className="quiz-results container-fluid">
-          <div className="row">
-            <div className="quiz-results__block col-sm-8 mx-auto">
-              <div className="row mb-2 align-items-center">
-                <h3 className="col mb-0">Results for quiz "{quiz!.title}":</h3>
-              </div>
+        <Container fluid className="quiz-results">
+          <Row>
+            <Col sm={8} className="quiz-results__block mx-auto">
+              <Row className="mb-2 align-items-center">
+                <Col>
+                  <h3 className="mb-0">Results for quiz "{quiz!.title}":</h3>
+                </Col>
+              </Row>
 
-              <div className="row mb-2">
-                <div className="col">
+              <Row className="mb-2">
+                <Col>
                   {results!.length === 0 ? (
-                    <div className="row mb-1 align-items-center">
-                      <h6 className="col mb-0">
-                        Nobody has responded to this quiz!
-                      </h6>
-                    </div>
+                    <Row className="mb-1 align-items-center">
+                      <Col>
+                        <h6 className="mb-0">
+                          Nobody has responded to this quiz!
+                        </h6>
+                      </Col>
+                    </Row>
                   ) : (
-                    <ul className="list-group w-100">
+                    <ListGroup className="w-100">
                       {results!.map((result, index) => {
                         return (
-                          <li key={index} className="list-group-item">
+                          <ListGroup.Item key={index}>
                             <ResultItem result={result} />
-                          </li>
+                          </ListGroup.Item>
                         )
                       })}
-                    </ul>
+                    </ListGroup>
                   )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       </div>
 
       <Footer>

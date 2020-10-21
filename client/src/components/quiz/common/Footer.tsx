@@ -1,4 +1,5 @@
 import React from 'react'
+import { Col, Container } from 'react-bootstrap'
 
 type Props = {
   children: React.ReactNode
@@ -10,11 +11,13 @@ type Props = {
 const Footer = ({ children }: Props) => {
   return (
     <footer className="footer">
-      <div className="container-fluid h-100">
-        <div className="col-sm-8 mx-auto h-100 d-flex align-items-center justify-content-end">
+      <Container fluid className="h-100">
+        <Col
+          sm={8}
+          className="mx-auto h-100 d-flex align-items-center justify-content-end">
           {children}
-        </div>
-      </div>
+        </Col>
+      </Container>
     </footer>
   )
 }

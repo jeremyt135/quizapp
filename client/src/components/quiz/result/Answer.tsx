@@ -1,4 +1,5 @@
 import React from 'react'
+import { Row, Col } from 'react-bootstrap'
 
 type Props = {
   index: number
@@ -19,13 +20,13 @@ const Answer = ({ index, text, selected, correct }: Props) => {
     border = 'answer--incorrect'
   }
   return (
-    <div className="row mb-2">
-      <div className="col">
+    <Row className="mb-2">
+      <Col>
         <p className={'answer answer__text py-1 ' + border}>
           {index + 1}. {text}
         </p>
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

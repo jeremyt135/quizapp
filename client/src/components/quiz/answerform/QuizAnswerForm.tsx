@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
-import { Button } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 
 import QuestionList from './QuestionList'
 import Footer from 'components/quiz/common/Footer'
@@ -106,27 +106,27 @@ const QuizAnswerForm = ({ userId, createAlert }: Props) => {
   return (
     <>
       <div data-testid="quiz-answer-form" className="content">
-        <div className="quiz-answer-form container-fluid">
-          <div className="row">
-            <div className="quiz-answer-form__block col-sm-8 mx-auto mt-3">
-              <div className="row mb-4">
-                <div className="col d-flex align-items-center">
+        <Container fluid className="quiz-answer-form">
+          <Row>
+            <Col sm={8} className="quiz-answer-form__block mx-auto mt-3">
+              <Row className="mb-4">
+                <Col className="d-flex align-items-center">
                   <h1 className="mb-0">{quiz!.title}</h1>
-                </div>
-              </div>
-              <div className="row mb-4">
-                <div className="col d-flex align-items-center">
+                </Col>
+              </Row>
+              <Row className="row mb-4">
+                <Col className="d-flex align-items-center">
                   <h3>By {quiz!.user}</h3>
-                </div>
-              </div>
+                </Col>
+              </Row>
               <QuestionList
                 error={submitError}
                 questions={quiz!.questions}
                 onChange={changeAnswer}
               />
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
       <Footer>
         <Button variant="secondary" className="ml-1" onClick={goToDashboard}>

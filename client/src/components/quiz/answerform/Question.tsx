@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import Answer from './Answer'
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
 import { FormAnswer } from 'api'
+import { Col, Row } from 'react-bootstrap'
+
+import Answer from './Answer'
 
 type Props = {
   index: number
@@ -33,20 +35,22 @@ const Question = ({
     onChange(index, questionIndex)
   }
   return (
-    <div className="row">
-      <div className="col">
-        <div className="row mb-2">
-          <h2 className="col mb-0">
-            {questionIndex + 1}. {text}{' '}
-          </h2>
-        </div>
+    <Row>
+      <Col>
+        <Row className="mb-2">
+          <Col>
+            <h2 className="mb-0">
+              {questionIndex + 1}. {text}{' '}
+            </h2>
+          </Col>
+        </Row>
         {answerIndex == null && highlightMissing ? (
-          <div className="row mb-2">
-            <div className="col d-flex align-items-center ">
+          <Row className="mb-2">
+            <Col className="d-flex align-items-center">
               <h5 className="text-danger mb-0">Please select an answer. </h5>
               <Icon path={mdiAlertCircle} size={1} color="red" />
-            </div>
-          </div>
+            </Col>
+          </Row>
         ) : null}
         {answers.map((answer, index) => (
           <Answer
@@ -58,8 +62,8 @@ const Question = ({
             onChecked={() => selectAnswer(index)}
           />
         ))}
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

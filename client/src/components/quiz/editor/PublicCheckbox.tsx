@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Row, Col, Form } from 'react-bootstrap'
 
 type Props = {
   defaultValue: boolean
@@ -10,28 +11,20 @@ const PublicCheckbox = ({ defaultValue, onChange, validate }: Props) => {
   const [checked, setChecked] = useState(defaultValue)
 
   return (
-    <div className="row mb-4">
-      <div className="col d-flex align-items-center">
-        <div className="custom-control custom-switch">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="publicCheckbox"
-            checked={checked}
-            onChange={e => {
-              const {
-                target: { checked }
-              } = e
-              setChecked(checked)
-              onChange(checked)
-            }}
-          />
-          <label className="custom-control-label" htmlFor="publicCheckbox">
-            Public
-          </label>
-        </div>
-      </div>
-    </div>
+    <Row className="mb-4">
+      <Col className="d-flex align-items-center">
+        <Form.Switch
+          id="publicCheckbox"
+          checked={checked}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const checked = e.target.checked
+            setChecked(checked)
+            onChange(checked)
+          }}
+          label={'Public'}
+        />
+      </Col>
+    </Row>
   )
 }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Row, Col, Button } from 'react-bootstrap'
 
 import Icon from '@mdi/react'
 import { mdiAlertCircle } from '@mdi/js'
@@ -33,23 +34,25 @@ const QuestionEditor = ({
 }: Props) => {
   return (
     <>
-      <div className="row mb-2">
-        <div className="col">
-          <div className="row">
-            <div className="col">
-              <div className="row">
-                <label className="col d-flex align-items-center" htmlFor={id}>
-                  {label}
-                  {validate && value.answers.length < 2 ? (
-                    <span className="px-3 d-inline-flex align-items-center text-danger">
-                      Please add at least two answers.
-                      <Icon path={mdiAlertCircle} size={0.8} color="red" />
-                    </span>
-                  ) : null}
-                </label>
-              </div>
-            </div>
-          </div>
+      <Row className="mb-2">
+        <Col>
+          <Row>
+            <Col>
+              <Row>
+                <Col>
+                  <label className="d-flex align-items-center" htmlFor={id}>
+                    {label}
+                    {validate && value.answers.length < 2 ? (
+                      <span className="px-3 d-inline-flex align-items-center text-danger">
+                        Please add at least two answers.
+                        <Icon path={mdiAlertCircle} size={0.8} color="red" />
+                      </span>
+                    ) : null}
+                  </label>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
           <QuestionText
             id={id}
             defaultValue={value.text}
@@ -111,11 +114,12 @@ const QuestionEditor = ({
               />
             )
           })}
-
-          <div className="row mt-2">
-            <div className="col d-flex align-items-center justify-content-start">
-              <button
-                className="btn btn-secondary btn-sm mr-2"
+          <Row className="mt-2">
+            <Col className="d-flex align-items-center justify-content-start">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="mr-2"
                 onClick={() => {
                   const updatedQuestion = {
                     ...value,
@@ -130,17 +134,19 @@ const QuestionEditor = ({
                 }}
                 disabled={editing}>
                 Add Answer
-              </button>
-              <button
-                className="btn btn-danger btn-sm mr-2"
+              </Button>
+              <Button
+                variant="danger"
+                size="sm"
+                className="mr-2"
                 onClick={onRemove}
                 disabled={editing}>
                 Delete Question
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </>
   )
 }

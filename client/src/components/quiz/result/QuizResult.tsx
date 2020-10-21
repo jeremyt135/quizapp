@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
-import { Button } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 
 import Footer from 'components/quiz/common/Footer'
 import Spinner from 'components/common/Spinner'
@@ -16,6 +16,13 @@ const mapDispatch = { createAlert }
 const connector = connect(undefined, mapDispatch)
 
 type Props = ConnectedProps<typeof connector>
+
+const colSize = {
+  sm: 10,
+  md: 8,
+  lg: 7,
+  xl: 6
+}
 
 /**
  * Displays a single quiz result.
@@ -52,42 +59,42 @@ const QuizResult = ({ createAlert }: Props) => {
   return (
     <>
       <div className="content">
-        <div className="quiz-results container-fluid">
-          <div className="row">
-            <div className="quiz-results__block col-sm-8 mx-auto">
-              <div className="row mb-4">
-                <div className="col d-flex align-items-center">
+        <Container fluid className="quiz-results">
+          <Row>
+            <Col {...colSize} className="quiz-results__block mx-auto">
+              <Row className="mb-4">
+                <Col className="d-flex align-items-center">
                   <h2 className="mb-0">
                     {result!.username}'s results for: <br />"{quiz!.title}"
                   </h2>
-                </div>
-              </div>
-              <div className="row mb-4">
-                <div className="col d-flex align-items-center">
+                </Col>
+              </Row>
+              <Row className="mb-4">
+                <Col className="d-flex align-items-center">
                   <h4>By {quiz!.user}</h4>
-                </div>
-              </div>
+                </Col>
+              </Row>
               <hr />
-              <div className="row mb-4">
-                <div className="col d-flex align-items-center">
+              <Row className="mb-4">
+                <Col className="d-flex align-items-center">
                   <h3 className="mb-0">
                     Overall score: {result!.score * 100.0}%
                   </h3>
-                </div>
-              </div>
+                </Col>
+              </Row>
               <hr />
-              <div className="row mb-4">
-                <div className="col d-flex align-items-center">
+              <Row className="mb-4">
+                <Col className="d-flex align-items-center">
                   <h3 className="mb-0">Graded questions:</h3>
-                </div>
-              </div>
+                </Col>
+              </Row>
               <ScoredQuestionList
                 questions={quiz!.questions}
                 results={result!.answers}
               />
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
 
       <Footer>

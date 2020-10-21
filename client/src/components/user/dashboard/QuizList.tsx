@@ -1,10 +1,11 @@
 import React from 'react'
+import { Col, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import QuizItem from './QuizItem'
-import Spinner from 'components/common/Spinner'
-
 import { QuizListing } from 'api'
+
+import Spinner from 'components/common/Spinner'
+import QuizItem from './QuizItem'
 
 type Props = {
   loading: boolean
@@ -18,45 +19,51 @@ type Props = {
 const QuizList = ({ loading, quizzes }: Props) => {
   return (
     <>
-      <div className="row mb-2 align-items-center">
-        <h3 className="col mb-0">Quizzes You Created:</h3>
-      </div>
+      <Row className="row mb-2 align-items-center">
+        <Col>
+          <h3 className="mb-0">Quizzes You Created:</h3>
+        </Col>
+      </Row>
 
-      <div className="row mb-1">
-        <div className="col">
+      <Row className="mb-1">
+        <Col>
           {loading ? (
             <Spinner />
           ) : (
             <>
-              <div className="row mb-2 align-items-center">
-                <h6 className="col mb-0">
-                  {quizzes.length === 0 ? "You haven't made any quizzes!" : ''}
-                </h6>
-              </div>
+              <Row className="mb-2 align-items-center">
+                <Col>
+                  <h6 className="mb-0">
+                    {quizzes.length === 0
+                      ? "You haven't made any quizzes!"
+                      : ''}
+                  </h6>
+                </Col>
+              </Row>
 
-              <div className="row mb-1 align-items-center">
-                <div className="col">
+              <Row className="mb-1 align-items-center">
+                <Col>
                   <Link
                     to="/quizzes/create"
                     className="btn btn-success btn-sm ml-auto">
                     Create A Quiz
                   </Link>
-                </div>
-              </div>
+                </Col>
+              </Row>
 
-              <ul className="list-group w-100">
+              <ListGroup className="w-100">
                 {quizzes.map((quiz, index) => {
                   return (
-                    <li key={index} className="list-group-item">
+                    <ListGroup.Item key={index}>
                       <QuizItem quiz={quiz} />
-                    </li>
+                    </ListGroup.Item>
                   )
                 })}
-              </ul>
+              </ListGroup>
             </>
           )}
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   )
 }

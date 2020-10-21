@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+
 import { Answer as QuizAnswer } from 'api'
 
 import AnswerText from './AnswerText'
@@ -32,32 +34,33 @@ const AnswerEditor = ({
   return (
     <>
       <div className={'answer' + (correct ? ' answer--selected' : '')}>
-        <div className="row mt-2">
-          <div className="col d-flex align-items-start">
-            <div className="form-check mb-1">
-              <input
-                className="form-check-input"
-                type="radio"
-                name={id}
-                id={id}
-                value={index}
-                onChange={e => {
-                  const checked = e.target.checked
-                  onChecked(checked)
-                }}
-                checked={correct}
-                disabled={editing}
-              />
-              <label htmlFor={id}>{index + 1}.</label>
-            </div>
-            <button
-              className="btn btn-danger btn-sm ml-auto"
+        <Row className="mt-2">
+          <Col className="d-flex align-items-start">
+            <Form.Check
+              type="radio"
+              className="mb-1"
+              name={id}
+              id={id}
+              value={index}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const checked = e.target.checked
+                onChecked(checked)
+              }}
+              checked={correct}
+              disabled={editing}
+              label={`${index + 1}.`}
+            />
+
+            <Button
+              variant="danger"
+              size="sm"
+              className="ml-auto"
               onClick={onRemove}
               disabled={editing}>
               Delete
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Col>
+        </Row>
         <AnswerText
           defaultValue={value.text}
           validate={validate}

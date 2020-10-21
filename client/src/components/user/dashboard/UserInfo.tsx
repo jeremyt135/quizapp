@@ -1,9 +1,7 @@
 import React, { useCallback } from 'react'
-import { connect, ConnectedProps } from 'react-redux'
+import { Row, Col } from 'react-bootstrap'
 
-import PasswordForm from './PasswordForm'
-import EmailForm from './EmailForm'
-import DeleteButton from './DeleteButton'
+import { connect, ConnectedProps } from 'react-redux'
 
 import {
   deleteUser,
@@ -12,6 +10,10 @@ import {
 } from 'store/user/thunks'
 import { dateToLongLocaleString } from 'util/date'
 import { RootState } from 'store/store'
+
+import PasswordForm from './PasswordForm'
+import EmailForm from './EmailForm'
+import DeleteButton from './DeleteButton'
 
 const mapState = (state: RootState) => ({
   user: state.user.user
@@ -48,26 +50,32 @@ const UserInfo = ({
   )
   return (
     <>
-      <div className="row">
-        <h1 className="col">
-          Hello, <span>{username}</span>
-        </h1>
-      </div>
-      <div className="row mb-1">
-        <h4 className="col mb-0">
-          Email: <span>{email}</span>
-        </h4>
-      </div>
-      <div className="row">
-        <h4 className="col">
-          Joined: <span>{dateString}</span>
-        </h4>
-      </div>
+      <Row>
+        <Col>
+          <h1>
+            Hello, <span>{username}</span>
+          </h1>
+        </Col>
+      </Row>
+      <Row className="mb-1">
+        <Col>
+          <h4 className="mb-0">
+            Email: <span>{email}</span>
+          </h4>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4>
+            Joined: <span>{dateString}</span>
+          </h4>
+        </Col>
+      </Row>
 
       <EmailForm defaultValue={email} changeEmail={changeEmail} />
       <PasswordForm changePassword={changePassword} />
-      <div className="row my-2">
-        <div className="col">
+      <Row className="my-2">
+        <Col>
           <DeleteButton
             text="Delete Account"
             onClick={deleteUser}
@@ -79,8 +87,8 @@ const UserInfo = ({
               confirmText: 'Yes, delete my account.'
             }}
           />
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   )
 }

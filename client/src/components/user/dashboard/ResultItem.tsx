@@ -1,5 +1,6 @@
 import { ResultListing } from 'api'
 import React from 'react'
+import { Row, Col, Button } from 'react-bootstrap'
 
 import { useHistory } from 'react-router-dom'
 
@@ -25,27 +26,30 @@ const ResultItem = ({
   }
   return (
     <>
-      <div className="row mb-1 align-items-center">
-        <div className="col d-flex align-items-center justify-content-start">
+      <Row className="mb-1 align-items-center">
+        <Col className="d-flex align-items-center justify-content-start">
           <h4 className="mb-0">{title}</h4>
-        </div>
-        <div className="col d-flex align-items-center justify-content-end">
-          <button
-            className="btn btn-primary btn-sm ml-1"
-            type="button"
+        </Col>
+        <Col className="d-flex align-items-center justify-content-end">
+          <Button
+            variant="primary"
+            size="sm"
+            className="ml-1"
             onClick={() => goToResult()}>
             Details
-          </button>
-        </div>
-      </div>
-      <div className="row">
-        <small className="col text-muted text-left">by {createdBy} </small>
-      </div>
-      <div className="row">
-        <div className="col">
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <small className="text-muted text-left">by {createdBy} </small>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <p className="mb-1">Score: {score * 100.0}%</p>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   )
 }

@@ -1,6 +1,8 @@
 import React from 'react'
+
 import { connect, ConnectedProps } from 'react-redux'
-import { Alert } from 'react-bootstrap'
+import { Alert, Col, Container, Row } from 'react-bootstrap'
+
 import { RootState } from 'store/store'
 
 const mapState = (state: RootState) => ({
@@ -16,15 +18,15 @@ type Props = ConnectedProps<typeof connector>
  */
 const AlertBar = ({ alerts }: Props) => {
   return (
-    <div data-testid="alertbar" className="container-fluid alertbar">
+    <Container data-testid="alertbar" fluid className="alertbar">
       {alerts.map(alert => (
-        <div key={alert.id} className="row my-1">
-          <div className="col-10 col-sm-6 mx-auto px-0">
+        <Row key={alert.id} className="my-1">
+          <Col xs={10} sm={6} className="mx-auto px-0">
             <Alert variant={alert.type}>{alert.msg}</Alert>
-          </div>
-        </div>
+          </Col>
+        </Row>
       ))}
-    </div>
+    </Container>
   )
 }
 

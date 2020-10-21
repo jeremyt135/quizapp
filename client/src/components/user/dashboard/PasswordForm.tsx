@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react'
+import { Button, Col, Form, Row } from 'react-bootstrap'
 
 import { ApiError } from 'api'
 import { useConfirmModal } from 'hooks/useconfirmmodal'
@@ -72,23 +73,21 @@ const PasswordForm = ({ changePassword }: Props) => {
   return (
     <>
       {!isOpen ? (
-        <div className="row my-2">
-          <div className="col">
-            <button className="btn btn-info btn-sm" onClick={openForm}>
+        <Row className="my-2">
+          <Col>
+            <Button variant="info" size="sm" onClick={openForm}>
               Change Password
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Col>
+        </Row>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <div className="row">
-            <div className="col">
-              <div className="row my-2">
-                <div className="col">
-                  <input
-                    className={
-                      'form-control' + (formError ? ' is-invalid' : '')
-                    }
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col>
+              <Row className="my-2">
+                <Col>
+                  <Form.Control
+                    className={formError ? ' is-invalid' : ''}
                     type="password"
                     placeholder="New password"
                     name="password"
@@ -97,14 +96,12 @@ const PasswordForm = ({ changePassword }: Props) => {
                     minLength={8}
                     maxLength={20}
                   />
-                </div>
-              </div>
-              <div className="row my-2">
-                <div className="col">
-                  <input
-                    className={
-                      'form-control' + (formError ? ' is-invalid' : '')
-                    }
+                </Col>
+              </Row>
+              <Row className="my-2">
+                <Col>
+                  <Form.Control
+                    className={formError ? ' is-invalid' : ''}
                     type="password"
                     placeholder="Confirm new password"
                     name="confirmPassword"
@@ -116,30 +113,25 @@ const PasswordForm = ({ changePassword }: Props) => {
                   {formError ? (
                     <div className="invalid-feedback">{formError}</div>
                   ) : null}
-                </div>
-              </div>
-              <div className="row my-2">
-                <div className="col">
-                  <button
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                    onClick={closeForm}>
+                </Col>
+              </Row>
+              <Row className="my-2">
+                <Col>
+                  <Button variant="secondary" size="sm" onClick={closeForm}>
                     Cancel
-                  </button>
-                </div>
-              </div>
-              <div className="row my-2">
-                <div className="col">
-                  <input
-                    type="submit"
-                    className="btn btn-primary btn-sm"
-                    value="Change"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+                  </Button>
+                </Col>
+              </Row>
+              <Row className="my-2">
+                <Col>
+                  <Button type="submit" variant="primary" size="sm">
+                    Change
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Form>
       )}
       {Modal}
     </>

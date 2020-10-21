@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import clone from 'clone'
 
-import { Button } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 
 import Footer from 'components/quiz/common/Footer'
 import AllowedUsersEditor from './AllowedUsersEditor'
@@ -21,6 +21,13 @@ type Props = {
   onSubmit: (quiz: Quiz) => void
   editing: boolean
   validate: boolean
+}
+
+const colSize = {
+  sm: 10,
+  md: 8,
+  lg: 7,
+  xl: 6
 }
 
 /**
@@ -43,9 +50,9 @@ const QuizEditorForm = ({
   return (
     <>
       <div className="content">
-        <div className="quiz-editor container-fluid">
-          <div className="row">
-            <div className="quiz-editor__block col-sm-8 mx-auto">
+        <Container fluid className="quiz-editor">
+          <Row>
+            <Col {...colSize} className="quiz-editor__block mx-auto">
               <TitleEditor
                 defaultValue={quiz.title}
                 validate={validate}
@@ -116,9 +123,9 @@ const QuizEditorForm = ({
                 editing={editing}
                 validate={validate}
               />
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
       <Footer>
         <Button variant="secondary" className="ml-1" onClick={cancelSubmit}>
