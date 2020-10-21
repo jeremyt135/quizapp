@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 import moment from 'moment'
 
@@ -48,6 +48,7 @@ const QuizItem = ({
     setIsExpired(isDateInPast(expiration))
   }, [expiration, date])
 
+  const linkToQuiz = `/quizzes/${id}`
   return (
     <>
       <Row className="mb-1 align-items-center">
@@ -74,7 +75,7 @@ const QuizItem = ({
             Edit
           </Button>
           <Button
-            variant="info"
+            variant="primary"
             size="sm"
             className="ml-1"
             onClick={() => goToQuiz()}>
@@ -98,15 +99,20 @@ const QuizItem = ({
       </Row>
       <Row>
         <Col>
-          <p className="mb-1">Link: quizzes/{id}</p>
+          <p className="mb-1">
+            Link:{' '}
+            <Link target="_blank" to={linkToQuiz}>
+              {linkToQuiz}
+            </Link>
+          </p>
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col className="d-flex">
           <small className="text-muted text-left">Created {timestamp}</small>
         </Col>
         {isExpired ? (
-          <Col>
+          <Col className="d-flex flex-row-reverse">
             <small className="text-danger text-right">Expired</small>
           </Col>
         ) : null}
