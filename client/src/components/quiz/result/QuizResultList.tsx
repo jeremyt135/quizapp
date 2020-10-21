@@ -19,6 +19,13 @@ const connector = connect(undefined, mapDispatch)
 
 type Props = ConnectedProps<typeof connector>
 
+const colSize = {
+  sm: 10,
+  md: 8,
+  lg: 7,
+  xl: 6
+}
+
 /**
  * Displays a list of results belonging to a quiz. This would only be accessed by the owner of the quiz.
  */
@@ -54,7 +61,7 @@ const QuizResultList = ({ createAlert }: Props) => {
       <div className="content">
         <Container fluid className="quiz-results">
           <Row>
-            <Col sm={8} className="quiz-results__block mx-auto">
+            <Col {...colSize} className="quiz-results__block mx-auto">
               <Row className="mb-2 align-items-center">
                 <Col>
                   <h3 className="mb-0">Results for quiz "{quiz!.title}":</h3>
