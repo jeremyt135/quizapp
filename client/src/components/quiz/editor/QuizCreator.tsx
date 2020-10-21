@@ -6,13 +6,15 @@ import moment from 'moment'
 import Api, { ApiError } from 'api'
 import { useBeforeUnload } from 'hooks'
 import { createAlert } from 'store/alerts/thunks'
+import { loadUser } from 'store/user/thunks'
 import { connect, ConnectedProps } from 'react-redux'
 
 import { Quiz } from 'api'
 import QuizEditorForm from './QuizEditorForm'
 
 const mapDispatch = {
-  createAlert
+  createAlert,
+  loadUser
 }
 
 const connector = connect(undefined, mapDispatch)
@@ -22,7 +24,7 @@ type Props = ConnectedProps<typeof connector>
 /**
  * Displays forms for editing a quiz and directly handles submission of the quiz.
  */
-const QuizCreator = ({ createAlert }: Props) => {
+const QuizCreator = ({ createAlert, loadUser }: Props) => {
   const history = useHistory()
 
   const defaultQuiz = {
@@ -57,7 +59,7 @@ const QuizCreator = ({ createAlert }: Props) => {
           msg: 'Quiz created successfully',
           type: 'success'
         })
-        goToDashboard()
+        loadUser().then(() => goToDashboard())
       }
     })
   }

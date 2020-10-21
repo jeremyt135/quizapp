@@ -15,6 +15,9 @@ import clone from 'clone'
 jest.mock('store/alerts/thunks')
 import { createAlert } from 'store/alerts/thunks'
 
+jest.mock('store/user/thunks')
+import { loadUser } from 'store/user/thunks'
+
 import { Quiz } from 'api'
 
 import QuizCreator from './QuizCreator'
@@ -22,6 +25,7 @@ import QuizCreator from './QuizCreator'
 const quiz: Quiz = {
   _id: 'quizid',
   title: '',
+  date: moment().toISOString(),
   isPublic: true,
   allowedUsers: [],
   expiration: moment().add(1, 'd').toISOString(),
@@ -31,6 +35,7 @@ const quiz: Quiz = {
 describe('QuizCreator', () => {
   let mockQuiz: Quiz
   const mockCreateAlert = mocked(createAlert).mockReturnValue(() => {})
+  const mockLoadUser = mocked(loadUser).mockReturnValue(async dispatch => {})
 
   beforeEach(() => {
     mockCreateAlert.mockClear()

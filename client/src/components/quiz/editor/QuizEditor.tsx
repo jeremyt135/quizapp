@@ -8,13 +8,16 @@ import Spinner from '../../common/Spinner'
 import Api, { ApiError } from 'api'
 import { useQuiz, useBeforeUnload } from 'hooks'
 import { createAlert } from 'store/alerts/thunks'
+import { loadUser } from 'store/user/thunks'
+
 import { connect, ConnectedProps } from 'react-redux'
 
 import { Quiz } from 'api'
 import QuizEditorForm from './QuizEditorForm'
 
 const mapDispatch = {
-  createAlert
+  createAlert,
+  loadUser
 }
 
 const connector = connect(undefined, mapDispatch)
@@ -24,7 +27,7 @@ type Props = ConnectedProps<typeof connector>
 /**
  * Displays forms for editing a quiz and directly handles submission of the quiz.
  */
-const QuizEditor = ({ createAlert }: Props) => {
+const QuizEditor = ({ createAlert, loadUser }: Props) => {
   const history = useHistory()
   const { id } = useParams<{ id: string }>()
 
@@ -53,7 +56,7 @@ const QuizEditor = ({ createAlert }: Props) => {
           msg: 'Quiz edited successfully',
           type: 'success'
         })
-        goToDashboard()
+        loadUser().then(() => goToDashboard())
       }
     })
   }

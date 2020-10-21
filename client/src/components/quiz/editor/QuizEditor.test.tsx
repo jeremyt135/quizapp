@@ -18,6 +18,9 @@ import { useQuiz } from 'hooks/usequiz'
 jest.mock('store/alerts/thunks')
 import { createAlert } from 'store/alerts/thunks'
 
+jest.mock('store/user/thunks')
+import { loadUser } from 'store/user/thunks'
+
 import { Quiz } from 'api'
 
 import QuizEditor from './QuizEditor'
@@ -25,6 +28,7 @@ import QuizEditor from './QuizEditor'
 const quiz: Quiz = {
   _id: 'quizid',
   title: '',
+  date: moment().toISOString(),
   isPublic: true,
   allowedUsers: [],
   expiration: moment().add(1, 'd').toISOString(),
@@ -39,6 +43,7 @@ describe('QuizEditor', () => {
     false
   ])
   const mockCreateAlert = mocked(createAlert).mockReturnValue(() => {})
+  const mockLoadUser = mocked(loadUser).mockReturnValue(async dispatch => {})
 
   beforeEach(() => {
     mockUseQuiz.mockClear()
