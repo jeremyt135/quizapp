@@ -1,7 +1,7 @@
 import React from 'react'
 
 import '@testing-library/jest-dom'
-import { fireEvent, render, screen } from 'util/test-utils'
+import { fireEvent, render, screen, within } from 'util/test-utils'
 import { mocked } from 'ts-jest/utils'
 import { createMemoryHistory } from 'history'
 import clone from 'clone'
@@ -65,12 +65,23 @@ describe('QuizItem', () => {
   it('redirects to the quiz editor when the edit button is clicked', () => {
     const history = createMemoryHistory()
     render(<QuizItem quiz={mockState[0]} />, {}, history)
-    // activate the modal
+
     const editBtn = screen.getByText('Edit')
     fireEvent.click(editBtn)
 
     expect(history.location.pathname + history.location.search).toEqual(
       `/quizzes/${mockState[0]._id}/edit`
     )
+  })
+
+  it('calls deleteQuiz when confirming modal delete button', () => {
+    render(<QuizItem quiz={mockState[0]} />)
+
+    // Click delete and confirm the modal
+    fireEvent.click(screen.getByText('Delete'))
+    const { getByText } = within(screen.getByRole('dialog'))
+    fireEvent.click(getByText(/yes, delete/i))
+
+    expect(deleteQuizMock).toHaveBeenCalled()
   })
 })

@@ -15,11 +15,9 @@ type Props = {
  * a `ConfirmModal` to handle confirming the action.
  */
 const DeleteButton = ({ text, onClick, confirm, modalConfig }: Props) => {
-  const [Modal, , showModal] = useConfirmModal(
-    modalConfig ?? {
-      onConfirm: onClick
-    }
-  )
+  const config = modalConfig ?? {}
+  config.onConfirm = onClick
+  const [Modal, , showModal] = useConfirmModal(config)
   return (
     <>
       <Button variant="danger" size="sm" onClick={showModal}>
