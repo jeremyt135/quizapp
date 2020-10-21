@@ -22,7 +22,7 @@ type Props = ConnectedProps<typeof connector>
  * Dashboard for a user that shows their info and quizzes
  */
 const Dashboard = ({ user }: Props) => {
-  const data = useDashboard()
+  const data = useDashboard(user.user)
 
   return user.loading ? (
     <Spinner />

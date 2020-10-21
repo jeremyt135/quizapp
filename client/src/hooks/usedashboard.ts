@@ -1,5 +1,6 @@
 import Api, { ApiError, ResultListType, QuizListType } from 'api'
 import { useState } from 'react'
+import { User } from 'store/user/types'
 import { useMountedEffect } from './usemountedeffect'
 
 type LoadingData<T> = {
@@ -13,7 +14,7 @@ type DashboardData = {
   results: LoadingData<ResultListType<'listing'>>
 }
 
-export const useDashboard = (): DashboardData => {
+export const useDashboard = (user: User | null | undefined): DashboardData => {
   const [data, setData] = useState<DashboardData>({
     quizzes: {
       loading: true
@@ -23,34 +24,46 @@ export const useDashboard = (): DashboardData => {
     }
   })
 
-  useMountedEffect(status => {
-    Api.user.getQuizzes('listing').then(res => {
-      if (status.mounted) {
-        setData(prev => {
-          return {
-            results: prev.results,
-            quizzes: {
-              loading: false,
-              ...res
+  const userQuizList = user?.quizzes
+  const userResultList = user?.results
+
+  useMountedEffect(
+    status => {
+      Api.user.getQuizzes('listing').then(res => {
+        if (status.mounted) {
+          setData(prev => {
+            return {
+              results: prev.results,
+              quizzes: {
+                loading: false,
+                ...res
+              }
             }
-          }
-        })
-      }
-    })
-    Api.user.getResults('listing').then(res => {
-      if (status.mounted) {
-        setData(prev => {
-          return {
-            quizzes: prev.quizzes,
-            results: {
-              loading: false,
-              ...res
+          })
+        }
+      })
+    },
+    [userQuizList]
+  )
+
+  useMountedEffect(
+    status => {
+      Api.user.getResults('listing').then(res => {
+        if (status.mounted) {
+          setData(prev => {
+            return {
+              quizzes: prev.quizzes,
+              results: {
+                loading: false,
+                ...res
+              }
             }
-          }
-        })
-      }
-    })
-  }, [])
+          })
+        }
+      })
+    },
+    [userResultList]
+  )
 
   return data
 }
