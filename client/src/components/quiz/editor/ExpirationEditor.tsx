@@ -1,5 +1,5 @@
 import React from 'react'
-import DateTimePicker from '../../common/DateTimePicker'
+import DateTimePicker from 'components/common/DateTimePicker'
 import { isDateInFuture } from 'util/date'
 import moment from 'moment'
 

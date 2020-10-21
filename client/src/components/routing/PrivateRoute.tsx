@@ -2,8 +2,8 @@ import React from 'react'
 import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
-import Spinner from '../common/Spinner'
-import { clearAuth } from '../../store/auth/thunks'
+import Spinner from 'components/common/Spinner'
+import { clearAuth } from 'store/auth/thunks'
 
 import { tokenIsExpired } from 'util/jwt'
 import { RootState } from 'store/store'

@@ -6,9 +6,9 @@ import { connect, ConnectedProps } from 'react-redux'
 import { Button } from 'react-bootstrap'
 
 import QuestionList from './QuestionList'
-import Footer from '../common/Footer'
-import Spinner from '../../common/Spinner'
-import ErrorPage from '../../errors/ErrorPage'
+import Footer from 'components/quiz/common/Footer'
+import Spinner from 'components/common/Spinner'
+import ErrorPage from 'components/errors/ErrorPage'
 import QuizTakenError from './QuizTakenError'
 import QuizExpiredError from './QuizExpiredError'
 
@@ -40,7 +40,7 @@ const QuizAnswerForm = ({ userId, createAlert }: Props) => {
   const { id: quizId } = useParams<{ id: string }>()
 
   const [quiz, quizError, quizLoading] = useQuiz(quizId, 'form')
-  const [result, resultError, resultLoading] = useSingleResult(
+  const [result, , resultLoading] = useSingleResult(
     quizId,
     userId ?? '',
     'full'

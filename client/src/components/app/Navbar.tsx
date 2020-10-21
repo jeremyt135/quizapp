@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
-import PropTypes from 'prop-types'
 
-import { logout } from '../../store/user/thunks'
+import { logout } from 'store/user/thunks'
 import { RootState } from 'store/store'
 
 const mapState = (state: RootState) => ({

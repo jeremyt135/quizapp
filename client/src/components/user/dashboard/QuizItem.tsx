@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
-import { deleteQuiz } from '../../../store/user/thunks'
+import { deleteQuiz } from 'store/user/thunks'
 import DeleteButton from './DeleteButton'
 import moment from 'moment'
 
@@ -39,8 +39,8 @@ const QuizItem = ({
   const [timestamp, setTimestamp] = useState('')
 
   // calculate if expired
-  const now = moment()
   useEffect(() => {
+    const now = moment()
     setTimestamp(createTimestamp(calculateTimeDifference(now, moment(date))))
     setIsExpired(isDateInPast(expiration))
   }, [expiration, date])

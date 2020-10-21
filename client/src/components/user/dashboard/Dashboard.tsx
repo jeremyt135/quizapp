@@ -3,7 +3,7 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 
 import UserInfo from './UserInfo'
-import Spinner from '../../common/Spinner'
+import Spinner from 'components/common/Spinner'
 import QuizList from './QuizList'
 import ResultList from './ResultList'
 

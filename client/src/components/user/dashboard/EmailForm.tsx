@@ -16,11 +16,11 @@ const EmailForm = ({ defaultValue, changeEmail }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
 
-  const closeForm = () => {
+  const closeForm = useCallback(() => {
     setEmail(defaultValue)
     setIsOpen(false)
     setFormError(null)
-  }
+  }, [defaultValue])
 
   const openForm = () => {
     setFormError(null)
@@ -39,7 +39,7 @@ const EmailForm = ({ defaultValue, changeEmail }: Props) => {
         closeForm()
       }
     })
-  }, [email])
+  }, [email, changeEmail, closeForm])
 
   const [Modal, , showModal] = useConfirmModal({
     header: 'Confirm Changes',

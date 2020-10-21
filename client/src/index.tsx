@@ -12,7 +12,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'flatpickr/dist/flatpickr.min.css'
 import './styles/theme.scss'
 
-import App from './App'
+import App from 'components/app/App'
 import createStore from './store/store'
 
 const { store, persistor } = createStore()

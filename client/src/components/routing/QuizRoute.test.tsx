@@ -6,8 +6,8 @@ import { createMemoryHistory } from 'history'
 
 import { user, auth } from 'mocks/state'
 
-jest.mock('components/quiz/answer/QuizAnswerForm', () => jest.fn())
-import QuizAnswerForm from 'components/quiz/answer/QuizAnswerForm'
+jest.mock('components/quiz/answerform/QuizAnswerForm', () => jest.fn())
+import QuizAnswerForm from 'components/quiz/answerform/QuizAnswerForm'
 
 jest.mock('components/quiz/result/QuizResultList', () => jest.fn())
 import QuizResultList from 'components/quiz/result/QuizResultList'

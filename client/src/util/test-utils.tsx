@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import { RootState } from '../store/store'
+import { RootState } from 'store/store'
 import { Router } from 'react-router'
 import { createMemoryHistory, MemoryHistory, History } from 'history'
 

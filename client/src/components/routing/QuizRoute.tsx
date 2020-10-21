@@ -8,8 +8,8 @@ import {
 } from 'react-router-dom'
 import { connect, ConnectedProps } from 'react-redux'
 
-import QuizAnswerForm from '../quiz/answer/QuizAnswerForm'
-import QuizResultList from '../quiz/result/QuizResultList'
+import QuizAnswerForm from 'components/quiz/answerform/QuizAnswerForm'
+import QuizResultList from 'components/quiz/result/QuizResultList'
 
 import { RootState } from 'store/store'
 import { UserState } from 'store/user/types'

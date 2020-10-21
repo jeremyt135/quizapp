@@ -4,10 +4,10 @@ import { connect, ConnectedProps } from 'react-redux'
 
 import { Button } from 'react-bootstrap'
 
-import Footer from '../common/Footer'
-import Spinner from '../../common/Spinner'
+import Footer from 'components/quiz/common/Footer'
+import Spinner from 'components/common/Spinner'
 import ScoredQuestionList from './ScoredQuestionList'
-import ErrorPage from '../../errors/ErrorPage'
+import ErrorPage from 'components/errors/ErrorPage'
 
 import { useQuery, useQuiz, useSingleResult } from 'hooks'
 import { createAlert } from 'store/alerts/thunks'

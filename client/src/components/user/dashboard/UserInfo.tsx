@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { connect, ConnectedProps, useDispatch } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 
 import PasswordForm from './PasswordForm'
 import EmailForm from './EmailForm'

@@ -42,7 +42,7 @@ const DateTimePicker = React.memo(
         }
       })
       return () => datePicker.destroy()
-    }, [])
+    }, [dateTime, minValue, onChange])
 
     const isValid = validate(moment(dateTime, momentFormat).toISOString())
     return (

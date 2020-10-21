@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import PropTypes from 'prop-types'
 import { Alert } from 'react-bootstrap'
 import { RootState } from 'store/store'
 

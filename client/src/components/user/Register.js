@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { register } from '../../store/auth/thunks'
+import { register } from 'store/auth/thunks'
 
 /**
  * Handles user registration through a form.

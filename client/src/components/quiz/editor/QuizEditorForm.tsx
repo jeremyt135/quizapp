@@ -4,7 +4,7 @@ import clone from 'clone'
 
 import { Button } from 'react-bootstrap'
 
-import Footer from '../common/Footer'
+import Footer from 'components/quiz/common/Footer'
 import AllowedUsersEditor from './AllowedUsersEditor'
 import PublicCheckbox from './PublicCheckbox'
 import TitleEditor from './TitleEditor'

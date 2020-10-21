@@ -1,21 +1,20 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
-import Navbar from './components/layout/Navbar'
-import Landing from './components/layout/Landing'
-import Register from './components/user/Register'
-import Login from './components/user/Login'
+import Register from 'components/user/Register'
+import Login from 'components/user/Login'
 
-import QuizEditor from './components/quiz/editor/QuizEditor'
-import Dashboard from './components/user/dashboard/Dashboard'
-import QuizResult from './components/quiz/result/QuizResult'
-import QuizRoute from './components/routing/QuizRoute'
-
-import PrivateRoute from './components/routing/PrivateRoute'
-
-import ErrorPage from './components/errors/ErrorPage'
-import AlertBar from './components/common/AlertBar'
+import QuizEditor from 'components/quiz/editor/QuizEditor'
+import Dashboard from 'components/user/dashboard/Dashboard'
+import QuizResult from 'components/quiz/result/QuizResult'
+import QuizRoute from 'components/routing/QuizRoute'
+import PrivateRoute from 'components/routing/PrivateRoute'
 import QuizCreator from 'components/quiz/editor/QuizCreator'
+import ErrorPage from 'components/errors/ErrorPage'
+
+import AlertBar from './AlertBar'
+import Navbar from './Navbar'
+import Landing from './Landing'
 
 const App = () => {
   return (

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import { useHistory, useParams } from 'react-router-dom'
 
-import ErrorPage from '../../errors/ErrorPage'
-import Spinner from '../../common/Spinner'
+import ErrorPage from 'components/errors/ErrorPage'
+import Spinner from 'components/common/Spinner'
 
 import Api, { ApiError } from 'api'
 import { useQuiz, useBeforeUnload } from 'hooks'

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import QuizItem from './QuizItem'
-import Spinner from '../../common/Spinner'
+import Spinner from 'components/common/Spinner'
 
 import { QuizListing } from 'api'
 

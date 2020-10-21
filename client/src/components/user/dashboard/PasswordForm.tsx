@@ -40,7 +40,7 @@ const PasswordForm = ({ changePassword }: Props) => {
         closeForm()
       }
     })
-  }, [password])
+  }, [password, changePassword])
 
   const [Modal, , showModal] = useConfirmModal({
     header: 'Confirm Changes',

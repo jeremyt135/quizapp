@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ResultItem from './ResultItem'
-import Spinner from '../../common/Spinner'
+import Spinner from 'components/common/Spinner'
 import { ResultListing } from 'api'
 
 type Props = {
