@@ -3,7 +3,8 @@ import { createAlert } from '../alerts/thunks'
 import { Thunk } from '../store'
 import { User } from './types'
 import {
-  changeUserInfo,
+  changeUserPassword as changePasswordAction,
+  changeUserEmail as changeEmailAction,
   loadUser as loadUserAction,
   loadUserError,
   deleteUser as deleteUserAction,
@@ -66,7 +67,7 @@ export function changeUserEmail(
         body: JSON.stringify({ email })
       })
       if (response.ok) {
-        dispatch(changeUserInfo())
+        dispatch(changeEmailAction(email))
 
         dispatch(
           createAlert({
@@ -105,9 +106,8 @@ export function changeUserPassword(
         body: JSON.stringify({ password })
       })
       if (response.ok) {
-        dispatch(changeUserInfo())
+        dispatch(changePasswordAction())
 
-        dispatch(loadUser())
         dispatch(
           createAlert({
             msg: 'Your pssword was changed successfully',
@@ -169,10 +169,7 @@ export function deleteQuiz(quizId: ID): Thunk {
         }
       })
       if (response.ok) {
-        dispatch(deleteQuizAction())
-
-        // load the updated user data with quiz list
-        dispatch(loadUser())
+        dispatch(deleteQuizAction(quizId))
       } else {
         const error = await parseError(response)
         dispatch(deleteQuizError(error))

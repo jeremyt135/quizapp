@@ -1,4 +1,8 @@
 import {
+  CHANGE_USER_EMAIL,
+  CHANGE_USER_INFO_ERROR,
+  CHANGE_USER_PASSWORD,
+  DELETE_QUIZ,
   DELETE_USER_ERROR,
   LOAD_USER,
   LOAD_USER_ERROR,
@@ -21,6 +25,26 @@ export function userReducer(state = initialState, action: UserActionTypes) {
         loading: false,
         error: null
       }
+    case DELETE_QUIZ:
+      const quizzes = state.user!.quizzes.filter(id => id !== action.payload)
+      return {
+        loading: false,
+        error: null,
+        user: { ...state.user!, quizzes }
+      }
+    case CHANGE_USER_EMAIL:
+      return {
+        loading: false,
+        error: null,
+        user: { ...state.user!, email: action.payload }
+      }
+    case CHANGE_USER_PASSWORD:
+      return {
+        loading: false,
+        error: null,
+        user: { ...state.user! }
+      }
+    case CHANGE_USER_INFO_ERROR:
     case DELETE_USER_ERROR:
     case LOAD_USER_ERROR:
       return { loading: true, user: null, error: action.payload }

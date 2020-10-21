@@ -21,7 +21,8 @@ export interface UserState {
 export const LOAD_USER = 'LOAD_USER'
 export const LOAD_USER_ERROR = 'LOAD_USER_ERROR'
 // User has changed their email or password
-export const CHANGE_USER_INFO = 'CHANGE_USER_INFO'
+export const CHANGE_USER_EMAIL = 'CHANGE_USER_EMAIL'
+export const CHANGE_USER_PASSWORD = 'CHANGE_USER_PASSWORD'
 export const CHANGE_USER_INFO_ERROR = 'CHANGE_USER_INFO_ERROR'
 // User deleted
 export const DELETE_USER = 'DELETE_USER'
@@ -48,6 +49,7 @@ interface LogoutAction {
 
 interface DeleteQuizAction {
   type: typeof DELETE_QUIZ
+  payload: ID
 }
 
 interface DeleteQuizErrorAction {
@@ -55,8 +57,13 @@ interface DeleteQuizErrorAction {
   payload: UserError
 }
 
-interface ChangeUserInfoAction {
-  type: typeof CHANGE_USER_INFO
+interface ChangeUserPasswordAction {
+  type: typeof CHANGE_USER_PASSWORD
+}
+
+interface ChangeUserEmailAction {
+  type: typeof CHANGE_USER_EMAIL
+  payload: string
 }
 
 interface ChangeUserInfoErrorAction {
@@ -79,7 +86,8 @@ export type UserActionTypes =
   | LogoutAction
   | DeleteQuizAction
   | DeleteQuizErrorAction
-  | ChangeUserInfoAction
+  | ChangeUserEmailAction
+  | ChangeUserPasswordAction
   | ChangeUserInfoErrorAction
   | DeleteUserAction
   | DeleteUserErrorAction

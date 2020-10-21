@@ -1,6 +1,8 @@
+import { ID } from 'api'
 import {
-  CHANGE_USER_INFO,
+  CHANGE_USER_EMAIL,
   CHANGE_USER_INFO_ERROR,
+  CHANGE_USER_PASSWORD,
   DELETE_QUIZ,
   DELETE_QUIZ_ERROR,
   DELETE_USER,
@@ -33,9 +35,10 @@ export function logoutUser(): UserActionTypes {
   }
 }
 
-export function deleteQuiz(): UserActionTypes {
+export function deleteQuiz(quizId: ID): UserActionTypes {
   return {
-    type: DELETE_QUIZ
+    type: DELETE_QUIZ,
+    payload: quizId
   }
 }
 
@@ -46,9 +49,16 @@ export function deleteQuizError(error: UserError): UserActionTypes {
   }
 }
 
-export function changeUserInfo(): UserActionTypes {
+export function changeUserPassword(): UserActionTypes {
   return {
-    type: CHANGE_USER_INFO
+    type: CHANGE_USER_PASSWORD
+  }
+}
+
+export function changeUserEmail(email: string): UserActionTypes {
+  return {
+    type: CHANGE_USER_EMAIL,
+    payload: email
   }
 }
 
