@@ -78,7 +78,7 @@ const UserInfo = ({
         <Col>
           <DeleteButton
             text="Delete Account"
-            onClick={deleteUser}
+            onClick={() => deleteUser()}
             confirm={true}
             modalConfig={{
               header: 'Confirm Account Deletion',

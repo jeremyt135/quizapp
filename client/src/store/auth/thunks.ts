@@ -13,7 +13,7 @@ import { Thunk } from '../store'
 export function register(
   { username, email, password }: UserRegistration,
   callback: (error: {} | null) => void
-): Thunk {
+): Thunk<Promise<void>> {
   return async dispatch => {
     try {
       const response = await fetch('/api/users', {
@@ -54,7 +54,7 @@ export function register(
 export function login(
   { username, password }: UserLogin,
   callback: (error: {} | null) => void
-): Thunk {
+): Thunk<Promise<void>> {
   return async dispatch => {
     try {
       const response = await fetch('/api/users/auth', {

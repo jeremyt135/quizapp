@@ -127,7 +127,7 @@ export function changeUserPassword(
 /**
  * Deletes the user's account (irreversable) and clears auth.
  */
-export function deleteUser(): Thunk {
+export function deleteUser(): Thunk<Promise<void>> {
   return async dispatch => {
     try {
       const response = await fetch('/api/users/me', {
@@ -159,7 +159,7 @@ export function logout(): Thunk {
 /**
  * Deletes a user's quiz
  */
-export function deleteQuiz(quizId: ID): Thunk {
+export function deleteQuiz(quizId: ID): Thunk<Promise<void>> {
   return async dispatch => {
     try {
       const response = await fetch(`/api/quizzes/${quizId}`, {

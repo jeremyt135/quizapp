@@ -1,4 +1,6 @@
 import React from 'react'
 import QuizError from './QuizError'
 
-export default () => <QuizError message={'This quiz has expired.'} />
+const error = () => <QuizError message={'This quiz has expired.'} />
+
+export default error

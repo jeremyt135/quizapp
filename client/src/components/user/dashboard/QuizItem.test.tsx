@@ -16,7 +16,7 @@ import QuizItem from './QuizItem'
 import moment from 'moment'
 
 describe('QuizItem', () => {
-  const deleteQuizMock = mocked(deleteQuiz).mockReturnValue(dispatch => {})
+  const deleteQuizMock = mocked(deleteQuiz).mockReturnValue(async dispatch => {})
   let mockState: QuizListing[]
 
   beforeEach(() => {

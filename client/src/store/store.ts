@@ -7,21 +7,23 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
 import rootReducer from './reducer'
 
-export default () => {
+const createStoreAndPersistor =  () => {
   const rootPersistConfig = {
     key: 'root',
     storage,
-    blacklist: ['alerts', 'dashboard']
+    blacklist: ['alerts']
   }
 
   let store = createStore(
-    persistReducer(rootPersistConfig, rootReducer),
+    persistReducer<RootState>(rootPersistConfig, rootReducer),
     {},
     composeWithDevTools(applyMiddleware(thunk))
   )
   let persistor = persistStore(store)
   return { store, persistor }
 }
+
+export default createStoreAndPersistor
 
 export type RootState = ReturnType<typeof rootReducer>
 export type Thunk<ReturnType = void> = ThunkAction<

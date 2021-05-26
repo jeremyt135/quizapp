@@ -5,8 +5,8 @@ export type { ApiError } from './error'
 export type { ApiResponse } from './response'
 export * from './types'
 
-export default {
-  quiz,
-  results,
-  user
+const api = {
+  quiz, results, user
 }
+
+export default api

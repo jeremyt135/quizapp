@@ -16,7 +16,7 @@ import * as state from 'mocks/state'
 import UserInfo from './UserInfo'
 
 describe('UserInfo', () => {
-  const deleteUserMock = mocked(deleteUser).mockReturnValue(dispatch => {})
+  const deleteUserMock = mocked(deleteUser).mockReturnValue(async dispatch => {})
   let mockState: typeof state
 
   beforeEach(() => {
